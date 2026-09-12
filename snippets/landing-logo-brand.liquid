@@ -1,0 +1,57 @@
+{% doc %}
+Renders the Thanks Living logo brand (icon + title + tagline).
+@param {object} [logo_image] - Optional full-width logo image
+@param {string} [logo_image_class] - Class for full logo image
+@param {object} [logo_icon] - Optional icon image
+@param {string} logo_text - Main brand title
+@param {string} [logo_subtext] - Tagline below title
+@param {string} [logo_alt] - Alt text for full logo image
+@param {string} [icon_loading] - Image loading strategy (eager or lazy)
+{% enddoc %}
+
+{% if logo_image != blank %}
+  {{
+    logo_image
+    | image_url: width: 500
+    | image_tag:
+      class: logo_image_class,
+      widths: '160,240,320,500',
+      sizes: '(max-width: 989px) 152px, 200px',
+      loading: icon_loading | default: 'lazy',
+      alt: logo_alt
+  }}
+{% else %}
+  <div class="landing-logo-brand">
+    {% if logo_icon != blank %}
+      {{
+        logo_icon
+        | image_url: width: 160
+        | image_tag:
+          class: 'landing-logo-brand__icon',
+          widths: '80,120,160',
+          sizes: '(max-width: 989px) var(--llb-icon-size-mobile, 40px), var(--llb-icon-size, 48px)',
+          loading: icon_loading | default: 'eager',
+          alt: ''
+      }}
+    {% else %}
+      <img
+        class="landing-logo-brand__icon landing-logo-brand__icon--default"
+        src="{{ 'thanks-living-logo-icon.png' | asset_url }}"
+        width="64"
+        height="64"
+        alt=""
+        loading="{{ icon_loading | default: 'eager' }}"
+      >
+    {% endif %}
+
+    <div class="landing-logo-brand__copy">
+      {% if logo_text != blank %}
+        <p class="landing-logo-brand__title">{{ logo_text }}</p>
+      {% endif %}
+
+      {% if logo_subtext != blank %}
+        <p class="landing-logo-brand__subtext">{{ logo_subtext }}</p>
+      {% endif %}
+    </div>
+  </div>
+{% endif %}

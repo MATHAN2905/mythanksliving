@@ -1,0 +1,27 @@
+{%- unless settings.type_body_font.system? -%}
+  {{ settings.type_body_font | font_url | preload_tag: as: 'font', type: 'font/woff2', fetchpriority: 'low' }}
+{%- endunless -%}
+{%- unless settings.type_subheading_font.system? -%}
+  {{ settings.type_subheading_font | font_url | preload_tag: as: 'font', type: 'font/woff2', fetchpriority: 'low' }}
+{%- endunless -%}
+{%- unless settings.type_heading_font.system? -%}
+  {{ settings.type_heading_font | font_url | preload_tag: as: 'font', type: 'font/woff2', fetchpriority: 'low' }}
+{%- endunless -%}
+{%- unless settings.type_accent_font.system? -%}
+  {{ settings.type_accent_font | font_url | preload_tag: as: 'font', type: 'font/woff2', fetchpriority: 'low' }}
+{%- endunless -%}
+
+{%- comment -%}
+  Brand title font — matches the high-contrast Didone serif on the Thanks-Living book cover.
+{%- endcomment -%}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+  href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,500&display=swap"
+  rel="stylesheet"
+>
+{% style %}
+  :root {
+    --font-brand-title: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  }
+{% endstyle %}

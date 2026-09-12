@@ -1,0 +1,12 @@
+{% doc %}
+Outputs target="_blank" rel="noopener noreferrer" for off-page links.
+Skips same-page anchor links (#section-id).
+@param {string} url - Destination URL
+{% enddoc %}
+{% liquid
+  assign link_url = url | default: '#'
+  assign link_prefix = link_url | slice: 0, 1
+  unless link_prefix == '#' or link_url == blank or link_url == '#'
+    echo 'target="_blank" rel="noopener noreferrer"'
+  endunless
+%}

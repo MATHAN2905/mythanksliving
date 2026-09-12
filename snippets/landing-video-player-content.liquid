@@ -1,0 +1,160 @@
+{% doc %}
+Renders the landing video player markup.
+Reads ?v= from the URL when present.
+@param {object} [video] - Shopify video setting
+@param {string} [video_url] - Fallback video URL
+@param {string} [video_title] - Accessible video title
+@param {string} [heading] - Page heading
+@param {string} [subheading] - Optional subheading
+@param {string} [empty_message] - Empty state copy
+@param {boolean} [enable_autoplay] - Autoplay on load
+@param {boolean} [mute_video] - Mute audio
+@param {string} [video_aspect_ratio] - CSS aspect ratio value
+@param {number} [video_radius] - Corner radius in px
+@param {string} [background_color] - Section background
+@param {string} [text_color] - Text color
+@param {string} [section_id] - Optional section id for color classes
+{% enddoc %}
+
+{% liquid
+  assign query_video_url = request.query_parameters.v
+  assign selected_video = video
+  assign resolved_video_url = video_url | default: '' | strip
+
+  if query_video_url != blank
+    assign resolved_video_url = query_video_url | url_decode
+    assign selected_video = blank
+  endif
+
+  assign video_mode = blank
+  assign embed_base = blank
+  assign native_video = blank
+  assign native_video_url = blank
+  assign provider = blank
+  assign video_id = blank
+
+  if selected_video != blank
+    if selected_video.host == 'youtube'
+      assign provider = 'youtube'
+      assign video_id = selected_video.external_id
+      assign video_mode = 'embed'
+    elsif selected_video.host == 'vimeo'
+      assign provider = 'vimeo'
+      assign video_id = selected_video.external_id
+      assign video_mode = 'embed'
+    else
+      assign video_mode = 'native'
+      assign native_video = selected_video
+    endif
+  endif
+
+  if video_mode == blank and resolved_video_url != blank
+    if resolved_video_url contains 'youtu.be/'
+      assign provider = 'youtube'
+      assign video_id = resolved_video_url | split: 'youtu.be/' | last | split: '?' | first | split: '&' | first
+      assign video_mode = 'embed'
+    elsif resolved_video_url contains 'youtube.com/watch'
+      assign provider = 'youtube'
+      assign video_id = resolved_video_url | split: 'v=' | last | split: '&' | first
+      assign video_mode = 'embed'
+    elsif resolved_video_url contains 'youtube.com/embed/'
+      assign provider = 'youtube'
+      assign video_id = resolved_video_url | split: 'embed/' | last | split: '?' | first
+      assign video_mode = 'embed'
+    elsif resolved_video_url contains 'vimeo.com/'
+      assign provider = 'vimeo'
+      assign video_id = resolved_video_url | split: '/' | last | split: '?' | first
+      assign video_mode = 'embed'
+    elsif resolved_video_url contains 'cdn.shopify.com' or resolved_video_url contains '.mp4' or resolved_video_url contains '.mov' or resolved_video_url contains '.webm'
+      assign video_mode = 'native'
+      assign native_video_url = resolved_video_url
+    endif
+  endif
+
+  assign player_autoplay = enable_autoplay | default: true
+  assign player_mute = mute_video | default: false
+
+  if provider == 'youtube' and video_id != blank
+    assign embed_base = 'https://www.youtube.com/embed/' | append: video_id | append: '?autoplay=1&rel=0&modestbranding=1&playsinline=1'
+    if player_mute
+      assign embed_base = embed_base | append: '&mute=1'
+    else
+      assign embed_base = embed_base | append: '&mute=0'
+    endif
+  elsif provider == 'vimeo' and video_id != blank
+    assign embed_base = 'https://player.vimeo.com/video/' | append: video_id | append: '?autoplay=1&title=0&byline=0&portrait=0'
+    if player_mute
+      assign embed_base = embed_base | append: '&muted=1'
+    else
+      assign embed_base = embed_base | append: '&muted=0'
+    endif
+  endif
+
+  assign player_heading = heading | default: 'A Message From Stu'
+  assign player_title = video_title | default: player_heading
+  assign player_empty_message = empty_message | default: 'No video has been configured yet.'
+  assign player_bg = background_color | default: '#ffffff'
+  assign player_text = text_color | default: '#0f3156'
+  assign player_aspect = video_aspect_ratio | default: '16 / 9'
+  assign player_radius = video_radius | default: 12
+  assign player_section_id = section_id | default: 'landing-video-player'
+%}
+
+<section
+  class="landing-video-player color-custom-{{ player_section_id }}"
+  style="
+    --lvp-bg: {{ player_bg }};
+    --lvp-text: {{ player_text }};
+    --lvp-aspect: {{ player_aspect }};
+    --lvp-radius: {{ player_radius }}px;
+  "
+>
+  <div class="landing-video-player__inner">
+    {% if player_heading != blank %}
+      <h1 class="landing-video-player__heading">{{ player_heading | escape }}</h1>
+    {% endif %}
+
+    <div class="landing-video-player__media">
+      {% if video_mode == 'embed' and embed_base != blank %}
+        <iframe
+          class="landing-video-player__frame"
+          src="{{ embed_base }}"
+          title="{{ player_title | escape }}"
+          allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+          allowfullscreen
+        ></iframe>
+      {% elsif video_mode == 'native' and native_video != blank %}
+        {{
+          native_video
+          | video_tag:
+            class: 'landing-video-player__frame landing-video-player__video',
+            controls: true,
+            playsinline: true,
+            muted: player_mute,
+            autoplay: player_autoplay,
+            preload: 'auto',
+            image_size: '1800x'
+        }}
+      {% elsif video_mode == 'native' and native_video_url != blank %}
+        <video
+          class="landing-video-player__frame landing-video-player__video"
+          playsinline
+          controls
+          preload="auto"
+          {% if player_autoplay %}autoplay{% endif %}
+          {% if player_mute or player_autoplay %}muted{% endif %}
+        >
+          <source src="{{ native_video_url }}" type="video/mp4">
+        </video>
+      {% else %}
+        <div class="landing-video-player__empty">
+          <p>{{ player_empty_message | escape }}</p>
+        </div>
+      {% endif %}
+    </div>
+
+    {% if subheading != blank %}
+      <p class="landing-video-player__subheading">{{ subheading | escape }}</p>
+    {% endif %}
+  </div>
+</section>

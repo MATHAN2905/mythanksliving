@@ -1,0 +1,23 @@
+{
+  "sections": {
+    "video_player": {
+      "type": "landing-video-player",
+      "settings": {
+        "video_url": "https://cdn.shopify.com/videos/c/o/v/1dda629454c443d8afdb4adb41e8777e.mov",
+        "video_title": "A Message From Stu",
+        "enable_autoplay": true,
+        "mute_video": false,
+        "video_aspect_ratio": "16 / 9",
+        "video_radius": 12,
+        "heading": "A Message From Stu",
+        "subheading": "",
+        "empty_message": "No video has been configured yet.",
+        "background_color": "#ffffff",
+        "text_color": "#0f3156"
+      }
+    }
+  },
+  "order": [
+    "video_player"
+  ]
+}
