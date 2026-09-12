@@ -1,0 +1,350 @@
+{{ 'landing-benefits.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'landing-benefits.js' | asset_url }}" defer></script>
+
+{% liquid
+  assign section_classes = 'landing-benefits color-custom-' | append: section.id
+
+  if section.settings.enable_section == false
+    assign section_classes = section_classes | append: ' landing-benefits--hidden'
+  endif
+  if section.settings.show_on_desktop == false
+    assign section_classes = section_classes | append: ' landing-benefits--desktop-hidden'
+  endif
+  if section.settings.show_on_tablet == false
+    assign section_classes = section_classes | append: ' landing-benefits--tablet-hidden'
+  endif
+  if section.settings.show_on_mobile == false
+    assign section_classes = section_classes | append: ' landing-benefits--mobile-hidden'
+  endif
+
+  assign overlay_color = section.settings.overlay_color
+  if section.settings.background_image == blank
+    assign overlay_color = 'transparent'
+  endif
+
+  assign section_hover = section.settings.hover_style
+  assign show_verse = section.settings.enable_verse_of_the_day
+  if show_verse == nil
+    assign show_verse = true
+  endif
+%}
+
+{% render 'contrast-override', background_color: section.settings.background_color, text_color: section.settings.text_color, section_id: section.id %}
+
+<landing-benefits
+  class="{{ section_classes }}"
+  data-animate="{{ section.settings.enable_animation }}"
+  data-hover="{{ section_hover }}"
+  data-verse-of-day="{{ show_verse }}"
+  data-verses-url="{{ 'verses.json' | asset_url }}"
+  style="
+    --lb-bg: {{ section.settings.background_color }};
+    --lb-bg-image: {% if section.settings.background_image != blank %}url('{{ section.settings.background_image | image_url: width: 2400 }}'){% else %}none{% endif %};
+    --lb-overlay: {{ overlay_color }};
+    --lb-overlay-opacity: {{ section.settings.overlay_opacity }};
+    --lb-text: {{ section.settings.text_color }};
+    --lb-title-color: {{ section.settings.title_color }};
+    --lb-body-color: {{ section.settings.body_color }};
+    --lb-title-size-desktop: {{ section.settings.title_size_desktop }}px;
+    --lb-title-size-mobile: {{ section.settings.title_size_mobile }}px;
+    --lb-title-weight: {{ section.settings.title_weight }};
+    --lb-title-letter-spacing: {{ section.settings.title_letter_spacing }}px;
+    --lb-title-line-height: {{ section.settings.title_line_height }};
+    --lb-body-size-desktop: {{ section.settings.body_size_desktop }}px;
+    --lb-body-size-mobile: {{ section.settings.body_size_mobile }}px;
+    --lb-body-weight: {{ section.settings.body_weight }};
+    --lb-body-letter-spacing: {{ section.settings.body_letter_spacing }}px;
+    --lb-body-line-height: {{ section.settings.body_line_height }};
+    --lb-container-width: {{ section.settings.container_width }}px;
+    --lb-content-width: {{ section.settings.content_width }}px;
+    --lb-columns-desktop: {{ section.settings.columns_desktop }};
+    --lb-columns-tablet: {{ section.settings.columns_tablet }};
+    --lb-columns-mobile: {{ section.settings.columns_mobile }};
+    --lb-gap-desktop: {{ section.settings.gap_desktop }}px;
+    --lb-gap-tablet: {{ section.settings.gap_tablet }}px;
+    --lb-gap-mobile: {{ section.settings.gap_mobile }}px;
+    --lb-card-height-desktop: {{ section.settings.card_height_desktop }}px;
+    --lb-card-height-mobile: {{ section.settings.card_height_mobile }}px;
+    --lb-card-radius: {{ section.settings.card_radius }}px;
+    --lb-card-bg: {{ section.settings.card_background_color }};
+    --lb-card-border-rgb: {{ section.settings.card_border_color.rgb }};
+    --lb-card-border-opacity: {{ section.settings.card_border_opacity }};
+    --lb-card-shadow: {% if section.settings.enable_card_shadow %}0 8px 20px rgb(15 49 86 / 0.06){% else %}none{% endif %};
+    --lb-icon-size: {{ section.settings.icon_size }}px;
+    --lb-icon-bg: {{ section.settings.icon_circle_color }};
+    --lb-icon-color: {{ section.settings.icon_color }};
+    --lb-space-top-desktop: {{ section.settings.padding_top_desktop }}px;
+    --lb-space-bottom-desktop: {{ section.settings.padding_bottom_desktop }}px;
+    --lb-space-inline-desktop: {{ section.settings.padding_inline_desktop }}px;
+    --lb-space-top-tablet: {{ section.settings.padding_top_tablet }}px;
+    --lb-space-bottom-tablet: {{ section.settings.padding_bottom_tablet }}px;
+    --lb-space-inline-tablet: {{ section.settings.padding_inline_tablet }}px;
+    --lb-space-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --lb-space-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+    --lb-space-inline-mobile: {{ section.settings.padding_inline_mobile }}px;
+    --lb-verse-heading-color: {{ section.settings.verse_heading_color | default: section.settings.title_color }};
+    --lb-verse-text-color: {{ section.settings.verse_text_color | default: section.settings.body_color }};
+    --lb-verse-ref-color: {{ section.settings.verse_reference_color | default: '#e0a715' }};
+  "
+>
+  <div class="landing-benefits__bg" aria-hidden="true"></div>
+  <div class="landing-benefits__atmosphere" aria-hidden="true"></div>
+  <div class="landing-benefits__overlay" aria-hidden="true"></div>
+
+  <div class="landing-benefits__inner">
+    {% if show_verse %}
+      <div class="landing-benefits__verse" data-verse-root data-reveal>
+        <div class="landing-benefits__verse-card">
+          <div class="landing-benefits__verse-header">
+            <p class="landing-benefits__verse-eyebrow">
+              {{ section.settings.verse_eyebrow | default: 'Daily Thanksgiving Scriptures' }}
+            </p>
+            <div class="landing-benefits__verse-divider" aria-hidden="true">
+              <span class="landing-benefits__verse-divider-dot"></span>
+            </div>
+          </div>
+
+          <div class="landing-benefits__verse-box">
+            <div class="landing-benefits__verse-icon-col">
+              <span class="landing-benefits__verse-icon" data-verse-icon aria-hidden="true">
+                <svg viewBox="0 0 48 48" fill="none" aria-hidden="true">
+                  <path d="M24 5v3M24 40v3M9 11l2.6 2.6M36.4 34.4 39 37M5.5 24h3M39.5 24h3M9 37l2.6-2.6M36.4 13.6 39 11" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" opacity="0.4"/>
+                  <path d="M24 37V14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  <path d="M24 14C16.5 14 10.5 16.5 8.5 20.5V35c3-2.2 8.2-3.5 15.5-3.5S36.5 32.8 39.5 35V20.5C37.5 16.5 31.5 14 24 14Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                  <path d="M24 14c7.5 0 13.5 2.5 15.5 6.5V35c-3-2.2-8.2-3.5-15.5-3.5S11.5 32.8 8.5 35V20.5C10.5 16.5 16.5 14 24 14Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                  <path d="M24 17.5v8M20.5 21.5h7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M13.5 25h6M13.5 28.5h5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity="0.45"/>
+                  <path d="M28.5 25H34.5M29.5 28.5h5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity="0.45"/>
+                </svg>
+              </span>
+            </div>
+
+            <div class="landing-benefits__verse-body">
+              {% comment %} <span class="landing-benefits__verse-ref-line" aria-hidden="true"></span> {% endcomment %}
+              <blockquote class="landing-benefits__verse-quote">
+                <p data-verse-text>Loading today’s scripture…</p>
+              </blockquote>
+              <cite class="landing-benefits__verse-reference" data-verse-reference></cite>
+              <span class="landing-benefits__verse-badge" data-verse-category hidden></span>
+            </div>
+
+            <div class="landing-benefits__verse-actions">
+              <button type="button" class="landing-benefits__verse-action" data-verse-copy aria-label="Copy scripture" title="Copy">
+                <span class="landing-benefits__verse-action-icon">
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M6 16V6a2 2 0 0 1 2-2h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                </span>
+                <span class="landing-benefits__verse-action-label">Copy</span>
+              </button>
+              <button type="button" class="landing-benefits__verse-action" data-verse-share aria-label="Share scripture" title="Share">
+                <span class="landing-benefits__verse-action-icon">
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="18" cy="5" r="2.5" stroke="currentColor" stroke-width="1.6"/><circle cx="6" cy="12" r="2.5" stroke="currentColor" stroke-width="1.6"/><circle cx="18" cy="19" r="2.5" stroke="currentColor" stroke-width="1.6"/><path d="M8.4 13.2 15.6 17M15.6 7 8.4 10.8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                </span>
+                <span class="landing-benefits__verse-action-label">Share</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+
+    {% comment %} {% if section.blocks.size > 0 %}
+      <div class="landing-benefits__list">
+        {% for block in section.blocks %}
+          {% if block.type == 'benefit_card' and block.settings.title != blank %}
+            {% liquid
+              assign icon_bg = section.settings.icon_circle_color
+              assign icon_color = section.settings.icon_color
+              assign card_bg = section.settings.card_background_color
+              assign title_color = section.settings.title_color
+              assign body_color = section.settings.body_color
+
+              if block.settings.icon_circle_color != blank
+                assign icon_bg = block.settings.icon_circle_color
+              endif
+              if block.settings.icon_color != blank
+                assign icon_color = block.settings.icon_color
+              endif
+              if block.settings.card_background_color != blank
+                assign card_bg = block.settings.card_background_color
+              endif
+              if block.settings.title_color != blank
+                assign title_color = block.settings.title_color
+              endif
+              if block.settings.body_color != blank
+                assign body_color = block.settings.body_color
+              endif
+            %}
+
+            <article
+              class="landing-benefits__item"
+              style="--lb-icon-bg: {{ icon_bg }}; --lb-icon-color: {{ icon_color }}; --lb-card-bg: {{ card_bg }}; --lb-title-color: {{ title_color }}; --lb-body-color: {{ body_color }}; --lb-delay: {{ forloop.index0 }};"
+              data-reveal
+              {{ block.shopify_attributes }}
+            >
+              <span class="landing-benefits__icon" aria-hidden="true">
+                {% if block.settings.custom_icon != blank %}
+                  {{ block.settings.custom_icon | image_url: width: 180 | image_tag: loading: 'lazy', widths: '30,60,90,120,180', sizes: '40px', alt: '' }}
+                {% else %}
+                  {% case block.settings.icon %}
+                    {% when 'flower' %}
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M12 4c1.6 0 2.9 1.3 2.9 2.9 0 .6-.2 1.2-.5 1.7a3 3 0 0 1 3.7 2.9 3 3 0 0 1-3 3h-.2a2.9 2.9 0 0 1-2.9 2.5 2.9 2.9 0 0 1-2.9-2.5h-.2a3 3 0 0 1-3-3 3 3 0 0 1 3.7-2.9c-.3-.5-.5-1.1-.5-1.7C9.1 5.3 10.4 4 12 4Z" fill="currentColor"/><path d="M12 16.8V21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                    {% when 'heart' %}
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M12 20.2s-6.5-4.3-8.7-8a5 5 0 0 1 8.1-5.6l.6.7.6-.7a5 5 0 0 1 8.1 5.6c-2.2 3.7-8.7 8-8.7 8Z" fill="currentColor"/></svg>
+                    {% when 'sun' %}
+                      <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4" fill="currentColor"/><path d="M12 3v2.2M12 18.8V21M3 12h2.2M18.8 12H21M5.4 5.4l1.6 1.6M17 17l1.6 1.6M5.4 18.6 7 17M17 7l1.6-1.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                    {% when 'cross' %}
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M12 4.2V20M7.2 9.6h9.6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                    {% else %}
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M19.5 4.5c-6.1.1-11 5-11 11V20h4.5c6 0 10.9-4.9 11-11V4.5h-4.5Z" stroke="currentColor" stroke-width="1.8"/><path d="M8.8 15.2c2.2-2.2 5-3.9 8.2-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                  {% endcase %}
+                {% endif %}
+              </span>
+
+              <div class="landing-benefits__content">
+                <h3 class="landing-benefits__title">{{ block.settings.title }}</h3>
+                {% if block.settings.description != blank %}
+                  <p class="landing-benefits__description">{{ block.settings.description }}</p>
+                {% endif %}
+              </div>
+
+              {% if block.settings.link != blank %}
+                <a class="landing-benefits__link" href="{{ block.settings.link }}" aria-label="{{ block.settings.title | escape }}" {% render 'landing-link-target', url: block.settings.link %}></a>
+              {% endif %}
+            </article>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %} {% endcomment %}
+  </div>
+</landing-benefits>
+
+{% schema %}
+{
+  "name": "Landing Benefits",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    { "type": "header", "content": "Visibility" },
+    { "type": "checkbox", "id": "enable_section", "label": "Enable section", "default": true },
+    { "type": "checkbox", "id": "show_on_desktop", "label": "Show on desktop", "default": true },
+    { "type": "checkbox", "id": "show_on_tablet", "label": "Show on tablet", "default": true },
+    { "type": "checkbox", "id": "show_on_mobile", "label": "Show on mobile", "default": true },
+
+    { "type": "header", "content": "Daily Thanksgiving Scriptures" },
+    { "type": "checkbox", "id": "enable_verse_of_the_day", "label": "Enable daily scripture", "default": true },
+    { "type": "text", "id": "verse_eyebrow", "label": "Scripture eyebrow", "default": "Daily Thanksgiving Scriptures" },
+    { "type": "color", "id": "verse_heading_color", "label": "Verse text color", "default": "#062440" },
+    { "type": "color", "id": "verse_text_color", "label": "Verse body color", "default": "#284763" },
+    { "type": "color", "id": "verse_reference_color", "label": "Verse reference color", "default": "#e0a715" },
+
+    { "type": "header", "content": "Layout" },
+    { "type": "range", "id": "container_width", "label": "Container width", "min": 960, "max": 1760, "step": 20, "unit": "px", "default": 1320 },
+    { "type": "range", "id": "content_width", "label": "Content width", "min": 860, "max": 1720, "step": 20, "unit": "px", "default": 1280 },
+    { "type": "range", "id": "columns_desktop", "label": "Desktop columns", "min": 3, "max": 6, "step": 1, "default": 3 },
+    { "type": "range", "id": "columns_tablet", "label": "Tablet columns", "min": 1, "max": 4, "step": 1, "default": 2 },
+    { "type": "range", "id": "columns_mobile", "label": "Mobile columns", "min": 1, "max": 4, "step": 1, "default": 1 },
+    { "type": "range", "id": "gap_desktop", "label": "Desktop gap", "min": 6, "max": 40, "step": 2, "unit": "px", "default": 12 },
+    { "type": "range", "id": "gap_tablet", "label": "Tablet gap", "min": 6, "max": 32, "step": 2, "unit": "px", "default": 10 },
+    { "type": "range", "id": "gap_mobile", "label": "Mobile gap", "min": 6, "max": 28, "step": 2, "unit": "px", "default": 10 },
+    { "type": "range", "id": "card_height_desktop", "label": "Card height desktop", "min": 80, "max": 180, "step": 2, "unit": "px", "default": 118 },
+    { "type": "range", "id": "card_height_mobile", "label": "Card height mobile", "min": 72, "max": 170, "step": 2, "unit": "px", "default": 108 },
+    { "type": "range", "id": "card_radius", "label": "Card radius", "min": 0, "max": 36, "step": 1, "unit": "px", "default": 12 },
+
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "background_color", "label": "Section background", "default": "#eff7fd" },
+    { "type": "color", "id": "text_color", "label": "Base text color", "default": "#0f3156" },
+    { "type": "image_picker", "id": "background_image", "label": "Background image" },
+    { "type": "color", "id": "overlay_color", "label": "Overlay color", "default": "#0f315600" },
+    { "type": "range", "id": "overlay_opacity", "label": "Overlay opacity", "min": 0, "max": 100, "step": 1, "unit": "%", "default": 0 },
+    { "type": "color", "id": "card_background_color", "label": "Card background", "default": "#ffffffc4" },
+    { "type": "color", "id": "card_border_color", "label": "Card border", "default": "#cadef1" },
+    { "type": "range", "id": "card_border_opacity", "label": "Card border opacity", "min": 0, "max": 100, "step": 1, "unit": "%", "default": 70 },
+    { "type": "checkbox", "id": "enable_card_shadow", "label": "Enable card shadow", "default": true },
+    { "type": "color", "id": "icon_circle_color", "label": "Icon circle color", "default": "#1e7db0" },
+    { "type": "color", "id": "icon_color", "label": "Icon color", "default": "#ffd95e" },
+    { "type": "range", "id": "icon_size", "label": "Icon circle size", "min": 34, "max": 90, "step": 2, "unit": "px", "default": 56 },
+
+    { "type": "header", "content": "Typography" },
+    { "type": "color", "id": "title_color", "label": "Title color", "default": "#153f61" },
+    { "type": "color", "id": "body_color", "label": "Description color", "default": "#4d6a82" },
+    { "type": "range", "id": "title_size_desktop", "label": "Title size desktop", "min": 14, "max": 34, "step": 1, "unit": "px", "default": 26 },
+    { "type": "range", "id": "title_size_mobile", "label": "Title size mobile", "min": 13, "max": 28, "step": 1, "unit": "px", "default": 18 },
+    { "type": "select", "id": "title_weight", "label": "Title weight", "options": [{ "value": "500", "label": "Medium" }, { "value": "600", "label": "Semibold" }, { "value": "700", "label": "Bold" }], "default": "700" },
+    { "type": "range", "id": "title_letter_spacing", "label": "Title letter spacing", "min": -1, "max": 2, "step": 0.1, "unit": "px", "default": 0 },
+    { "type": "range", "id": "title_line_height", "label": "Title line height", "min": 1, "max": 2, "step": 0.1, "default": 1.2 },
+    { "type": "range", "id": "body_size_desktop", "label": "Description size desktop", "min": 12, "max": 22, "step": 1, "unit": "px", "default": 16 },
+    { "type": "range", "id": "body_size_mobile", "label": "Description size mobile", "min": 11, "max": 20, "step": 1, "unit": "px", "default": 13 },
+    { "type": "select", "id": "body_weight", "label": "Description weight", "options": [{ "value": "300", "label": "Light" }, { "value": "400", "label": "Regular" }, { "value": "500", "label": "Medium" }], "default": "400" },
+    { "type": "range", "id": "body_letter_spacing", "label": "Description letter spacing", "min": -1, "max": 2, "step": 0.1, "unit": "px", "default": 0 },
+    { "type": "range", "id": "body_line_height", "label": "Description line height", "min": 1.2, "max": 2, "step": 0.1, "default": 1.5 },
+
+    { "type": "header", "content": "Spacing" },
+    { "type": "range", "id": "padding_top_desktop", "label": "Desktop top spacing", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 48 },
+    { "type": "range", "id": "padding_bottom_desktop", "label": "Desktop bottom spacing", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 48 },
+    { "type": "range", "id": "padding_inline_desktop", "label": "Desktop side spacing", "min": 0, "max": 80, "step": 4, "unit": "px", "default": 16 },
+    { "type": "range", "id": "padding_top_tablet", "label": "Tablet top spacing", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 36 },
+    { "type": "range", "id": "padding_bottom_tablet", "label": "Tablet bottom spacing", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 36 },
+    { "type": "range", "id": "padding_inline_tablet", "label": "Tablet side spacing", "min": 0, "max": 80, "step": 4, "unit": "px", "default": 12 },
+    { "type": "range", "id": "padding_top_mobile", "label": "Mobile top spacing", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 28 },
+    { "type": "range", "id": "padding_bottom_mobile", "label": "Mobile bottom spacing", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 28 },
+    { "type": "range", "id": "padding_inline_mobile", "label": "Mobile side spacing", "min": 0, "max": 60, "step": 2, "unit": "px", "default": 8 },
+
+    { "type": "header", "content": "Animation and hover" },
+    { "type": "checkbox", "id": "enable_animation", "label": "Enable reveal animation", "default": true },
+    { "type": "select", "id": "hover_style", "label": "Hover style", "options": [{ "value": "none", "label": "None" }, { "value": "lift", "label": "Lift" }, { "value": "zoom", "label": "Zoom" }], "default": "lift" }
+  ],
+  "blocks": [
+    {
+      "type": "benefit_card",
+      "name": "Benefit card",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Cultivate Gratitude" },
+        { "type": "text", "id": "description", "label": "Description", "default": "Simple, practical way to build a daily habit of thankfulness." },
+        { "type": "select", "id": "icon", "label": "Icon", "options": [{ "value": "flower", "label": "Flower" }, { "value": "heart", "label": "Heart" }, { "value": "sun", "label": "Sun" }, { "value": "cross", "label": "Cross" }, { "value": "leaf", "label": "Leaf" }], "default": "flower" },
+        { "type": "image_picker", "id": "custom_icon", "label": "Custom icon image" },
+        { "type": "url", "id": "link", "label": "Card link" },
+        { "type": "color", "id": "icon_circle_color", "label": "Icon circle color" },
+        { "type": "color", "id": "icon_color", "label": "Icon color" },
+        { "type": "color", "id": "card_background_color", "label": "Card background color" },
+        { "type": "color", "id": "title_color", "label": "Title color" },
+        { "type": "color", "id": "body_color", "label": "Description color" }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Landing Benefits",
+      "blocks": [
+        {
+          "type": "benefit_card",
+          "settings": {
+            "title": "Cultivate Gratitude",
+            "description": "Simple, practical way to build a daily habit of thankfulness.",
+            "icon": "flower"
+          }
+        },
+        {
+          "type": "benefit_card",
+          "settings": {
+            "title": "Strengthen Your Faith",
+            "description": "Deepen your relationship with God through His Word and truth.",
+            "icon": "heart"
+          }
+        },
+        {
+          "type": "benefit_card",
+          "settings": {
+            "title": "Transform Your Life",
+            "description": "Experience more joy, peace, and purpose every day.",
+            "icon": "sun"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

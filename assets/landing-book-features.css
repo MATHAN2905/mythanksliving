@@ -1,0 +1,268 @@
+.landing-bulk-offer {
+  --lbo-ease: cubic-bezier(0.22, 0.7, 0.2, 1);
+  position: relative;
+  display: block;
+  width: 100%;
+  overflow: clip;
+  margin: 0;
+  padding: 0;
+  background:
+    radial-gradient(ellipse 70% 90% at 12% 50%, rgb(168 214 245 / 0.42) 0%, transparent 62%),
+    radial-gradient(ellipse 55% 70% at 88% 40%, rgb(248 197 51 / 0.12) 0%, transparent 55%),
+    linear-gradient(180deg, var(--lbo-bg, #f4f9fd) 0%, var(--lbo-bg-end, #ffffff) 100%);
+  color: var(--lbo-text, #234a69);
+  text-align: center;
+}
+
+/* Hide leftover decorative / card markup */
+.landing-bulk-offer__atmosphere,
+.landing-bulk-offer__flora,
+.landing-bulk-offer__decor,
+.landing-bulk-offer__cards,
+.landing-bulk-offer__card {
+  display: none !important;
+}
+
+.shopify-section:has(.landing-bulk-offer) {
+  margin: 0;
+  padding: 0;
+}
+
+.landing-bulk-offer--hidden {
+  display: none;
+}
+
+@media screen and (min-width: 990px) {
+  .landing-bulk-offer--desktop-hidden {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 750px) and (max-width: 989px) {
+  .landing-bulk-offer--tablet-hidden {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .landing-bulk-offer--mobile-hidden {
+    display: none;
+  }
+}
+
+.landing-bulk-offer__inner {
+  position: relative;
+  z-index: 1;
+  max-width: min(100% - 32px, var(--lbo-container-width, 1320px));
+  margin-inline: auto;
+  padding: var(--lbo-space-top-desktop, 56px) 20px var(--lbo-space-bottom-desktop, 56px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (max-width: 989px) {
+  .landing-bulk-offer__inner {
+    padding: var(--lbo-space-top-tablet, 44px) 16px var(--lbo-space-bottom-tablet, 44px);
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .landing-bulk-offer__inner {
+    max-width: min(100% - 16px, var(--lbo-container-width, 1320px));
+    padding: var(--lbo-space-top-mobile, 36px) 12px var(--lbo-space-bottom-mobile, 36px);
+  }
+}
+
+.landing-bulk-offer__panel,
+.landing-bulk-offer__layout {
+  width: min(100%, var(--lbo-content-width, 720px));
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  padding: 0;
+  border-radius: 0;
+}
+
+.landing-bulk-offer__panel::before {
+  display: none !important;
+}
+
+.landing-bulk-offer__badge,
+.landing-bulk-offer__off {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 14px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: var(--lbo-badge-bg, #f8c533);
+  color: var(--lbo-badge-text, #0f3156);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.landing-bulk-offer__copy,
+.landing-bulk-offer__content {
+  width: 100%;
+  max-width: 36rem;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.landing-bulk-offer__eyebrow {
+  margin: 0 0 10px;
+  color: #1e7db0;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-align: center;
+  width: 100%;
+}
+
+.landing-bulk-offer__heading {
+  margin: 0;
+  color: var(--lbo-heading, #0f3156);
+  font-family: var(--font-heading--family, Georgia, 'Times New Roman', serif);
+  font-size: clamp(var(--lbo-heading-size-mobile, 26px), 3.1vw, var(--lbo-heading-size-desktop, 36px));
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  text-align: center;
+  width: 100%;
+}
+
+.landing-bulk-offer__subtitle {
+  margin: 14px auto 0;
+  max-width: 34rem;
+  color: var(--lbo-body, #4d6d86);
+  font-size: clamp(var(--lbo-body-size-mobile, 15px), 1.15vw, var(--lbo-body-size-desktop, 17px));
+  line-height: 1.55;
+  text-align: center;
+  width: 100%;
+}
+
+.landing-bulk-offer__figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 10px;
+}
+
+.landing-bulk-offer__percent {
+  display: block;
+  color: var(--lbo-navy, #0f3156);
+  font-family: var(--font-heading--family, Georgia, 'Times New Roman', serif);
+  font-size: clamp(64px, 8vw, 96px);
+  font-weight: 700;
+  line-height: 0.9;
+  letter-spacing: -0.045em;
+  text-align: center;
+}
+
+.landing-bulk-offer__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50px;
+  margin-top: 26px;
+  padding: 0 28px;
+  border-radius: var(--lbo-button-radius, 10px);
+  background: linear-gradient(135deg, #ffd75a 0%, var(--lbo-button-bg, #f8c533) 48%, #efb512 100%);
+  color: var(--lbo-button-text, #0f3156);
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  box-shadow: 0 12px 26px rgb(248 197 51 / 0.32);
+  transition:
+    transform 220ms var(--lbo-ease),
+    box-shadow 220ms var(--lbo-ease),
+    filter 220ms ease;
+}
+
+.landing-bulk-offer__button:hover,
+.landing-bulk-offer__button:focus-visible {
+  transform: translateY(-2px);
+  filter: brightness(1.03);
+  box-shadow: 0 16px 30px rgb(248 197 51 / 0.42);
+  outline: none;
+}
+
+.landing-bulk-offer__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 6px 8px;
+  margin: 16px auto 0;
+  color: #6a8499;
+  font-size: 13px;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.landing-bulk-offer__meta-dot {
+  color: #a8bbc9;
+}
+
+.landing-bulk-offer[data-animate='true'] [data-reveal] {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.landing-bulk-offer.is-ready[data-animate='true'] [data-reveal] {
+  animation: landingBulkOfferReveal 700ms var(--lbo-ease) both;
+}
+
+@keyframes landingBulkOfferReveal {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .landing-bulk-offer__button {
+    width: min(100%, 280px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landing-bulk-offer *,
+  .landing-bulk-offer *::before,
+  .landing-bulk-offer *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+  }
+
+  .landing-bulk-offer__button:hover,
+  .landing-bulk-offer__button:focus-visible {
+    transform: none;
+  }
+
+  .landing-bulk-offer[data-animate='true'] [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+}

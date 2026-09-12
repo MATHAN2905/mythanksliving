@@ -1,0 +1,207 @@
+{{ 'landing-about-book.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'landing-about-book.js' | asset_url }}" defer></script>
+
+{% liquid
+  assign section_classes = 'landing-about-book color-custom-' | append: section.id
+
+  if section.settings.enable_section == false
+    assign section_classes = section_classes | append: ' landing-about-book--hidden'
+  endif
+  if section.settings.show_on_desktop == false
+    assign section_classes = section_classes | append: ' landing-about-book--desktop-hidden'
+  endif
+  if section.settings.show_on_tablet == false
+    assign section_classes = section_classes | append: ' landing-about-book--tablet-hidden'
+  endif
+  if section.settings.show_on_mobile == false
+    assign section_classes = section_classes | append: ' landing-about-book--mobile-hidden'
+  endif
+
+  if section.settings.image_position == 'right'
+    assign section_classes = section_classes | append: ' landing-about-book--media-right'
+  endif
+
+  assign overlay_color = section.settings.overlay_color
+  if section.settings.background_image == blank
+    assign overlay_color = 'transparent'
+  endif
+
+  assign panel_shadow = 'none'
+  if section.settings.enable_panel_shadow
+    assign panel_shadow = '0 18px 30px rgb(15 49 86 / 0.07)'
+  endif
+%}
+
+{% render 'contrast-override', background_color: section.settings.background_color, text_color: section.settings.text_color, section_id: section.id %}
+
+<landing-about-book
+  id="about-the-book"
+  class="{{ section_classes }}"
+  data-animate="{{ section.settings.enable_animation }}"
+  data-animation="{{ section.settings.animation_style }}"
+  style="
+    --labk-bg: {{ section.settings.background_color }};
+    --labk-bg-image: {% if section.settings.background_image != blank %}url('{{ section.settings.background_image | image_url: width: 2600 }}'){% else %}none{% endif %};
+    --labk-overlay: {{ overlay_color }};
+    --labk-overlay-opacity: {{ section.settings.overlay_opacity }};
+    --labk-text: {{ section.settings.text_color }};
+    --labk-heading: {{ section.settings.heading_color }};
+    --labk-accent: {{ section.settings.accent_color }};
+    --labk-accent-rgb: {{ section.settings.accent_color.rgb }};
+    --labk-panel-bg: {{ section.settings.panel_background }};
+    --labk-panel-border-rgb: {{ section.settings.panel_border_color.rgb }};
+    --labk-panel-border-opacity: {{ section.settings.panel_border_opacity }};
+    --labk-panel-shadow: {{ panel_shadow }};
+    --labk-container-width: {{ section.settings.container_width }}px;
+    --labk-content-width: {{ section.settings.content_width }}px;
+    --labk-media-width: {{ section.settings.media_width }};
+    --labk-vertical-align: {{ section.settings.content_vertical_align }};
+    --labk-section-min-height: {{ section.settings.section_min_height }}px;
+    --labk-panel-radius: {{ section.settings.panel_radius }}px;
+    --labk-image-radius: {{ section.settings.image_radius }}px;
+    --labk-heading-size-desktop: {{ section.settings.heading_size_desktop }}px;
+    --labk-heading-size-mobile: {{ section.settings.heading_size_mobile }}px;
+    --labk-heading-weight: {{ section.settings.heading_weight }};
+    --labk-body-size-desktop: {{ section.settings.body_size_desktop }}px;
+    --labk-body-size-mobile: {{ section.settings.body_size_mobile }}px;
+    --labk-quote-size-desktop: {{ section.settings.quote_size_desktop }}px;
+    --labk-quote-size-mobile: {{ section.settings.quote_size_mobile }}px;
+    --labk-padding-top-desktop: {{ section.settings.padding_top_desktop }}px;
+    --labk-padding-bottom-desktop: {{ section.settings.padding_bottom_desktop }}px;
+    --labk-padding-top-tablet: {{ section.settings.padding_top_tablet }}px;
+    --labk-padding-bottom-tablet: {{ section.settings.padding_bottom_tablet }}px;
+    --labk-padding-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --labk-padding-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+  "
+>
+  <div class="landing-about-book__bg" aria-hidden="true"></div>
+  <div class="landing-about-book__overlay" aria-hidden="true"></div>
+
+  <div class="landing-about-book__inner">
+    <section class="landing-about-book__panel">
+      <div class="landing-about-book__grid">
+        <div class="landing-about-book__media" data-reveal="left">
+          <div class="landing-about-book__image-wrap">
+            {% if section.settings.image != blank %}
+              {{ section.settings.image | image_url: width: 1200 | image_tag: class: 'landing-about-book__image', widths: '280,400,560,720,920,1200', sizes: '(max-width: 989px) 88vw, 42vw', loading: 'lazy', alt: section.settings.image_alt | default: section.settings.image.alt }}
+            {% else %}
+              {{ 'image' | placeholder_svg_tag: 'landing-about-book__image' }}
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="landing-about-book__content" data-reveal="right">
+          {% if section.settings.eyebrow != blank %}
+            <p class="landing-about-book__eyebrow">{{ section.settings.eyebrow }}</p>
+          {% endif %}
+
+          {% if section.settings.heading != blank %}
+            <h2 class="landing-about-book__heading">{{ section.settings.heading }}</h2>
+          {% endif %}
+
+          {% if section.settings.description != blank %}
+            <div class="landing-about-book__description rte">{{ section.settings.description }}</div>
+          {% endif %}
+
+          {% if section.settings.show_quote and section.settings.quote_text != blank %}
+            <blockquote class="landing-about-book__quote">
+              <p class="landing-about-book__quote-text">{{ section.settings.quote_text }}</p>
+              {% if section.settings.quote_author != blank %}
+                <cite class="landing-about-book__quote-author">{{ section.settings.quote_author }}</cite>
+              {% endif %}
+            </blockquote>
+          {% endif %}
+
+          {% if section.settings.show_verse and section.settings.verse_text != blank %}
+            <div class="landing-about-book__verse">
+              <p class="landing-about-book__verse-text">{{ section.settings.verse_text }}</p>
+              {% if section.settings.verse_reference != blank %}
+                <p class="landing-about-book__verse-reference">{{ section.settings.verse_reference }}</p>
+              {% endif %}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </section>
+  </div>
+</landing-about-book>
+
+{% schema %}
+{
+  "name": "Landing About Book",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    { "type": "header", "content": "Visibility" },
+    { "type": "checkbox", "id": "enable_section", "label": "Enable section", "default": true },
+    { "type": "checkbox", "id": "show_on_desktop", "label": "Show on desktop", "default": true },
+    { "type": "checkbox", "id": "show_on_tablet", "label": "Show on tablet", "default": true },
+    { "type": "checkbox", "id": "show_on_mobile", "label": "Show on mobile", "default": true },
+
+    { "type": "header", "content": "Content" },
+    { "type": "image_picker", "id": "image", "label": "Book image" },
+    { "type": "text", "id": "image_alt", "label": "Image alt text", "default": "Thanks-Living book" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "About the book" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "A life filled with purpose and joy" },
+    { "type": "richtext", "id": "description", "label": "Description", "default": "<p>Our lives are divine gifts, but they do not always feel like one. This book helps readers embrace gratitude in every season and grow in biblical hope.</p>" },
+    { "type": "checkbox", "id": "show_quote", "label": "Show quote box", "default": true },
+    { "type": "textarea", "id": "quote_text", "label": "Quote text", "default": "In Thanks-Living, Stu Epperson invites us into the beauty and joy found in life shaped by thanksgiving." },
+    { "type": "text", "id": "quote_author", "label": "Quote author", "default": "Stu Epperson Jr." },
+    { "type": "checkbox", "id": "show_verse", "label": "Show verse box", "default": true },
+    { "type": "textarea", "id": "verse_text", "label": "Verse text", "default": "In everything give thanks; for this is the will of God in Christ Jesus concerning you." },
+    { "type": "text", "id": "verse_reference", "label": "Verse reference", "default": "1 Thessalonians 5:18 (KJV)" },
+
+    { "type": "header", "content": "Layout" },
+    { "type": "select", "id": "image_position", "label": "Image position", "options": [{ "value": "left", "label": "Left" }, { "value": "right", "label": "Right" }], "default": "left" },
+    { "type": "select", "id": "media_width", "label": "Media width", "options": [{ "value": "40%", "label": "40%" }, { "value": "44%", "label": "44%" }, { "value": "48%", "label": "48%" }, { "value": "52%", "label": "52%" }], "default": "44%" },
+    { "type": "select", "id": "content_vertical_align", "label": "Vertical alignment", "options": [{ "value": "start", "label": "Top" }, { "value": "center", "label": "Center" }, { "value": "end", "label": "Bottom" }], "default": "center" },
+    { "type": "range", "id": "container_width", "label": "Container width", "min": 960, "max": 1760, "step": 20, "unit": "px", "default": 1320 },
+    { "type": "range", "id": "content_width", "label": "Content width", "min": 860, "max": 1720, "step": 20, "unit": "px", "default": 1240 },
+    { "type": "range", "id": "section_min_height", "label": "Desktop section min height", "min": 360, "max": 840, "step": 20, "unit": "px", "default": 460 },
+    { "type": "range", "id": "panel_radius", "label": "Panel radius", "min": 0, "max": 36, "step": 2, "unit": "px", "default": 20 },
+    { "type": "range", "id": "image_radius", "label": "Image radius", "min": 0, "max": 40, "step": 2, "unit": "px", "default": 16 },
+
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "background_color", "label": "Section background", "default": "#ffffff" },
+    { "type": "image_picker", "id": "background_image", "label": "Background image" },
+    { "type": "color", "id": "overlay_color", "label": "Overlay color", "default": "#0f315600" },
+    { "type": "range", "id": "overlay_opacity", "label": "Overlay opacity", "min": 0, "max": 100, "step": 2, "unit": "%", "default": 0 },
+    { "type": "color", "id": "panel_background", "label": "Panel background", "default": "#ffffff" },
+    { "type": "color", "id": "panel_border_color", "label": "Panel border color", "default": "#d3e2ef" },
+    { "type": "range", "id": "panel_border_opacity", "label": "Panel border opacity", "min": 0, "max": 100, "step": 2, "unit": "%", "default": 80 },
+    { "type": "checkbox", "id": "enable_panel_shadow", "label": "Enable panel shadow", "default": true },
+    { "type": "color", "id": "text_color", "label": "Body text color", "default": "#2b516e" },
+    { "type": "color", "id": "heading_color", "label": "Heading color", "default": "#123b5b" },
+    { "type": "color", "id": "accent_color", "label": "Accent color", "default": "#2a79ad" },
+
+    { "type": "header", "content": "Typography" },
+    { "type": "range", "id": "heading_size_desktop", "label": "Heading size desktop", "min": 24, "max": 68, "step": 2, "unit": "px", "default": 50 },
+    { "type": "range", "id": "heading_size_mobile", "label": "Heading size mobile", "min": 18, "max": 44, "step": 2, "unit": "px", "default": 30 },
+    { "type": "select", "id": "heading_weight", "label": "Heading weight", "options": [{ "value": "500", "label": "Medium" }, { "value": "600", "label": "Semibold" }, { "value": "700", "label": "Bold" }], "default": "700" },
+    { "type": "range", "id": "body_size_desktop", "label": "Body size desktop", "min": 13, "max": 22, "step": 1, "unit": "px", "default": 17 },
+    { "type": "range", "id": "body_size_mobile", "label": "Body size mobile", "min": 12, "max": 18, "step": 1, "unit": "px", "default": 14 },
+    { "type": "range", "id": "quote_size_desktop", "label": "Quote size desktop", "min": 13, "max": 24, "step": 1, "unit": "px", "default": 18 },
+    { "type": "range", "id": "quote_size_mobile", "label": "Quote size mobile", "min": 12, "max": 20, "step": 1, "unit": "px", "default": 14 },
+
+    { "type": "header", "content": "Spacing" },
+    { "type": "range", "id": "padding_top_desktop", "label": "Desktop top spacing", "min": 0, "max": 180, "step": 4, "unit": "px", "default": 28 },
+    { "type": "range", "id": "padding_bottom_desktop", "label": "Desktop bottom spacing", "min": 0, "max": 180, "step": 4, "unit": "px", "default": 28 },
+    { "type": "range", "id": "padding_top_tablet", "label": "Tablet top spacing", "min": 0, "max": 180, "step": 4, "unit": "px", "default": 20 },
+    { "type": "range", "id": "padding_bottom_tablet", "label": "Tablet bottom spacing", "min": 0, "max": 180, "step": 4, "unit": "px", "default": 20 },
+    { "type": "range", "id": "padding_top_mobile", "label": "Mobile top spacing", "min": 0, "max": 180, "step": 4, "unit": "px", "default": 16 },
+    { "type": "range", "id": "padding_bottom_mobile", "label": "Mobile bottom spacing", "min": 0, "max": 180, "step": 4, "unit": "px", "default": 16 },
+
+    { "type": "header", "content": "Animation" },
+    { "type": "checkbox", "id": "enable_animation", "label": "Enable reveal animation", "default": true },
+    { "type": "select", "id": "animation_style", "label": "Animation style", "options": [{ "value": "fade-left", "label": "Fade left and right" }, { "value": "fade-up", "label": "Fade up" }], "default": "fade-left" }
+  ],
+  "presets": [
+    {
+      "name": "Landing About Book"
+    }
+  ]
+}
+{% endschema %}

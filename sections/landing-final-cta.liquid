@@ -1,0 +1,235 @@
+{{ 'landing-final-cta.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'landing-final-cta.js' | asset_url }}" defer></script>
+
+{% liquid
+  assign section_classes = 'landing-final-cta color-custom-' | append: section.id
+
+  if section.settings.enable_section == false
+    assign section_classes = section_classes | append: ' landing-final-cta--hidden'
+  endif
+  if section.settings.show_on_desktop == false
+    assign section_classes = section_classes | append: ' landing-final-cta--desktop-hidden'
+  endif
+  if section.settings.show_on_tablet == false
+    assign section_classes = section_classes | append: ' landing-final-cta--tablet-hidden'
+  endif
+  if section.settings.show_on_mobile == false
+    assign section_classes = section_classes | append: ' landing-final-cta--mobile-hidden'
+  endif
+
+  if section.settings.media_position == 'left'
+    assign section_classes = section_classes | append: ' landing-final-cta--media-left'
+  endif
+
+  assign overlay_color = section.settings.overlay_color
+  if section.settings.background_image == blank
+    assign overlay_color = 'transparent'
+  endif
+
+  assign panel_shadow = 'none'
+  if section.settings.enable_panel_shadow
+    assign panel_shadow = '0 20px 36px rgb(1 20 36 / 0.26)'
+  endif
+%}
+
+{% render 'contrast-override', background_color: section.settings.background_color, text_color: section.settings.text_color, section_id: section.id %}
+
+<landing-final-cta
+  class="{{ section_classes }}"
+  data-animate="{{ section.settings.enable_animation }}"
+  data-pulse="{{ section.settings.enable_pulse }}"
+  style="
+    --lfc-bg: {{ section.settings.background_color }};
+    --lfc-bg-image: {% if section.settings.background_image != blank %}url('{{ section.settings.background_image | image_url: width: 2600 }}'){% else %}none{% endif %};
+    --lfc-overlay: {{ overlay_color }};
+    --lfc-overlay-opacity: {{ section.settings.overlay_opacity }};
+    --lfc-grain-opacity: {{ section.settings.grain_opacity }};
+    --lfc-panel-bg: {{ section.settings.panel_background }};
+    --lfc-border-rgb: {{ section.settings.panel_border_color.rgb }};
+    --lfc-border-opacity: {{ section.settings.panel_border_opacity }};
+    --lfc-shadow: {{ panel_shadow }};
+    --lfc-text: {{ section.settings.text_color }};
+    --lfc-heading: {{ section.settings.heading_color }};
+    --lfc-accent: {{ section.settings.accent_color }};
+    --lfc-container-width: {{ section.settings.container_width }}px;
+    --lfc-content-width: {{ section.settings.content_width }}px;
+    --lfc-panel-radius: {{ section.settings.panel_radius }}px;
+    --lfc-media-width: {{ section.settings.media_width }}px;
+    --lfc-media-radius: {{ section.settings.media_radius }}px;
+    --lfc-heading-size-desktop: {{ section.settings.heading_size_desktop }}px;
+    --lfc-heading-size-mobile: {{ section.settings.heading_size_mobile }}px;
+    --lfc-heading-weight: {{ section.settings.heading_weight }};
+    --lfc-body-size-desktop: {{ section.settings.body_size_desktop }}px;
+    --lfc-body-size-mobile: {{ section.settings.body_size_mobile }}px;
+    --lfc-button-radius: {{ section.settings.button_radius }}px;
+    --lfc-primary-bg: {{ section.settings.primary_button_bg }};
+    --lfc-primary-text: {{ section.settings.primary_button_text }};
+    --lfc-primary-border: {{ section.settings.primary_button_border }};
+    --lfc-secondary-bg: {{ section.settings.secondary_button_bg }};
+    --lfc-secondary-text: {{ section.settings.secondary_button_text }};
+    --lfc-secondary-border: {{ section.settings.secondary_button_border }};
+    --lfc-space-top-desktop: {{ section.settings.padding_top_desktop }}px;
+    --lfc-space-bottom-desktop: {{ section.settings.padding_bottom_desktop }}px;
+    --lfc-space-top-tablet: {{ section.settings.padding_top_tablet }}px;
+    --lfc-space-bottom-tablet: {{ section.settings.padding_bottom_tablet }}px;
+    --lfc-space-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --lfc-space-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+  "
+>
+  <div class="landing-final-cta__bg" aria-hidden="true"></div>
+  <div class="landing-final-cta__overlay" aria-hidden="true"></div>
+  <div class="landing-final-cta__grain" aria-hidden="true"></div>
+
+  <div class="landing-final-cta__inner">
+    <article class="landing-final-cta__panel">
+      <div class="landing-final-cta__content" data-reveal="left">
+        {% if section.settings.eyebrow != blank %}
+          <p class="landing-final-cta__eyebrow">{{ section.settings.eyebrow }}</p>
+        {% endif %}
+
+        {% if section.settings.heading != blank %}
+          <h2 class="landing-final-cta__heading">{{ section.settings.heading }}</h2>
+        {% endif %}
+
+        {% if section.settings.description != blank %}
+          <div class="landing-final-cta__description rte">{{ section.settings.description }}</div>
+        {% endif %}
+
+        <div class="landing-final-cta__buttons">
+          {% if section.settings.primary_button_label != blank %}
+            <a class="landing-final-cta__button landing-final-cta__button--primary" href="{{ section.settings.primary_button_url | default: '#' }}" {% render 'landing-link-target', url: section.settings.primary_button_url %}>{{ section.settings.primary_button_label }}</a>
+          {% endif %}
+
+          {% if section.settings.secondary_button_label != blank %}
+            <a class="landing-final-cta__button landing-final-cta__button--secondary" href="{{ section.settings.secondary_button_url | default: '#' }}" {% render 'landing-link-target', url: section.settings.secondary_button_url %}>{{ section.settings.secondary_button_label }}</a>
+          {% endif %}
+        </div>
+
+        {% if section.blocks.size > 0 %}
+          <div class="landing-final-cta__signals">
+            {% for block in section.blocks %}
+              {% if block.type == 'signal' and block.settings.text != blank %}
+                <span class="landing-final-cta__signal" {{ block.shopify_attributes }}>
+                  <span class="landing-final-cta__signal-dot" aria-hidden="true"></span>
+                  {{ block.settings.text }}
+                </span>
+              {% endif %}
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="landing-final-cta__media" data-reveal="right">
+        <div class="landing-final-cta__media-wrap">
+          {% if section.settings.media_image != blank %}
+            {{ section.settings.media_image | image_url: width: 1600 | image_tag: widths: '220,360,520,760,1020,1400,1600', sizes: '(max-width: 989px) 86vw, 30vw', loading: 'lazy', alt: section.settings.media_image_alt | default: section.settings.heading }}
+          {% else %}
+            <div class="landing-final-cta__media-fallback" aria-hidden="true"></div>
+          {% endif %}
+        </div>
+
+        {% if section.settings.media_caption != blank %}
+          <p class="landing-final-cta__caption">{{ section.settings.media_caption }}</p>
+        {% endif %}
+      </div>
+    </article>
+  </div>
+</landing-final-cta>
+
+{% schema %}
+{
+  "name": "Landing Final CTA",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    { "type": "header", "content": "Visibility" },
+    { "type": "checkbox", "id": "enable_section", "label": "Enable section", "default": true },
+    { "type": "checkbox", "id": "show_on_desktop", "label": "Show on desktop", "default": true },
+    { "type": "checkbox", "id": "show_on_tablet", "label": "Show on tablet", "default": true },
+    { "type": "checkbox", "id": "show_on_mobile", "label": "Show on mobile", "default": true },
+
+    { "type": "header", "content": "Content" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Your next step" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Start your Thanks Living journey today" },
+    { "type": "richtext", "id": "description", "label": "Description", "default": "<p>Take the message home, share it with your family, and begin a practical rhythm of gratitude rooted in scripture.</p>" },
+    { "type": "text", "id": "primary_button_label", "label": "Primary button label", "default": "Order now" },
+    { "type": "url", "id": "primary_button_url", "label": "Primary button link" },
+    { "type": "text", "id": "secondary_button_label", "label": "Secondary button label", "default": "Preview chapter" },
+    { "type": "url", "id": "secondary_button_url", "label": "Secondary button link" },
+
+    { "type": "header", "content": "Media" },
+    { "type": "image_picker", "id": "media_image", "label": "Media image" },
+    { "type": "text", "id": "media_image_alt", "label": "Media image alt text", "default": "Thanks Living book" },
+    { "type": "text", "id": "media_caption", "label": "Media caption", "default": "Available now in print and digital formats" },
+
+    { "type": "header", "content": "Layout" },
+    { "type": "select", "id": "media_position", "label": "Media position", "options": [{ "value": "right", "label": "Right" }, { "value": "left", "label": "Left" }], "default": "right" },
+    { "type": "range", "id": "container_width", "label": "Container width", "min": 960, "max": 1760, "step": 20, "unit": "px", "default": 1320 },
+    { "type": "range", "id": "content_width", "label": "Content width", "min": 860, "max": 1720, "step": 20, "unit": "px", "default": 1220 },
+    { "type": "range", "id": "panel_radius", "label": "Panel radius", "min": 0, "max": 36, "step": 2, "unit": "px", "default": 20 },
+    { "type": "range", "id": "media_width", "label": "Media width", "min": 220, "max": 620, "step": 8, "unit": "px", "default": 340 },
+    { "type": "range", "id": "media_radius", "label": "Media radius", "min": 0, "max": 30, "step": 2, "unit": "px", "default": 18 },
+
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "background_color", "label": "Section background", "default": "#0d3354" },
+    { "type": "image_picker", "id": "background_image", "label": "Background image" },
+    { "type": "color", "id": "overlay_color", "label": "Overlay color", "default": "#0d335440" },
+    { "type": "range", "id": "overlay_opacity", "label": "Overlay opacity", "min": 0, "max": 100, "step": 2, "unit": "%", "default": 44 },
+    { "type": "range", "id": "grain_opacity", "label": "Texture opacity", "min": 0, "max": 40, "step": 2, "unit": "%", "default": 14 },
+    { "type": "color", "id": "panel_background", "label": "Panel background", "default": "#082843c7" },
+    { "type": "color", "id": "panel_border_color", "label": "Panel border", "default": "#5f88ab" },
+    { "type": "range", "id": "panel_border_opacity", "label": "Panel border opacity", "min": 0, "max": 100, "step": 2, "unit": "%", "default": 76 },
+    { "type": "checkbox", "id": "enable_panel_shadow", "label": "Enable panel shadow", "default": true },
+    { "type": "color", "id": "heading_color", "label": "Heading color", "default": "#ffffff" },
+    { "type": "color", "id": "text_color", "label": "Body text", "default": "#dcecff" },
+    { "type": "color", "id": "accent_color", "label": "Accent color", "default": "#95bfe6" },
+
+    { "type": "header", "content": "Typography and buttons" },
+    { "type": "range", "id": "heading_size_desktop", "label": "Heading size desktop", "min": 26, "max": 70, "step": 2, "unit": "px", "default": 56 },
+    { "type": "range", "id": "heading_size_mobile", "label": "Heading size mobile", "min": 22, "max": 50, "step": 2, "unit": "px", "default": 34 },
+    { "type": "select", "id": "heading_weight", "label": "Heading weight", "options": [{ "value": "600", "label": "Semibold" }, { "value": "700", "label": "Bold" }], "default": "700" },
+    { "type": "range", "id": "body_size_desktop", "label": "Body size desktop", "min": 12, "max": 20, "step": 1, "unit": "px", "default": 16 },
+    { "type": "range", "id": "body_size_mobile", "label": "Body size mobile", "min": 11, "max": 17, "step": 1, "unit": "px", "default": 14 },
+    { "type": "range", "id": "button_radius", "label": "Button radius", "min": 0, "max": 24, "step": 2, "unit": "px", "default": 10 },
+    { "type": "color", "id": "primary_button_bg", "label": "Primary button background", "default": "#f3c541" },
+    { "type": "color", "id": "primary_button_text", "label": "Primary button text", "default": "#123d5d" },
+    { "type": "color", "id": "primary_button_border", "label": "Primary button border", "default": "#f3c541" },
+    { "type": "color", "id": "secondary_button_bg", "label": "Secondary button background", "default": "#00000000" },
+    { "type": "color", "id": "secondary_button_text", "label": "Secondary button text", "default": "#f1f8ff" },
+    { "type": "color", "id": "secondary_button_border", "label": "Secondary button border", "default": "#95bfe6" },
+    { "type": "checkbox", "id": "enable_pulse", "label": "Enable primary button pulse", "default": true },
+    { "type": "checkbox", "id": "enable_animation", "label": "Enable reveal animation", "default": true },
+
+    { "type": "header", "content": "Spacing" },
+    { "type": "range", "id": "padding_top_desktop", "label": "Desktop top spacing", "min": 0, "max": 220, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "padding_bottom_desktop", "label": "Desktop bottom spacing", "min": 0, "max": 220, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "padding_top_tablet", "label": "Tablet top spacing", "min": 0, "max": 220, "step": 4, "unit": "px", "default": 28 },
+    { "type": "range", "id": "padding_bottom_tablet", "label": "Tablet bottom spacing", "min": 0, "max": 220, "step": 4, "unit": "px", "default": 28 },
+    { "type": "range", "id": "padding_top_mobile", "label": "Mobile top spacing", "min": 0, "max": 220, "step": 4, "unit": "px", "default": 20 },
+    { "type": "range", "id": "padding_bottom_mobile", "label": "Mobile bottom spacing", "min": 0, "max": 220, "step": 4, "unit": "px", "default": 24 }
+  ],
+  "blocks": [
+    {
+      "type": "signal",
+      "name": "Signal",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Text", "default": "Instant access to bonus content" }
+      ]
+    }
+  ],
+  "max_blocks": 5,
+  "presets": [
+    {
+      "name": "Landing Final CTA",
+      "blocks": [
+        { "type": "signal", "settings": { "text": "Instant access to bonus content" } },
+        { "type": "signal", "settings": { "text": "Trusted by readers and small groups" } },
+        { "type": "signal", "settings": { "text": "Scripture-rooted and practical" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

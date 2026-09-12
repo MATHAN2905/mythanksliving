@@ -1,0 +1,198 @@
+[
+  {
+    "id": 1,
+    "verse": "Oh, give thanks to the Lord! Call upon His name; Make known His deeds among the peoples!",
+    "reference": "1 Chron. 16:8",
+    "category": "Thanksgiving",
+    "icon": "hand-heart"
+  },
+  {
+    "id": 2,
+    "verse": "And they sang responsively, praising and giving thanks to the Lord: 'For He is good, For His mercy endures forever toward Israel.' Then all the people shouted with a great shout, when they praised the Lord, because the foundation of the house of the Lord was laid.",
+    "reference": "Ezra 3:11",
+    "category": "Praise",
+    "icon": "music"
+  },
+  {
+    "id": 3,
+    "verse": "I will praise You, O Lord, with my whole heart; I will tell of all Your marvelous works.",
+    "reference": "Ps. 9:1",
+    "category": "Praise",
+    "icon": "music"
+  },
+  {
+    "id": 4,
+    "verse": "I will sing to the Lord, Because He has dealt bountifully with me.",
+    "reference": "Ps. 13:6",
+    "category": "Blessing",
+    "icon": "sunrise"
+  },
+  {
+    "id": 5,
+    "verse": "Therefore I will give thanks to You, O Lord, among the Gentiles, And sing praises to Your name.",
+    "reference": "Ps. 18:49",
+    "category": "Praise",
+    "icon": "music"
+  },
+  {
+    "id": 6,
+    "verse": "That I may proclaim with the voice of thanksgiving, And tell of all Your wondrous works.",
+    "reference": "Ps. 26:7",
+    "category": "Thanksgiving",
+    "icon": "hand-heart"
+  },
+  {
+    "id": 7,
+    "verse": "The Lord is my strength and my shield; My heart trusted in Him, and I am helped; Therefore my heart greatly rejoices, And with my song I will praise Him.",
+    "reference": "Ps. 28:7",
+    "category": "Faith",
+    "icon": "cross"
+  },
+  {
+    "id": 8,
+    "verse": "Sing praise to the Lord, you saints of His, And give thanks at the remembrance of His holy name.",
+    "reference": "Ps. 30:4",
+    "category": "Praise",
+    "icon": "music"
+  },
+  {
+    "id": 9,
+    "verse": "I will bless the Lord at all times; His praise shall continually be in my mouth.",
+    "reference": "Ps. 34:1",
+    "category": "Blessing",
+    "icon": "sunrise"
+  },
+  {
+    "id": 10,
+    "verse": "Sing praises to God, sing praises! Sing praises to our King, sing praises!",
+    "reference": "Ps. 47:6",
+    "category": "Praise",
+    "icon": "music"
+  },
+  {
+    "id": 11,
+    "verse": "Whoever offers praise glorifies Me; And to him who orders his conduct aright I will show the salvation of God.",
+    "reference": "Ps. 50:23",
+    "category": "Praise",
+    "icon": "music"
+  },
+  {
+    "id": 12,
+    "verse": "Because Your lovingkindness is better than life, My lips shall praise You.",
+    "reference": "Ps. 63:3",
+    "category": "Love",
+    "icon": "heart"
+  },
+  {
+    "id": 13,
+    "verse": "We give thanks to You, O God, we give thanks! For Your wondrous works declare that Your name is near.",
+    "reference": "Ps. 75:1",
+    "category": "Thanksgiving",
+    "icon": "hand-heart"
+  },
+  {
+    "id": 14,
+    "verse": "It is good to give thanks to the Lord...",
+    "reference": "Ps. 92:1-2",
+    "category": "Thanksgiving",
+    "icon": "hand-heart"
+  },
+  {
+    "id": 15,
+    "verse": "Rejoice in the LORD, you righteous, And give thanks at the remembrance of His holy name.",
+    "reference": "Ps. 97:12",
+    "category": "Joy",
+    "icon": "crown"
+  },
+  {
+    "id": 16,
+    "verse": "Enter into His gates with thanksgiving, And into His courts with praise. Be thankful to Him, and bless His name.",
+    "reference": "Ps. 100:4",
+    "category": "Worship",
+    "icon": "church"
+  },
+  {
+    "id": 17,
+    "verse": "Oh, give thanks to the Lord! Call upon His name; Make known His deeds among the peoples!",
+    "reference": "Ps. 105:1",
+    "category": "Thanksgiving",
+    "icon": "hand-heart"
+  },
+  {
+    "id": 18,
+    "verse": "Oh, give thanks to the Lord, for He is good! For His mercy endures forever.",
+    "reference": "Ps. 107:1",
+    "category": "Thanksgiving",
+    "icon": "hand-heart"
+  },
+  {
+    "id": 19,
+    "verse": "Let them sacrifice the sacrifices of thanksgiving, And declare His works with rejoicing.",
+    "reference": "Ps. 107:22",
+    "category": "Thanksgiving",
+    "icon": "hand-heart"
+  },
+  {
+    "id": 20,
+    "verse": "I will offer to You the sacrifice of thanksgiving, And will call upon the name of the Lord.",
+    "reference": "Ps. 116:17",
+    "category": "Thanksgiving",
+    "icon": "hand-heart"
+  },
+  {
+    "id": 21,
+    "verse": "Oh, give thanks to the Lord, for He is good! For His mercy endures forever.",
+    "reference": "Ps. 118:1",
+    "category": "Thanksgiving",
+    "icon": "hand-heart"
+  },
+  {
+    "id": 22,
+    "verse": "My lips shall utter praise, For You teach me Your statutes.",
+    "reference": "Ps. 119:171",
+    "category": "Praise",
+    "icon": "music"
+  },
+  {
+    "id": 23,
+    "verse": "Oh, give thanks to the God of gods!...",
+    "reference": "Ps. 136:2-3, 26",
+    "category": "Thanksgiving",
+    "icon": "hand-heart"
+  },
+  {
+    "id": 24,
+    "verse": "I will praise You, for I am fearfully and wonderfully made...",
+    "reference": "Ps. 139:14",
+    "category": "Praise",
+    "icon": "music"
+  },
+  {
+    "id": 25,
+    "verse": "My mouth shall speak the praise of the Lord...",
+    "reference": "Ps. 145:21",
+    "category": "Praise",
+    "icon": "music"
+  },
+  {
+    "id": 26,
+    "verse": "While I live I will praise the Lord...",
+    "reference": "Ps. 146:2",
+    "category": "Praise",
+    "icon": "music"
+  },
+  {
+    "id": 27,
+    "verse": "Let everything that has breath praise the Lord. Praise the Lord!",
+    "reference": "Ps. 150:6",
+    "category": "Praise",
+    "icon": "music"
+  },
+  {
+    "id": 28,
+    "verse": "But I will sacrifice to You with the voice of thanksgiving...",
+    "reference": "Jon. 2:9",
+    "category": "Thanksgiving",
+    "icon": "hand-heart"
+  }
+]

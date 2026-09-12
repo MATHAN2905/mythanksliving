@@ -1,0 +1,345 @@
+{{ 'landing-header.css' | asset_url | stylesheet_tag }}
+{{ 'landing-logo-brand.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'landing-header.js' | asset_url }}" defer></script>
+
+{% liquid
+  assign section_classes = 'landing-header color-custom-' | append: section.id
+
+  if section.settings.enable_section == false
+    assign section_classes = section_classes | append: ' landing-header--hidden'
+  endif
+
+  if section.settings.show_on_desktop == false
+    assign section_classes = section_classes | append: ' landing-header--desktop-hidden'
+  endif
+
+  if section.settings.show_on_tablet == false
+    assign section_classes = section_classes | append: ' landing-header--tablet-hidden'
+  endif
+
+  if section.settings.show_on_mobile == false
+    assign section_classes = section_classes | append: ' landing-header--mobile-hidden'
+  endif
+
+  if section.settings.enable_transparent_header
+    assign section_classes = section_classes | append: ' landing-header--transparent'
+  endif
+
+  if section.settings.enable_sticky_header
+    assign section_classes = section_classes | append: ' landing-header--sticky'
+  endif
+
+  assign header_background = section.settings.background_color
+  if section.settings.enable_gradient
+    assign header_background = 'linear-gradient(90deg, ' | append: section.settings.gradient_start | append: ', ' | append: section.settings.gradient_end | append: ')'
+  endif
+
+  assign nav_menu = linklists[section.settings.menu]
+  assign use_block_nav = false
+  if nav_menu == blank or nav_menu.links.size == 0
+    assign use_block_nav = true
+  endif
+
+  assign overlay_color = section.settings.overlay_color
+  if section.settings.background_image == blank
+    assign overlay_color = 'transparent'
+  endif
+
+  assign button_icon = section.settings.button_icon
+%}
+
+{% render 'contrast-override', background_color: section.settings.background_color, text_color: section.settings.text_color, section_id: section.id %}
+
+<landing-header
+  class="{{ section_classes }}"
+  data-sticky="{{ section.settings.enable_sticky_header }}"
+  data-scroll-threshold="{{ section.settings.sticky_threshold }}"
+  data-animate="{{ section.settings.enable_animation }}"
+  style="
+    --lh-bg: {{ header_background }};
+    --lh-sticky-bg: {{ section.settings.sticky_background_color }};
+    --lh-bg-image: {% if section.settings.background_image != blank %}url('{{ section.settings.background_image | image_url: width: 2400 }}'){% else %}none{% endif %};
+    --lh-overlay: {{ overlay_color }};
+    --lh-overlay-opacity: {{ section.settings.overlay_opacity }};
+    --lh-text: {{ section.settings.text_color }};
+    --lh-text-rgb: {{ section.settings.text_color.rgb }};
+    --lh-link-hover: {{ section.settings.link_hover_color }};
+    --lh-border-rgb: {{ section.settings.border_color.rgb }};
+    --lh-border-opacity: {{ section.settings.border_opacity }};
+    --lh-shadow: {% if section.settings.enable_shadow %}0 14px 36px rgb(15 49 86 / 0.15){% else %}none{% endif %};
+    --lh-blur: {% if section.settings.enable_blur %}{{ section.settings.blur_amount }}px{% else %}0px{% endif %};
+    --lh-radius: {{ section.settings.border_radius }}px;
+    --lh-container-width: {{ section.settings.container_width }}px;
+    --lh-content-width: {{ section.settings.content_width }}px;
+    --lh-column-gap: {{ section.settings.column_gap }}px;
+    --lh-min-height: {{ section.settings.min_height_desktop }}px;
+    --lh-min-height-mobile: {{ section.settings.min_height_mobile }}px;
+    --lh-logo-width-desktop: {{ section.settings.logo_width_desktop }}px;
+    --lh-logo-width-mobile: {{ section.settings.logo_width_mobile }}px;
+    --lh-logo-icon-size: {{ section.settings.logo_icon_size }}px;
+    --lh-logo-icon-size-mobile: {{ section.settings.logo_icon_size_mobile }}px;
+    --llb-icon-size: {{ section.settings.logo_icon_size }}px;
+    --llb-icon-size-mobile: {{ section.settings.logo_icon_size_mobile }}px;
+    --llb-title-color: var(--lh-text);
+    --llb-subtext-color: var(--lh-text);
+    --llb-subtext-opacity: 0.7;
+    --lh-nav-gap: {{ section.settings.nav_gap }}px;
+    --lh-nav-size-desktop: {{ section.settings.nav_font_size_desktop }}px;
+    --lh-nav-size-mobile: {{ section.settings.nav_font_size_mobile }}px;
+    --lh-nav-weight: {{ section.settings.nav_font_weight }};
+    --lh-nav-letter-spacing: {{ section.settings.nav_letter_spacing }}px;
+    --lh-nav-line-height: {{ section.settings.nav_line_height }};
+    --lh-button-bg: {{ section.settings.button_background_color }};
+    --lh-button-bg-hover: {{ section.settings.button_background_hover_color }};
+    --lh-button-text: {{ section.settings.button_text_color }};
+    --lh-button-border: {{ section.settings.button_border_color }};
+    --lh-button-size-desktop: {{ section.settings.button_font_size_desktop }}px;
+    --lh-button-size-mobile: {{ section.settings.button_font_size_mobile }}px;
+    --lh-button-weight: {{ section.settings.button_font_weight }};
+    --lh-button-radius: {{ section.settings.button_radius }}px;
+    --lh-drawer-bg: {{ section.settings.drawer_background_color }};
+    --lh-drawer-text: {{ section.settings.drawer_text_color }};
+    --lh-drawer-text-rgb: {{ section.settings.drawer_text_color.rgb }};
+    --lh-padding-top-desktop: {{ section.settings.padding_top_desktop }}px;
+    --lh-padding-bottom-desktop: {{ section.settings.padding_bottom_desktop }}px;
+    --lh-padding-inline-desktop: {{ section.settings.padding_inline_desktop }}px;
+    --lh-padding-top-tablet: {{ section.settings.padding_top_tablet }}px;
+    --lh-padding-bottom-tablet: {{ section.settings.padding_bottom_tablet }}px;
+    --lh-padding-inline-tablet: {{ section.settings.padding_inline_tablet }}px;
+    --lh-padding-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --lh-padding-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+    --lh-padding-inline-mobile: {{ section.settings.padding_inline_mobile }}px;
+    --lh-top-offset: {{ section.settings.top_offset }}px;
+  "
+>
+  <div class="landing-header__background" aria-hidden="true"></div>
+  <div class="landing-header__overlay" aria-hidden="true"></div>
+
+  <div class="landing-header__inner">
+    <div class="landing-header__row">
+      <a class="landing-header__logo-link" href="{{ section.settings.logo_link | default: routes.root_url }}" aria-label="{{ section.settings.logo_alt | escape }}">
+        {% render 'landing-logo-brand',
+          logo_image: section.settings.logo_image,
+          logo_image_class: 'landing-header__logo-image',
+          logo_icon: section.settings.logo_icon,
+          logo_text: section.settings.logo_text,
+          logo_subtext: section.settings.logo_subtext,
+          logo_alt: section.settings.logo_alt,
+          icon_loading: 'eager'
+        %}
+      </a>
+
+      <nav class="landing-header__desktop-nav" aria-label="{{ section.settings.navigation_label | escape }}">
+        <ul class="landing-header__nav-list">
+          {% if use_block_nav %}
+            {% for block in section.blocks %}
+              {% if block.type == 'nav_item' and block.settings.label != blank %}
+                <li {{ block.shopify_attributes }}>
+                  <a class="landing-header__nav-link" href="{{ block.settings.url | default: '#' }}">{{ block.settings.label }}</a>
+                </li>
+              {% endif %}
+            {% endfor %}
+          {% else %}
+            {% for link in nav_menu.links %}
+              <li>
+                <a class="landing-header__nav-link" href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title }}</a>
+              </li>
+            {% endfor %}
+          {% endif %}
+        </ul>
+      </nav>
+
+      <div class="landing-header__actions">
+        {% if section.settings.button_label != blank %}
+          <a class="landing-header__cta" href="{{ section.settings.button_url | default: '#' }}" {% render 'landing-link-target', url: section.settings.button_url %}>
+            {% if button_icon != 'none' %}
+              <span class="landing-header__cta-icon" aria-hidden="true">
+                {% case button_icon %}
+                  {% when 'cart' %}
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M3.8 5h2.2l2 10.5h10.3l2.1-7.9H7.1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10" cy="19" r="1.6" fill="currentColor"/><circle cx="17" cy="19" r="1.6" fill="currentColor"/></svg>
+                  {% when 'play' %}
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M8 6.5v11l9-5.5-9-5.5Z" fill="currentColor"/></svg>
+                  {% when 'book' %}
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M4 5a2 2 0 0 1 2-2h14v18H7a3 3 0 0 1 0-6h11V5H6a1 1 0 0 0-1 1v12" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+                {% endcase %}
+              </span>
+            {% endif %}
+            <span>{{ section.settings.button_label }}</span>
+          </a>
+        {% endif %}
+
+        <button class="landing-header__toggle" type="button" data-open-drawer aria-controls="landing-header-drawer-{{ section.id }}" aria-expanded="false" aria-label="{{ section.settings.mobile_menu_label | escape }}">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</landing-header>
+
+<div
+  id="landing-header-drawer-{{ section.id }}"
+  class="landing-header__drawer"
+  data-drawer
+  data-landing-header-drawer
+  style="
+    --lh-drawer-bg: {{ section.settings.drawer_background_color }};
+    --lh-drawer-text: {{ section.settings.drawer_text_color }};
+    --lh-drawer-text-rgb: {{ section.settings.drawer_text_color.rgb }};
+  "
+>
+  <button class="landing-header__drawer-backdrop" type="button" data-close-drawer aria-label="{{ section.settings.close_drawer_label | escape }}"></button>
+  <div class="landing-header__drawer-panel" role="dialog" aria-modal="true" aria-label="{{ section.settings.mobile_menu_label | escape }}">
+    <div class="landing-header__drawer-head">
+      <h2 class="landing-header__drawer-title">{{ section.settings.mobile_menu_title }}</h2>
+      <button class="landing-header__close" type="button" data-close-drawer aria-label="{{ section.settings.close_drawer_label | escape }}">
+        <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 3l10 10M13 3 3 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+
+    <nav class="landing-header__drawer-nav" aria-label="{{ section.settings.navigation_label | escape }}">
+      {% if use_block_nav %}
+        {% for block in section.blocks %}
+          {% if block.type == 'nav_item' and block.settings.label != blank %}
+            <a class="landing-header__drawer-link" href="{{ block.settings.url | default: '#' }}" {{ block.shopify_attributes }}>{{ block.settings.label }}</a>
+          {% endif %}
+        {% endfor %}
+      {% else %}
+        {% for link in nav_menu.links %}
+          <a class="landing-header__drawer-link" href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title }}</a>
+        {% endfor %}
+      {% endif %}
+    </nav>
+
+    {% if section.settings.button_label != blank %}
+      <a class="landing-header__cta landing-header__drawer-cta" href="{{ section.settings.button_url | default: '#' }}" {% render 'landing-link-target', url: section.settings.button_url %}>{{ section.settings.button_label }}</a>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Landing Header",
+  "tag": "section",
+  "class": "section",
+  "enabled_on": {
+    "groups": ["header"]
+  },
+  "settings": [
+    { "type": "header", "content": "Visibility" },
+    { "type": "checkbox", "id": "enable_section", "label": "Enable section", "default": true },
+    { "type": "checkbox", "id": "show_on_desktop", "label": "Show on desktop", "default": true },
+    { "type": "checkbox", "id": "show_on_tablet", "label": "Show on tablet", "default": true },
+    { "type": "checkbox", "id": "show_on_mobile", "label": "Show on mobile", "default": true },
+
+    { "type": "header", "content": "Header behavior" },
+    { "type": "checkbox", "id": "enable_transparent_header", "label": "Enable transparent header", "default": true },
+    { "type": "checkbox", "id": "enable_sticky_header", "label": "Enable sticky header", "default": true },
+    { "type": "range", "id": "sticky_threshold", "label": "Sticky scroll threshold", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 8 },
+    { "type": "range", "id": "top_offset", "label": "Top offset", "min": 0, "max": 60, "step": 1, "unit": "px", "default": 0 },
+    { "type": "checkbox", "id": "enable_shadow", "label": "Enable shadow", "default": true },
+    { "type": "checkbox", "id": "enable_blur", "label": "Enable blur", "default": true },
+    { "type": "range", "id": "blur_amount", "label": "Blur amount", "min": 0, "max": 20, "step": 1, "unit": "px", "default": 10 },
+
+    { "type": "header", "content": "Logo" },
+    { "type": "image_picker", "id": "logo_image", "label": "Logo image" },
+    { "type": "image_picker", "id": "logo_icon", "label": "Logo icon", "info": "Shown to the left of the logo text. Upload a cropped version of the book cover icon, or leave blank to use the default envelope icon." },
+    { "type": "text", "id": "logo_alt", "label": "Logo alt text", "default": "Thanks-Living" },
+    { "type": "text", "id": "logo_text", "label": "Logo text fallback", "default": "Thanks-Living" },
+    { "type": "text", "id": "logo_subtext", "label": "Logo subtext", "default": "Embracing gratitude every day" },
+    { "type": "url", "id": "logo_link", "label": "Logo link" },
+    { "type": "range", "id": "logo_width_desktop", "label": "Logo width desktop", "min": 100, "max": 300, "step": 4, "unit": "px", "default": 200 },
+    { "type": "range", "id": "logo_width_mobile", "label": "Logo width mobile", "min": 84, "max": 220, "step": 4, "unit": "px", "default": 152 },
+    { "type": "range", "id": "logo_icon_size", "label": "Logo icon size desktop", "min": 32, "max": 72, "step": 2, "unit": "px", "default": 48 },
+    { "type": "range", "id": "logo_icon_size_mobile", "label": "Logo icon size mobile", "min": 28, "max": 60, "step": 2, "unit": "px", "default": 40 },
+
+    { "type": "header", "content": "Navigation" },
+    { "type": "link_list", "id": "menu", "label": "Desktop and mobile menu" },
+    { "type": "text", "id": "navigation_label", "label": "Navigation accessibility label", "default": "Primary navigation" },
+    { "type": "range", "id": "nav_gap", "label": "Navigation item gap", "min": 8, "max": 56, "step": 2, "unit": "px", "default": 30 },
+    { "type": "range", "id": "nav_font_size_desktop", "label": "Navigation font size desktop", "min": 12, "max": 24, "step": 1, "unit": "px", "default": 16 },
+    { "type": "range", "id": "nav_font_size_mobile", "label": "Navigation font size mobile", "min": 13, "max": 22, "step": 1, "unit": "px", "default": 16 },
+    { "type": "select", "id": "nav_font_weight", "label": "Navigation font weight", "options": [{ "value": "400", "label": "Regular" }, { "value": "500", "label": "Medium" }, { "value": "600", "label": "Semibold" }, { "value": "700", "label": "Bold" }], "default": "600" },
+    { "type": "range", "id": "nav_letter_spacing", "label": "Navigation letter spacing", "min": -1, "max": 2, "step": 0.1, "unit": "px", "default": 0 },
+    { "type": "range", "id": "nav_line_height", "label": "Navigation line height", "min": 1, "max": 2, "step": 0.1, "default": 1.3 },
+
+    { "type": "header", "content": "CTA button" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Order your copy" },
+    { "type": "url", "id": "button_url", "label": "Button link" },
+    { "type": "select", "id": "button_icon", "label": "Button icon", "options": [{ "value": "none", "label": "None" }, { "value": "cart", "label": "Cart" }, { "value": "play", "label": "Play" }, { "value": "book", "label": "Book" }], "default": "cart" },
+    { "type": "range", "id": "button_font_size_desktop", "label": "Button font size desktop", "min": 12, "max": 22, "step": 1, "unit": "px", "default": 15 },
+    { "type": "range", "id": "button_font_size_mobile", "label": "Button font size mobile", "min": 12, "max": 20, "step": 1, "unit": "px", "default": 14 },
+    { "type": "select", "id": "button_font_weight", "label": "Button font weight", "options": [{ "value": "500", "label": "Medium" }, { "value": "600", "label": "Semibold" }, { "value": "700", "label": "Bold" }], "default": "700" },
+    { "type": "range", "id": "button_radius", "label": "Button radius", "min": 0, "max": 40, "step": 1, "unit": "px", "default": 10 },
+
+    { "type": "header", "content": "Mobile drawer" },
+    { "type": "text", "id": "mobile_menu_title", "label": "Drawer title", "default": "Menu" },
+    { "type": "text", "id": "mobile_menu_label", "label": "Drawer accessibility label", "default": "Open mobile navigation" },
+    { "type": "text", "id": "close_drawer_label", "label": "Close drawer label", "default": "Close menu" },
+
+    { "type": "header", "content": "Layout" },
+    { "type": "range", "id": "container_width", "label": "Container width", "min": 960, "max": 1760, "step": 20, "unit": "px", "default": 1320 },
+    { "type": "range", "id": "content_width", "label": "Content width", "min": 880, "max": 1700, "step": 20, "unit": "px", "default": 1280 },
+    { "type": "range", "id": "column_gap", "label": "Column gap", "min": 0, "max": 48, "step": 2, "unit": "px", "default": 20 },
+    { "type": "range", "id": "min_height_desktop", "label": "Min height desktop", "min": 56, "max": 130, "step": 2, "unit": "px", "default": 84 },
+    { "type": "range", "id": "min_height_mobile", "label": "Min height mobile", "min": 48, "max": 108, "step": 2, "unit": "px", "default": 66 },
+    { "type": "range", "id": "border_radius", "label": "Border radius", "min": 0, "max": 40, "step": 1, "unit": "px", "default": 0 },
+
+    { "type": "header", "content": "Background and colors" },
+    { "type": "color", "id": "background_color", "label": "Background color", "default": "#ffffff00" },
+    { "type": "checkbox", "id": "enable_gradient", "label": "Use gradient background", "default": false },
+    { "type": "color", "id": "gradient_start", "label": "Gradient start", "default": "#ffffff" },
+    { "type": "color", "id": "gradient_end", "label": "Gradient end", "default": "#eef6fd" },
+    { "type": "color", "id": "sticky_background_color", "label": "Sticky background color", "default": "#ffffffde" },
+    { "type": "image_picker", "id": "background_image", "label": "Background image" },
+    { "type": "color", "id": "overlay_color", "label": "Overlay color", "default": "#0f315600" },
+    { "type": "range", "id": "overlay_opacity", "label": "Overlay opacity", "min": 0, "max": 100, "step": 1, "unit": "%", "default": 0 },
+    { "type": "color", "id": "text_color", "label": "Text color", "default": "#0f3156" },
+    { "type": "color", "id": "link_hover_color", "label": "Link hover color", "default": "#1b5f95" },
+    { "type": "color", "id": "border_color", "label": "Border color", "default": "#d9e8f5" },
+    { "type": "range", "id": "border_opacity", "label": "Border opacity", "min": 0, "max": 100, "step": 1, "unit": "%", "default": 0 },
+    { "type": "color", "id": "button_background_color", "label": "Button background", "default": "#f8c533" },
+    { "type": "color", "id": "button_background_hover_color", "label": "Button background hover", "default": "#f5bf1b" },
+    { "type": "color", "id": "button_text_color", "label": "Button text color", "default": "#0f3156" },
+    { "type": "color", "id": "button_border_color", "label": "Button border color", "default": "#f8c533" },
+    { "type": "color", "id": "drawer_background_color", "label": "Drawer background", "default": "#ffffff" },
+    { "type": "color", "id": "drawer_text_color", "label": "Drawer text color", "default": "#0f3156" },
+
+    { "type": "header", "content": "Spacing" },
+    { "type": "range", "id": "padding_top_desktop", "label": "Desktop top spacing", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 16 },
+    { "type": "range", "id": "padding_bottom_desktop", "label": "Desktop bottom spacing", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 16 },
+    { "type": "range", "id": "padding_inline_desktop", "label": "Desktop side spacing", "min": 0, "max": 80, "step": 4, "unit": "px", "default": 16 },
+    { "type": "range", "id": "padding_top_tablet", "label": "Tablet top spacing", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 12 },
+    { "type": "range", "id": "padding_bottom_tablet", "label": "Tablet bottom spacing", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 12 },
+    { "type": "range", "id": "padding_inline_tablet", "label": "Tablet side spacing", "min": 0, "max": 80, "step": 4, "unit": "px", "default": 12 },
+    { "type": "range", "id": "padding_top_mobile", "label": "Mobile top spacing", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 12 },
+    { "type": "range", "id": "padding_bottom_mobile", "label": "Mobile bottom spacing", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 12 },
+    { "type": "range", "id": "padding_inline_mobile", "label": "Mobile side spacing", "min": 0, "max": 60, "step": 4, "unit": "px", "default": 8 },
+
+    { "type": "header", "content": "Animation" },
+    { "type": "checkbox", "id": "enable_animation", "label": "Enable reveal animation", "default": true }
+  ],
+  "blocks": [
+    {
+      "type": "nav_item",
+      "name": "Navigation item",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "About the Book" },
+        { "type": "url", "id": "url", "label": "URL" }
+      ]
+    }
+  ],
+  "max_blocks": 10,
+  "presets": [
+    {
+      "name": "Landing Header",
+      "blocks": [
+        { "type": "nav_item", "settings": { "label": "About the Book" } },
+        { "type": "nav_item", "settings": { "label": "About the Author" } },
+        { "type": "nav_item", "settings": { "label": "What’s Inside" } },
+        { "type": "nav_item", "settings": { "label": "Reviews" } },
+        { "type": "nav_item", "settings": { "label": "FAQ" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

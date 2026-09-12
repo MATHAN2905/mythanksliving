@@ -1,0 +1,48 @@
+{{ 'landing-video-player.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'landing-video-player.js' | asset_url }}" defer></script>
+
+{% render 'landing-video-player-content',
+  video: section.settings.video,
+  video_url: section.settings.video_url,
+  video_title: section.settings.video_title,
+  heading: section.settings.heading,
+  subheading: section.settings.subheading,
+  empty_message: section.settings.empty_message,
+  enable_autoplay: section.settings.enable_autoplay,
+  mute_video: section.settings.mute_video,
+  video_aspect_ratio: section.settings.video_aspect_ratio,
+  video_radius: section.settings.video_radius,
+  background_color: section.settings.background_color,
+  text_color: section.settings.text_color,
+  section_id: section.id
+%}
+
+{% schema %}
+{
+  "name": "Video Player Page",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "header", "content": "Video" },
+    { "type": "video", "id": "video", "label": "Video", "info": "Upload to Shopify or add a YouTube/Vimeo link." },
+    { "type": "text", "id": "video_url", "label": "Video URL (fallback)", "info": "Used when no video is selected above, or when no ?v= query parameter is passed." },
+    { "type": "text", "id": "video_title", "label": "Video title", "default": "Video" },
+    { "type": "checkbox", "id": "enable_autoplay", "label": "Autoplay on page load", "default": true },
+    { "type": "checkbox", "id": "mute_video", "label": "Mute video", "default": false },
+    { "type": "select", "id": "video_aspect_ratio", "label": "Video aspect ratio", "options": [{ "value": "16 / 9", "label": "16:9" }, { "value": "4 / 3", "label": "4:3" }, { "value": "1 / 1", "label": "1:1" }], "default": "16 / 9" },
+    { "type": "range", "id": "video_radius", "label": "Video corner radius", "min": 0, "max": 24, "step": 2, "unit": "px", "default": 12 },
+    { "type": "header", "content": "Content" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "A Message From Stu" },
+    { "type": "text", "id": "subheading", "label": "Subheading" },
+    { "type": "text", "id": "empty_message", "label": "Empty state message", "default": "No video has been configured yet." },
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "background_color", "label": "Background", "default": "#ffffff" },
+    { "type": "color", "id": "text_color", "label": "Text color", "default": "#0f3156" }
+  ],
+  "presets": [
+    {
+      "name": "Video Player Page"
+    }
+  ]
+}
+{% endschema %}

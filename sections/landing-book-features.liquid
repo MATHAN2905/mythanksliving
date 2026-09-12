@@ -1,0 +1,313 @@
+{{ 'landing-book-features.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'landing-book-features.js' | asset_url }}" defer></script>
+
+{% liquid
+  assign section_classes = 'landing-bulk-offer color-custom-' | append: section.id
+
+  if section.settings.enable_section == false
+    assign section_classes = section_classes | append: ' landing-bulk-offer--hidden'
+  endif
+  if section.settings.show_on_desktop == false
+    assign section_classes = section_classes | append: ' landing-bulk-offer--desktop-hidden'
+  endif
+  if section.settings.show_on_tablet == false
+    assign section_classes = section_classes | append: ' landing-bulk-offer--tablet-hidden'
+  endif
+  if section.settings.show_on_mobile == false
+    assign section_classes = section_classes | append: ' landing-bulk-offer--mobile-hidden'
+  endif
+
+  assign discount_percent = section.settings.discount_percent | default: 40
+  assign min_quantity = section.settings.min_quantity | default: 12
+  assign panel_shadow = 'none'
+  if section.settings.enable_panel_shadow
+    assign panel_shadow = '0 18px 42px rgb(15 49 86 / 0.1), 0 4px 12px rgb(15 49 86 / 0.04)'
+  endif
+
+  assign heading_text = section.settings.heading
+  if heading_text == blank
+    assign heading_text = 'Save ' | append: discount_percent | append: '% on Bulk Orders'
+  endif
+
+  assign subtitle_text = section.settings.subtitle
+  if subtitle_text == blank
+    assign subtitle_text = 'Buy ' | append: min_quantity | append: ' or more books and automatically receive ' | append: discount_percent | append: '% off your order.'
+  endif
+
+  assign badge_text = section.settings.badge_text
+  if badge_text == blank
+    assign badge_text = discount_percent | append: '% OFF'
+  endif
+%}
+
+{% render 'contrast-override', background_color: section.settings.background_color, text_color: section.settings.text_color, section_id: section.id %}
+
+<landing-book-features
+  id="whats-inside"
+  class="{{ section_classes }}"
+  data-animate="{{ section.settings.enable_animation }}"
+  style="
+    --lbo-bg: {{ section.settings.background_color }};
+    --lbo-bg-end: {{ section.settings.background_color_end }};
+    --lbo-text: {{ section.settings.text_color }};
+    --lbo-heading: {{ section.settings.heading_color }};
+    --lbo-body: {{ section.settings.body_color }};
+    --lbo-accent: {{ section.settings.accent_color }};
+    --lbo-accent-rgb: {{ section.settings.accent_color.rgb }};
+    --lbo-navy: {{ section.settings.navy_color }};
+    --lbo-panel-bg: {{ section.settings.panel_background }};
+    --lbo-panel-border-rgb: {{ section.settings.panel_border_color.rgb }};
+    --lbo-panel-radius: {{ section.settings.panel_radius }}px;
+    --lbo-panel-shadow: {{ panel_shadow }};
+    --lbo-card-bg: {{ section.settings.card_background }};
+    --lbo-card-border-rgb: {{ section.settings.card_border_color.rgb }};
+    --lbo-card-radius: {{ section.settings.card_radius }}px;
+    --lbo-icon-bg: {{ section.settings.icon_background }};
+    --lbo-icon-color: {{ section.settings.icon_color }};
+    --lbo-badge-bg: {{ section.settings.badge_background }};
+    --lbo-badge-text: {{ section.settings.badge_text_color }};
+    --lbo-button-bg: {{ section.settings.button_background }};
+    --lbo-button-hover: {{ section.settings.button_background_hover }};
+    --lbo-button-text: {{ section.settings.button_text_color }};
+    --lbo-button-radius: {{ section.settings.button_radius }}px;
+    --lbo-decor: {{ section.settings.decor_color }};
+    --lbo-container-width: {{ section.settings.container_width }}px;
+    --lbo-content-width: {{ section.settings.content_width }}px;
+    --lbo-heading-size-desktop: {{ section.settings.heading_size_desktop }}px;
+    --lbo-heading-size-mobile: {{ section.settings.heading_size_mobile }}px;
+    --lbo-body-size-desktop: {{ section.settings.body_size_desktop }}px;
+    --lbo-body-size-mobile: {{ section.settings.body_size_mobile }}px;
+    --lbo-space-top-desktop: {{ section.settings.padding_top_desktop }}px;
+    --lbo-space-bottom-desktop: {{ section.settings.padding_bottom_desktop }}px;
+    --lbo-space-top-tablet: {{ section.settings.padding_top_tablet }}px;
+    --lbo-space-bottom-tablet: {{ section.settings.padding_bottom_tablet }}px;
+    --lbo-space-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --lbo-space-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+  "
+>
+  <div class="landing-bulk-offer__atmosphere" aria-hidden="true"></div>
+  <div class="landing-bulk-offer__flora landing-bulk-offer__flora--left" aria-hidden="true"></div>
+  <div class="landing-bulk-offer__flora landing-bulk-offer__flora--right" aria-hidden="true"></div>
+
+  <div class="landing-bulk-offer__decor" aria-hidden="true">
+    <svg class="landing-bulk-offer__decor-icon landing-bulk-offer__decor-icon--cross" viewBox="0 0 24 24" fill="none">
+      <path d="M12 3v18M6.5 9h11" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+    </svg>
+    <svg class="landing-bulk-offer__decor-icon landing-bulk-offer__decor-icon--dove" viewBox="0 0 24 24" fill="none">
+      <path d="M4 14c2.2-1.2 4.2-3.4 5.2-5.6.4 2.2 1.8 4.2 3.8 5.4 1.6.9 3.4 1.2 5.2 1.1-.8 1.4-2.2 2.5-3.8 3.1-2.4.9-5.1.5-7.1-1.1C5.6 15.7 4.6 14.8 4 14Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>
+      <path d="M14.5 8.2c1.4-.2 2.8.2 3.8 1.2.2-1.5-.3-3-1.5-4.1-.2 1.2-1 2.2-2.3 2.9Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>
+    </svg>
+    <svg class="landing-bulk-offer__decor-icon landing-bulk-offer__decor-icon--olive" viewBox="0 0 24 24" fill="none">
+      <path d="M12 21c0-4.2 1.8-7.5 4.8-9.8C14.2 9.5 12.8 7.2 12 4.5c-.8 2.7-2.2 5-4.8 6.7C10.2 13.5 12 16.8 12 21Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>
+      <path d="M12 21V11" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+    </svg>
+    <svg class="landing-bulk-offer__decor-icon landing-bulk-offer__decor-icon--bible" viewBox="0 0 24 24" fill="none">
+      <path d="M5 5.2A2.2 2.2 0 0 1 7.2 3H20v16.5H7.5A2.5 2.5 0 0 0 5 22" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+      <path d="M5 5.2V22" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+      <path d="M12.5 7.5v6M9.8 10.2h5.4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+    </svg>
+  </div>
+
+  <div class="landing-bulk-offer__inner">
+    <div class="landing-bulk-offer__panel" data-reveal>
+      {% if section.settings.show_badge %}
+        <span class="landing-bulk-offer__badge">{{ badge_text }}</span>
+      {% endif %}
+
+      <div class="landing-bulk-offer__copy">
+        {% if section.settings.eyebrow != blank %}
+          <p class="landing-bulk-offer__eyebrow">{{ section.settings.eyebrow }}</p>
+        {% endif %}
+
+        <h2 class="landing-bulk-offer__heading">{{ heading_text }}</h2>
+        <p class="landing-bulk-offer__subtitle">{{ subtitle_text }}</p>
+      </div>
+
+      <div class="landing-bulk-offer__cards">
+        {% for block in section.blocks %}
+          {% if block.type == 'offer_card' %}
+            <article
+              class="landing-bulk-offer__card"
+              style="--lbo-delay: {{ forloop.index0 }};"
+              data-reveal
+              {{ block.shopify_attributes }}
+            >
+              <span class="landing-bulk-offer__card-icon" aria-hidden="true">
+                {% case block.settings.icon %}
+                  {% when 'books' %}
+                    <svg viewBox="0 0 24 24" fill="none">
+                      <path d="M4.5 5.2A2 2 0 0 1 6.5 3.2H19.2v16.2H7A2.5 2.5 0 0 1 4.5 16.9V5.2Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                      <path d="M8.2 7.2h7.2M8.2 10.4h5.4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                  {% when 'discount' %}
+                    <svg viewBox="0 0 24 24" fill="none">
+                      <circle cx="8.2" cy="8.2" r="1.6" fill="currentColor"/>
+                      <circle cx="15.8" cy="15.8" r="1.6" fill="currentColor"/>
+                      <path d="M7.2 16.8 16.8 7.2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+                      <rect x="3.4" y="3.4" width="17.2" height="17.2" rx="4" stroke="currentColor" stroke-width="1.5"/>
+                    </svg>
+                  {% when 'groups' %}
+                    <svg viewBox="0 0 24 24" fill="none">
+                      <path d="M8.2 11a2.6 2.6 0 1 0 0-5.2 2.6 2.6 0 0 0 0 5.2ZM15.8 11a2.6 2.6 0 1 0 0-5.2 2.6 2.6 0 0 0 0 5.2Z" stroke="currentColor" stroke-width="1.5"/>
+                      <path d="M3.8 18.4c.5-2.5 2.5-4 4.4-4h.6c1.4 0 2.6.7 3.4 1.8.8-1.1 2-1.8 3.4-1.8h.6c1.9 0 3.9 1.5 4.4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                  {% when 'cross' %}
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M12 4v16M7 9h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                  {% when 'heart' %}
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M12 20s-6.4-4.2-8.5-7.8a4.8 4.8 0 0 1 7.8-5.4L12 7.4l.7-.6a4.8 4.8 0 0 1 7.8 5.4C18.4 15.8 12 20 12 20Z" fill="currentColor"/></svg>
+                  {% else %}
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M12 3.2 14.4 9l6.2 1-4.8 4.2 1.4 6.2L12 17.2 6.8 20.4l1.4-6.2L3.4 10l6.2-1L12 3.2Z" fill="currentColor"/></svg>
+                {% endcase %}
+              </span>
+              {% if block.settings.title != blank %}
+                <h3 class="landing-bulk-offer__card-title">{{ block.settings.title }}</h3>
+              {% endif %}
+              {% if block.settings.description != blank %}
+                <p class="landing-bulk-offer__card-text">{{ block.settings.description }}</p>
+              {% endif %}
+            </article>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+    </div>
+  </div>
+</landing-book-features>
+
+{% schema %}
+{
+  "name": "Bulk Discount Offer",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    { "type": "header", "content": "Visibility" },
+    { "type": "checkbox", "id": "enable_section", "label": "Enable section", "default": true },
+    { "type": "checkbox", "id": "show_on_desktop", "label": "Show on desktop", "default": true },
+    { "type": "checkbox", "id": "show_on_tablet", "label": "Show on tablet", "default": true },
+    { "type": "checkbox", "id": "show_on_mobile", "label": "Show on mobile", "default": true },
+
+    { "type": "header", "content": "Offer details" },
+    { "type": "range", "id": "discount_percent", "label": "Discount percentage", "min": 5, "max": 80, "step": 1, "unit": "%", "default": 40 },
+    { "type": "range", "id": "min_quantity", "label": "Minimum books", "min": 2, "max": 50, "step": 1, "default": 12 },
+    { "type": "checkbox", "id": "show_badge", "label": "Show discount badge", "default": true },
+    { "type": "text", "id": "badge_text", "label": "Badge text", "default": "40% OFF", "info": "Leave blank to use discount percentage." },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Bulk savings" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Save 40% on Bulk Orders", "info": "Leave blank to auto-build from discount percentage." },
+    { "type": "textarea", "id": "subtitle", "label": "Subtitle", "default": "Buy 12 or more books and automatically receive 40% off your order.", "info": "Leave blank to auto-build from discount and quantity." },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Order & Save 40%" },
+    { "type": "url", "id": "button_url", "label": "Button link" },
+    { "type": "text", "id": "note", "label": "Note below button", "default": "No coupon code required." },
+
+    { "type": "header", "content": "Layout" },
+    { "type": "range", "id": "container_width", "label": "Container width", "min": 960, "max": 1760, "step": 20, "unit": "px", "default": 1320 },
+    { "type": "range", "id": "content_width", "label": "Content width", "min": 720, "max": 1200, "step": 20, "unit": "px", "default": 980 },
+    { "type": "range", "id": "panel_radius", "label": "Panel radius", "min": 8, "max": 36, "step": 2, "unit": "px", "default": 20 },
+    { "type": "range", "id": "card_radius", "label": "Feature card radius", "min": 8, "max": 28, "step": 2, "unit": "px", "default": 16 },
+    { "type": "range", "id": "button_radius", "label": "Button radius", "min": 4, "max": 28, "step": 2, "unit": "px", "default": 10 },
+    { "type": "checkbox", "id": "enable_panel_shadow", "label": "Enable panel shadow", "default": true },
+
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "background_color", "label": "Section background start", "default": "#f7f1e6" },
+    { "type": "color", "id": "background_color_end", "label": "Section background end", "default": "#eef6fd" },
+    { "type": "color", "id": "panel_background", "label": "Panel background", "default": "#ffffff" },
+    { "type": "color", "id": "panel_border_color", "label": "Panel border", "default": "#e4ecf3" },
+    { "type": "color", "id": "card_background", "label": "Feature card background", "default": "#fbfcfe" },
+    { "type": "color", "id": "card_border_color", "label": "Feature card border", "default": "#e2ebf3" },
+    { "type": "color", "id": "badge_background", "label": "Badge background", "default": "#f8c533" },
+    { "type": "color", "id": "badge_text_color", "label": "Badge text", "default": "#0f3156" },
+    { "type": "color", "id": "icon_background", "label": "Icon background", "default": "#eef6fd" },
+    { "type": "color", "id": "icon_color", "label": "Icon color", "default": "#1e7db0" },
+    { "type": "color", "id": "heading_color", "label": "Heading color", "default": "#0f3156" },
+    { "type": "color", "id": "body_color", "label": "Body color", "default": "#4d6d86" },
+    { "type": "color", "id": "text_color", "label": "Base text color", "default": "#234a69" },
+    { "type": "color", "id": "accent_color", "label": "Accent color", "default": "#f8c533" },
+    { "type": "color", "id": "navy_color", "label": "Navy color", "default": "#0f3156" },
+    { "type": "color", "id": "decor_color", "label": "Decorative icon color", "default": "#c9a24a" },
+    { "type": "color", "id": "button_background", "label": "Button background", "default": "#f8c533" },
+    { "type": "color", "id": "button_background_hover", "label": "Button hover background", "default": "#f1bc21" },
+    { "type": "color", "id": "button_text_color", "label": "Button text", "default": "#0f3156" },
+
+    { "type": "header", "content": "Typography" },
+    { "type": "range", "id": "heading_size_desktop", "label": "Heading size desktop", "min": 24, "max": 52, "step": 1, "unit": "px", "default": 40 },
+    { "type": "range", "id": "heading_size_mobile", "label": "Heading size mobile", "min": 20, "max": 36, "step": 1, "unit": "px", "default": 28 },
+    { "type": "range", "id": "body_size_desktop", "label": "Body size desktop", "min": 14, "max": 20, "step": 1, "unit": "px", "default": 17 },
+    { "type": "range", "id": "body_size_mobile", "label": "Body size mobile", "min": 13, "max": 18, "step": 1, "unit": "px", "default": 15 },
+
+    { "type": "header", "content": "Spacing & animation" },
+    { "type": "range", "id": "padding_top_desktop", "label": "Desktop top spacing", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 48 },
+    { "type": "range", "id": "padding_bottom_desktop", "label": "Desktop bottom spacing", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 48 },
+    { "type": "range", "id": "padding_top_tablet", "label": "Tablet top spacing", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 36 },
+    { "type": "range", "id": "padding_bottom_tablet", "label": "Tablet bottom spacing", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 36 },
+    { "type": "range", "id": "padding_top_mobile", "label": "Mobile top spacing", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 28 },
+    { "type": "range", "id": "padding_bottom_mobile", "label": "Mobile bottom spacing", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 28 },
+    { "type": "checkbox", "id": "enable_animation", "label": "Enable reveal animation", "default": true }
+  ],
+  "blocks": [
+    {
+      "type": "offer_card",
+      "name": "Offer card",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "12+ Books" },
+        { "type": "textarea", "id": "description", "label": "Description", "default": "Mix any titles or purchase a single title." },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "books", "label": "Books" },
+            { "value": "discount", "label": "Discount" },
+            { "value": "groups", "label": "Groups" },
+            { "value": "cross", "label": "Cross" },
+            { "value": "heart", "label": "Heart" },
+            { "value": "spark", "label": "Spark" }
+          ],
+          "default": "books"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Bulk Discount Offer",
+      "settings": {
+        "discount_percent": 40,
+        "min_quantity": 12,
+        "heading": "Save 40% on Bulk Orders",
+        "subtitle": "Buy 12 or more books and automatically receive 40% off your order.",
+        "button_label": "Order & Save 40%",
+        "note": "No coupon code required."
+      },
+      "blocks": [
+        {
+          "type": "offer_card",
+          "settings": {
+            "title": "12+ Books",
+            "description": "Mix any titles or purchase a single title.",
+            "icon": "books"
+          }
+        },
+        {
+          "type": "offer_card",
+          "settings": {
+            "title": "Automatic Discount",
+            "description": "40% is applied automatically at checkout.",
+            "icon": "discount"
+          }
+        },
+        {
+          "type": "offer_card",
+          "settings": {
+            "title": "Perfect for Groups",
+            "description": "Ideal for churches, Bible studies, ministries, schools, and gifts.",
+            "icon": "groups"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

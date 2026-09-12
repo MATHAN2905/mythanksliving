@@ -1,0 +1,236 @@
+{{ 'landing-retail-logos.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'landing-retail-logos.js' | asset_url }}" defer></script>
+
+{% liquid
+  assign section_classes = 'landing-retail-logos color-custom-' | append: section.id
+
+  if section.settings.enable_section == false
+    assign section_classes = section_classes | append: ' landing-retail-logos--hidden'
+  endif
+  if section.settings.show_on_desktop == false
+    assign section_classes = section_classes | append: ' landing-retail-logos--desktop-hidden'
+  endif
+  if section.settings.show_on_tablet == false
+    assign section_classes = section_classes | append: ' landing-retail-logos--tablet-hidden'
+  endif
+  if section.settings.show_on_mobile == false
+    assign section_classes = section_classes | append: ' landing-retail-logos--mobile-hidden'
+  endif
+
+  assign overlay_color = section.settings.overlay_color
+  if section.settings.background_image == blank
+    assign overlay_color = 'transparent'
+  endif
+
+  assign mobile_slider_attr = 'false'
+  if section.settings.enable_mobile_slider and section.blocks.size > 1
+    assign mobile_slider_attr = 'true'
+  endif
+%}
+
+{% render 'contrast-override', background_color: section.settings.background_color, text_color: section.settings.text_color, section_id: section.id %}
+
+<landing-retail-logos
+  class="{{ section_classes }}"
+  data-mobile-slider="{{ mobile_slider_attr }}"
+  data-animate="{{ section.settings.enable_animation }}"
+  style="
+    --lrl-bg: {{ section.settings.background_color }};
+    --lrl-bg-image: {% if section.settings.background_image != blank %}url('{{ section.settings.background_image | image_url: width: 2400 }}'){% else %}none{% endif %};
+    --lrl-overlay: {{ overlay_color }};
+    --lrl-overlay-opacity: {{ section.settings.overlay_opacity }};
+    --lrl-text: {{ section.settings.text_color }};
+    --lrl-title-color: {{ section.settings.heading_color }};
+    --lrl-title-dot-rgb: {{ section.settings.heading_color.rgb }};
+    --lrl-title-size-desktop: {{ section.settings.heading_size_desktop }}px;
+    --lrl-title-size-mobile: {{ section.settings.heading_size_mobile }}px;
+    --lrl-title-weight: {{ section.settings.heading_weight }};
+    --lrl-title-letter-spacing: {{ section.settings.heading_letter_spacing }}px;
+    --lrl-title-line-height: {{ section.settings.heading_line_height }};
+    --lrl-container-width: {{ section.settings.container_width }}px;
+    --lrl-content-width: {{ section.settings.content_width }}px;
+    --lrl-grid-gap: {{ section.settings.logo_gap_desktop }}px;
+    --lrl-grid-gap-mobile: {{ section.settings.logo_gap_mobile }}px;
+    --lrl-grid-columns: {{ section.settings.columns_desktop }};
+    --lrl-grid-columns-tablet: {{ section.settings.columns_tablet }};
+    --lrl-grid-columns-mobile: {{ section.settings.columns_mobile }};
+    --lrl-slide-width: {{ section.settings.mobile_slide_width }}%;
+    --lrl-card-height: {{ section.settings.card_height_desktop }}px;
+    --lrl-card-height-mobile: {{ section.settings.card_height_mobile }}px;
+    --lrl-card-radius: {{ section.settings.card_radius }}px;
+    --lrl-card-bg: {{ section.settings.card_background_color }};
+    --lrl-card-border-rgb: {{ section.settings.card_border_color.rgb }};
+    --lrl-card-border-opacity: {{ section.settings.card_border_opacity }};
+    --lrl-card-shadow: {% if section.settings.enable_card_shadow %}0 8px 18px rgb(15 49 86 / 0.06){% else %}none{% endif %};
+    --lrl-logo-max-width: {{ section.settings.logo_max_width }}px;
+    --lrl-logo-max-height: {{ section.settings.logo_max_height }}px;
+    --lrl-logo-fallback-color: {{ section.settings.text_color }};
+    --lrl-space-top-desktop: {{ section.settings.padding_top_desktop }}px;
+    --lrl-space-bottom-desktop: {{ section.settings.padding_bottom_desktop }}px;
+    --lrl-space-inline-desktop: {{ section.settings.padding_inline_desktop }}px;
+    --lrl-space-top-tablet: {{ section.settings.padding_top_tablet }}px;
+    --lrl-space-bottom-tablet: {{ section.settings.padding_bottom_tablet }}px;
+    --lrl-space-inline-tablet: {{ section.settings.padding_inline_tablet }}px;
+    --lrl-space-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --lrl-space-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+    --lrl-space-inline-mobile: {{ section.settings.padding_inline_mobile }}px;
+  "
+>
+  <div class="landing-retail-logos__bg" aria-hidden="true"></div>
+  <div class="landing-retail-logos__overlay" aria-hidden="true"></div>
+
+  <div class="landing-retail-logos__inner">
+    {% if section.settings.heading != blank %}
+      <div class="landing-retail-logos__title-wrap">
+        <h2 class="landing-retail-logos__title">{{ section.settings.heading }}</h2>
+      </div>
+    {% endif %}
+
+    <div class="landing-retail-logos__list" data-track>
+      {% for block in section.blocks %}
+        {% if block.type == 'logo_item' %}
+          <div class="landing-retail-logos__item" data-card {{ block.shopify_attributes }}>
+            {% if block.settings.link != blank %}
+              <a class="landing-retail-logos__link" href="{{ block.settings.link }}" {% render 'landing-link-target', url: block.settings.link %}>
+            {% else %}
+              <div class="landing-retail-logos__link">
+            {% endif %}
+
+            <div class="landing-retail-logos__logo-wrap" style="--lrl-logo-max-width: {{ block.settings.logo_width }}px; --lrl-logo-max-height: {{ block.settings.logo_height }}px;">
+              {% if block.settings.logo_image != blank %}
+                {{ block.settings.logo_image | image_url: width: 600 | image_tag: class: 'landing-retail-logos__logo', widths: '90,140,220,320,420,600', sizes: '(max-width: 749px) 45vw, (max-width: 989px) 28vw, 16vw', loading: 'lazy', alt: block.settings.logo_alt }}
+              {% elsif block.settings.logo_text != blank %}
+                <p class="landing-retail-logos__logo-text">{{ block.settings.logo_text }}</p>
+              {% else %}
+                <p class="landing-retail-logos__logo-text">Retail logo</p>
+              {% endif %}
+            </div>
+
+            {% if block.settings.link != blank %}
+              </a>
+            {% else %}
+              </div>
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    {% if mobile_slider_attr == 'true' and section.settings.show_mobile_dots %}
+      <div class="landing-retail-logos__slider" aria-label="Logo slider dots">
+        {% for block in section.blocks %}
+          {% if block.type == 'logo_item' %}
+            <button
+              type="button"
+              class="landing-retail-logos__dot"
+              data-dot
+              aria-label="Go to logo {{ forloop.index }}"
+              aria-current="{% if forloop.first %}true{% else %}false{% endif %}"
+            ></button>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</landing-retail-logos>
+
+{% schema %}
+{
+  "name": "Landing Retail Logos",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    { "type": "header", "content": "Visibility" },
+    { "type": "checkbox", "id": "enable_section", "label": "Enable section", "default": true },
+    { "type": "checkbox", "id": "show_on_desktop", "label": "Show on desktop", "default": true },
+    { "type": "checkbox", "id": "show_on_tablet", "label": "Show on tablet", "default": true },
+    { "type": "checkbox", "id": "show_on_mobile", "label": "Show on mobile", "default": true },
+
+    { "type": "header", "content": "Heading" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Available everywhere" },
+    { "type": "color", "id": "heading_color", "label": "Heading color", "default": "#5f7d95" },
+    { "type": "range", "id": "heading_size_desktop", "label": "Heading size desktop", "min": 10, "max": 24, "step": 1, "unit": "px", "default": 16 },
+    { "type": "range", "id": "heading_size_mobile", "label": "Heading size mobile", "min": 9, "max": 20, "step": 1, "unit": "px", "default": 12 },
+    { "type": "select", "id": "heading_weight", "label": "Heading weight", "options": [{ "value": "500", "label": "Medium" }, { "value": "600", "label": "Semibold" }, { "value": "700", "label": "Bold" }], "default": "700" },
+    { "type": "range", "id": "heading_letter_spacing", "label": "Heading letter spacing", "min": 0, "max": 8, "step": 0.5, "unit": "px", "default": 3 },
+    { "type": "range", "id": "heading_line_height", "label": "Heading line height", "min": 1, "max": 2, "step": 0.1, "default": 1.2 },
+
+    { "type": "header", "content": "Layout" },
+    { "type": "range", "id": "container_width", "label": "Container width", "min": 960, "max": 1760, "step": 20, "unit": "px", "default": 1320 },
+    { "type": "range", "id": "content_width", "label": "Content width", "min": 880, "max": 1720, "step": 20, "unit": "px", "default": 1280 },
+    { "type": "range", "id": "columns_desktop", "label": "Desktop columns", "min": 3, "max": 8, "step": 1, "default": 6 },
+    { "type": "range", "id": "columns_tablet", "label": "Tablet columns", "min": 2, "max": 5, "step": 1, "default": 3 },
+    { "type": "range", "id": "columns_mobile", "label": "Mobile columns", "min": 1, "max": 4, "step": 1, "default": 2 },
+    { "type": "range", "id": "logo_gap_desktop", "label": "Desktop logo gap", "min": 4, "max": 40, "step": 2, "unit": "px", "default": 12 },
+    { "type": "range", "id": "logo_gap_mobile", "label": "Mobile logo gap", "min": 4, "max": 26, "step": 2, "unit": "px", "default": 10 },
+    { "type": "range", "id": "card_height_desktop", "label": "Card height desktop", "min": 52, "max": 140, "step": 2, "unit": "px", "default": 78 },
+    { "type": "range", "id": "card_height_mobile", "label": "Card height mobile", "min": 44, "max": 120, "step": 2, "unit": "px", "default": 64 },
+    { "type": "range", "id": "card_radius", "label": "Card radius", "min": 0, "max": 30, "step": 1, "unit": "px", "default": 12 },
+    { "type": "range", "id": "logo_max_width", "label": "Logo max width", "min": 70, "max": 240, "step": 2, "unit": "px", "default": 154 },
+    { "type": "range", "id": "logo_max_height", "label": "Logo max height", "min": 16, "max": 70, "step": 1, "unit": "px", "default": 30 },
+
+    { "type": "header", "content": "Mobile slider" },
+    { "type": "checkbox", "id": "enable_mobile_slider", "label": "Enable mobile slider", "default": true },
+    { "type": "checkbox", "id": "show_mobile_dots", "label": "Show mobile dots", "default": true },
+    { "type": "range", "id": "mobile_slide_width", "label": "Mobile slide width", "min": 50, "max": 94, "step": 1, "unit": "%", "default": 74 },
+
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "background_color", "label": "Section background", "default": "#ffffff" },
+    { "type": "color", "id": "text_color", "label": "Text color", "default": "#0f3156" },
+    { "type": "image_picker", "id": "background_image", "label": "Background image" },
+    { "type": "color", "id": "overlay_color", "label": "Overlay color", "default": "#0f315600" },
+    { "type": "range", "id": "overlay_opacity", "label": "Overlay opacity", "min": 0, "max": 100, "step": 1, "unit": "%", "default": 0 },
+    { "type": "color", "id": "card_background_color", "label": "Card background", "default": "#ffffff" },
+    { "type": "color", "id": "card_border_color", "label": "Card border color", "default": "#d0e0ef" },
+    { "type": "range", "id": "card_border_opacity", "label": "Card border opacity", "min": 0, "max": 100, "step": 1, "unit": "%", "default": 70 },
+    { "type": "checkbox", "id": "enable_card_shadow", "label": "Enable card shadow", "default": true },
+
+    { "type": "header", "content": "Spacing" },
+    { "type": "range", "id": "padding_top_desktop", "label": "Desktop top spacing", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 20 },
+    { "type": "range", "id": "padding_bottom_desktop", "label": "Desktop bottom spacing", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 20 },
+    { "type": "range", "id": "padding_inline_desktop", "label": "Desktop side spacing", "min": 0, "max": 80, "step": 4, "unit": "px", "default": 16 },
+    { "type": "range", "id": "padding_top_tablet", "label": "Tablet top spacing", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 16 },
+    { "type": "range", "id": "padding_bottom_tablet", "label": "Tablet bottom spacing", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 20 },
+    { "type": "range", "id": "padding_inline_tablet", "label": "Tablet side spacing", "min": 0, "max": 80, "step": 4, "unit": "px", "default": 12 },
+    { "type": "range", "id": "padding_top_mobile", "label": "Mobile top spacing", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 16 },
+    { "type": "range", "id": "padding_bottom_mobile", "label": "Mobile bottom spacing", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 16 },
+    { "type": "range", "id": "padding_inline_mobile", "label": "Mobile side spacing", "min": 0, "max": 60, "step": 2, "unit": "px", "default": 8 },
+
+    { "type": "header", "content": "Animation" },
+    { "type": "checkbox", "id": "enable_animation", "label": "Enable reveal animation", "default": true }
+  ],
+  "blocks": [
+    {
+      "type": "logo_item",
+      "name": "Retail logo",
+      "settings": [
+        { "type": "image_picker", "id": "logo_image", "label": "Logo image" },
+        { "type": "text", "id": "logo_alt", "label": "Logo alt text", "default": "Retail logo" },
+        { "type": "text", "id": "logo_text", "label": "Logo fallback text", "default": "Retail" },
+        { "type": "url", "id": "link", "label": "Logo link" },
+        { "type": "checkbox", "id": "open_in_new_tab", "label": "Open link in new tab", "default": false },
+        { "type": "range", "id": "logo_width", "label": "Logo width", "min": 60, "max": 300, "step": 4, "unit": "px", "default": 156 },
+        { "type": "range", "id": "logo_height", "label": "Logo max height", "min": 16, "max": 90, "step": 1, "unit": "px", "default": 30 }
+      ]
+    }
+  ],
+  "max_blocks": 16,
+  "presets": [
+    {
+      "name": "Landing Retail Logos",
+      "blocks": [
+        { "type": "logo_item", "settings": { "logo_text": "Amazon" } },
+        { "type": "logo_item", "settings": { "logo_text": "Barnes & Noble" } },
+        { "type": "logo_item", "settings": { "logo_text": "Books-A-Million" } },
+        { "type": "logo_item", "settings": { "logo_text": "Christianbook" } },
+        { "type": "logo_item", "settings": { "logo_text": "Audible" } },
+        { "type": "logo_item", "settings": { "logo_text": "Spotify" } },
+        { "type": "logo_item", "settings": { "logo_text": "Apple Books" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

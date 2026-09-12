@@ -1,0 +1,297 @@
+{{ 'landing-footer.css' | asset_url | stylesheet_tag }}
+{{ 'landing-logo-brand.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'landing-footer.js' | asset_url }}" defer></script>
+
+{% liquid
+  assign section_classes = 'landing-footer color-custom-' | append: section.id
+
+  if section.settings.enable_section == false
+    assign section_classes = section_classes | append: ' landing-footer--hidden'
+  endif
+  if section.settings.show_on_desktop == false
+    assign section_classes = section_classes | append: ' landing-footer--desktop-hidden'
+  endif
+  if section.settings.show_on_tablet == false
+    assign section_classes = section_classes | append: ' landing-footer--tablet-hidden'
+  endif
+  if section.settings.show_on_mobile == false
+    assign section_classes = section_classes | append: ' landing-footer--mobile-hidden'
+  endif
+
+  assign overlay_color = section.settings.overlay_color
+  if section.settings.background_image == blank
+    assign overlay_color = 'transparent'
+  endif
+
+  assign now_year = 'now' | date: '%Y'
+
+  assign footer_logo_text = section.settings.logo_text | default: section.settings.brand_name
+  assign footer_logo_subtext = section.settings.logo_subtext
+  if footer_logo_subtext == blank and section.settings.tagline != blank
+    assign footer_logo_subtext = section.settings.tagline | strip_html | strip
+  endif
+%}
+
+{% render 'contrast-override', background_color: section.settings.background_color, text_color: section.settings.text_color, section_id: section.id %}
+
+{% style %}
+  #shopify-section-{{ section.id }},
+  #shopify-section-{{ section.id }} .section,
+  #shopify-section-{{ section.id }} .landing-footer {
+    background: {{ section.settings.background_color }} !important;
+    background-color: {{ section.settings.background_color }} !important;
+  }
+
+  #shopify-section-{{ section.id }} .landing-footer__panel {
+    background: {{ section.settings.panel_background | default: section.settings.background_color }} !important;
+  }
+{% endstyle %}
+
+<landing-footer
+  class="{{ section_classes }}"
+  data-animate="{{ section.settings.enable_animation }}"
+  style="
+    --lfo-bg: {{ section.settings.background_color }};
+    --lfo-bg-image: {% if section.settings.background_image != blank %}url('{{ section.settings.background_image | image_url: width: 2600 }}'){% else %}none{% endif %};
+    --lfo-overlay: {{ overlay_color }};
+    --lfo-overlay-opacity: {{ section.settings.overlay_opacity }};
+    --lfo-panel-bg: {{ section.settings.panel_background }};
+    --lfo-border-rgb: {{ section.settings.panel_border_color.rgb }};
+    --lfo-border-opacity: {{ section.settings.panel_border_opacity }};
+    --lfo-heading: {{ section.settings.heading_color }};
+    --lfo-text: {{ section.settings.text_color }};
+    --lfo-link: {{ section.settings.link_color }};
+    --lfo-accent: {{ section.settings.accent_color }};
+    --lfo-container-width: {{ section.settings.container_width }}px;
+    --lfo-content-width: {{ section.settings.content_width }}px;
+    --lfo-column-gap: {{ section.settings.column_gap }}px;
+    --lfo-link-columns: {{ section.settings.link_columns }};
+    --lfo-social-size: {{ section.settings.social_icon_size }}px;
+    --lfo-heading-size: {{ section.settings.heading_size }}px;
+    --lfo-body-size: {{ section.settings.body_size }}px;
+    --lfo-space-top-desktop: {{ section.settings.padding_top_desktop }}px;
+    --lfo-space-bottom-desktop: {{ section.settings.padding_bottom_desktop }}px;
+    --lfo-space-top-tablet: {{ section.settings.padding_top_tablet }}px;
+    --lfo-space-bottom-tablet: {{ section.settings.padding_bottom_tablet }}px;
+    --lfo-space-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --lfo-space-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+    --llb-icon-size: {{ section.settings.logo_icon_size }}px;
+    --llb-icon-size-mobile: {{ section.settings.logo_icon_size_mobile }}px;
+    --llb-title-color: {{ section.settings.heading_color }};
+    --llb-subtext-color: {{ section.settings.text_color }};
+    --llb-subtext-opacity: 0.85;
+    background: {{ section.settings.background_color }};
+    background-color: {{ section.settings.background_color }};
+  "
+>
+  <div class="landing-footer__bg" aria-hidden="true"></div>
+  <div class="landing-footer__overlay" aria-hidden="true"></div>
+
+  <div class="landing-footer__inner">
+    <div class="landing-footer__panel" data-reveal="up">
+      <div class="landing-footer__top">
+        <div>
+          <a
+            class="landing-footer__logo-link"
+            href="{{ section.settings.logo_link | default: routes.root_url }}"
+            aria-label="{{ section.settings.logo_alt | default: footer_logo_text | escape }}"
+          >
+            {% render 'landing-logo-brand',
+              logo_image: section.settings.logo_image,
+              logo_image_class: 'landing-footer__logo-image',
+              logo_icon: section.settings.logo_icon,
+              logo_text: footer_logo_text,
+              logo_subtext: footer_logo_subtext,
+              logo_alt: section.settings.logo_alt,
+              icon_loading: 'lazy'
+            %}
+          </a>
+        </div>
+
+        <div>
+          {% if section.settings.nav_heading != blank %}
+            <p class="landing-footer__group-title">{{ section.settings.nav_heading }}</p>
+          {% endif %}
+
+          {% assign has_footer_links = false %}
+          {% for block in section.blocks %}
+            {% if block.type == 'footer_link' and block.settings.label != blank %}
+              {% assign has_footer_links = true %}
+              {% break %}
+            {% endif %}
+          {% endfor %}
+
+          {% if has_footer_links %}
+            <ul class="landing-footer__links">
+              {% for block in section.blocks %}
+                {% if block.type == 'footer_link' and block.settings.label != blank %}
+                  <li {{ block.shopify_attributes }}>
+                    <a class="landing-footer__link" href="{{ block.settings.url | default: '#' }}" {% render 'landing-link-target', url: block.settings.url %}>{{ block.settings.label }}</a>
+                  </li>
+                {% endif %}
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </div>
+
+        <div class="landing-footer__cta">
+          {% if section.settings.social_heading != blank %}
+            <p class="landing-footer__group-title">{{ section.settings.social_heading }}</p>
+          {% endif %}
+
+          {% assign has_social_links = false %}
+          {% for block in section.blocks %}
+            {% if block.type == 'social_link' and block.settings.url != blank %}
+              {% assign has_social_links = true %}
+              {% break %}
+            {% endif %}
+          {% endfor %}
+
+          {% if has_social_links %}
+            <ul class="landing-footer__social-list">
+              {% for block in section.blocks %}
+                {% if block.type == 'social_link' and block.settings.url != blank %}
+                  <li {{ block.shopify_attributes }}>
+                    <a class="landing-footer__social-link" href="{{ block.settings.url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ block.settings.network | capitalize }}">
+                      {% case block.settings.network %}
+                        {% when 'instagram' %}
+                          <svg viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="5" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="3.7" stroke="currentColor" stroke-width="1.8"/><circle cx="17.1" cy="6.9" r="1" fill="currentColor"/></svg>
+                        {% when 'facebook' %}
+                          <svg viewBox="0 0 24 24" fill="none"><path d="M13.5 21v-7.2h2.7l.4-3h-3.1V9c0-.9.3-1.5 1.6-1.5h1.7V4.8c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.4-4 4.1v2.1H8v3h2.4V21h3.1Z" fill="currentColor"/></svg>
+                        {% when 'youtube' %}
+                          <svg viewBox="0 0 24 24" fill="none"><path d="M21 8.3a2.8 2.8 0 0 0-2-2C17.3 6 12 6 12 6s-5.3 0-7 .3a2.8 2.8 0 0 0-2 2C2.7 10 2.7 12 2.7 12s0 2 .3 3.7a2.8 2.8 0 0 0 2 2c1.7.3 7 .3 7 .3s5.3 0 7-.3a2.8 2.8 0 0 0 2-2c.3-1.7.3-3.7.3-3.7s0-2-.3-3.7Z" stroke="currentColor" stroke-width="1.6"/><path d="m10.3 15.2 4.5-3.2-4.5-3.2v6.4Z" fill="currentColor"/></svg>
+                        {% when 'x' %}
+                          <svg viewBox="0 0 24 24" fill="none"><path d="M4 4h4.2l3.5 4.9L16.2 4H20l-6.4 7.3L20.4 20h-4.2l-3.8-5.3L7.8 20H4l6.8-7.8L4 4Z" fill="currentColor"/></svg>
+                        {% else %}
+                          <svg viewBox="0 0 24 24" fill="none"><path d="M12 4v16M4 12h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                      {% endcase %}
+                    </a>
+                  </li>
+                {% endif %}
+              {% endfor %}
+            </ul>
+          {% endif %}
+
+          {% if section.settings.cta_label != blank %}
+            <p style="margin:10px 0 0;">
+              <a class="landing-footer__cta-button" href="{{ section.settings.cta_url | default: '#' }}" {% render 'landing-link-target', url: section.settings.cta_url %}>{{ section.settings.cta_label }}</a>
+            </p>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="landing-footer__bottom">
+        {% assign now_year = 'now' | date: '%Y' %}
+
+        {% if section.settings.legal_text != blank %}
+        <p class="landing-footer__legal">
+          &copy; {{ now_year }} Thanks Living. All rights reserved.
+            <span class="visually-hidden" data-current-year>{{ now_year }}</span>
+        </p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</landing-footer>
+
+{% schema %}
+{
+  "name": "Landing Footer",
+  "tag": "section",
+  "class": "section",
+  "enabled_on": {
+    "groups": ["footer"]
+  },
+  "settings": [
+    { "type": "header", "content": "Visibility" },
+    { "type": "checkbox", "id": "enable_section", "label": "Enable section", "default": true },
+    { "type": "checkbox", "id": "show_on_desktop", "label": "Show on desktop", "default": true },
+    { "type": "checkbox", "id": "show_on_tablet", "label": "Show on tablet", "default": true },
+    { "type": "checkbox", "id": "show_on_mobile", "label": "Show on mobile", "default": true },
+
+    { "type": "header", "content": "Content" },
+    { "type": "header", "content": "Logo" },
+    { "type": "image_picker", "id": "logo_image", "label": "Logo image", "info": "Optional full logo image. Leave blank to use icon + text layout." },
+    { "type": "image_picker", "id": "logo_icon", "label": "Logo icon", "info": "Shown to the left of the logo text. Leave blank to use the default icon." },
+    { "type": "text", "id": "logo_text", "label": "Logo title", "default": "Thanks Living" },
+    { "type": "text", "id": "logo_subtext", "label": "Logo tagline", "default": "Embracing gratitude every day" },
+    { "type": "text", "id": "logo_alt", "label": "Logo accessibility label", "default": "Thanks Living" },
+    { "type": "url", "id": "logo_link", "label": "Logo link" },
+    { "type": "range", "id": "logo_icon_size", "label": "Logo icon size desktop", "min": 32, "max": 72, "step": 2, "unit": "px", "default": 48 },
+    { "type": "range", "id": "logo_icon_size_mobile", "label": "Logo icon size mobile", "min": 28, "max": 60, "step": 2, "unit": "px", "default": 40 },
+    { "type": "text", "id": "brand_name", "label": "Brand name (legacy fallback)", "default": "Thanks Living", "info": "Used only if Logo title is blank." },
+    { "type": "richtext", "id": "tagline", "label": "Tagline (legacy fallback)", "default": "<p>Living every day with gratitude rooted in truth.</p>", "info": "Used only if Logo tagline is blank." },
+    { "type": "text", "id": "nav_heading", "label": "Navigation heading", "default": "Explore" },
+    { "type": "text", "id": "social_heading", "label": "Social heading", "default": "Connect" },
+    { "type": "text", "id": "cta_label", "label": "Footer button label", "default": "Order the book" },
+    { "type": "url", "id": "cta_url", "label": "Footer button link" },
+    { "type": "text", "id": "legal_text", "label": "Legal text", "default": "Thanks Living. All rights reserved." },
+
+    { "type": "header", "content": "Layout" },
+    { "type": "range", "id": "container_width", "label": "Container width", "min": 960, "max": 1760, "step": 20, "unit": "px", "default": 1320 },
+    { "type": "range", "id": "content_width", "label": "Content width", "min": 860, "max": 1720, "step": 20, "unit": "px", "default": 1240 },
+    { "type": "range", "id": "column_gap", "label": "Column gap", "min": 10, "max": 48, "step": 2, "unit": "px", "default": 22 },
+    { "type": "select", "id": "link_columns", "label": "Link columns", "options": [{ "value": "1", "label": "1 column" }, { "value": "2", "label": "2 columns" }, { "value": "3", "label": "3 columns" }], "default": "2" },
+    { "type": "range", "id": "social_icon_size", "label": "Social icon size", "min": 26, "max": 54, "step": 2, "unit": "px", "default": 34 },
+
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "background_color", "label": "Section background", "default": "#0a2740" },
+    { "type": "image_picker", "id": "background_image", "label": "Background image" },
+    { "type": "color", "id": "overlay_color", "label": "Overlay color", "default": "#0b2d4926" },
+    { "type": "range", "id": "overlay_opacity", "label": "Overlay opacity", "min": 0, "max": 100, "step": 2, "unit": "%", "default": 16 },
+    { "type": "color", "id": "panel_background", "label": "Panel background", "default": "#0a2740" },
+    { "type": "color", "id": "panel_border_color", "label": "Panel border", "default": "#2f5f86" },
+    { "type": "range", "id": "panel_border_opacity", "label": "Panel border opacity", "min": 0, "max": 100, "step": 2, "unit": "%", "default": 70 },
+    { "type": "color", "id": "heading_color", "label": "Heading color", "default": "#ffffff" },
+    { "type": "color", "id": "text_color", "label": "Text color", "default": "#cfe1f2" },
+    { "type": "color", "id": "link_color", "label": "Link color", "default": "#dcecff" },
+    { "type": "color", "id": "accent_color", "label": "Accent color", "default": "#95bfe6" },
+
+    { "type": "header", "content": "Typography and animation" },
+    { "type": "range", "id": "heading_size", "label": "Brand heading size", "min": 20, "max": 54, "step": 2, "unit": "px", "default": 28 },
+    { "type": "range", "id": "body_size", "label": "Body text size", "min": 12, "max": 18, "step": 1, "unit": "px", "default": 14 },
+    { "type": "checkbox", "id": "enable_animation", "label": "Enable reveal animation", "default": true },
+
+    { "type": "header", "content": "Spacing" },
+    { "type": "range", "id": "padding_top_desktop", "label": "Desktop top spacing", "min": 0, "max": 180, "step": 4, "unit": "px", "default": 28 },
+    { "type": "range", "id": "padding_bottom_desktop", "label": "Desktop bottom spacing", "min": 0, "max": 180, "step": 4, "unit": "px", "default": 28 },
+    { "type": "range", "id": "padding_top_tablet", "label": "Tablet top spacing", "min": 0, "max": 180, "step": 4, "unit": "px", "default": 20 },
+    { "type": "range", "id": "padding_bottom_tablet", "label": "Tablet bottom spacing", "min": 0, "max": 180, "step": 4, "unit": "px", "default": 20 },
+    { "type": "range", "id": "padding_top_mobile", "label": "Mobile top spacing", "min": 0, "max": 180, "step": 4, "unit": "px", "default": 16 },
+    { "type": "range", "id": "padding_bottom_mobile", "label": "Mobile bottom spacing", "min": 0, "max": 180, "step": 4, "unit": "px", "default": 16 }
+  ],
+  "blocks": [
+    {
+      "type": "footer_link",
+      "name": "Footer link",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "About the book" },
+        { "type": "url", "id": "url", "label": "Link" },
+        { "type": "checkbox", "id": "new_tab", "label": "Open in new tab", "default": false }
+      ]
+    },
+    {
+      "type": "social_link",
+      "name": "Social link",
+      "settings": [
+        { "type": "select", "id": "network", "label": "Network", "options": [{ "value": "instagram", "label": "Instagram" }, { "value": "facebook", "label": "Facebook" }, { "value": "youtube", "label": "YouTube" }, { "value": "x", "label": "X" }], "default": "instagram" },
+        { "type": "url", "id": "url", "label": "Profile URL" }
+      ]
+    }
+  ],
+  "max_blocks": 14,
+  "presets": [
+    {
+      "name": "Landing Footer",
+      "blocks": [
+        { "type": "footer_link", "settings": { "label": "About the book" } },
+        { "type": "footer_link", "settings": { "label": "Bonus QR experience" } },
+        { "type": "footer_link", "settings": { "label": "Testimonials" } },
+        { "type": "footer_link", "settings": { "label": "FAQ" } },
+        { "type": "social_link", "settings": { "network": "instagram" } },
+        { "type": "social_link", "settings": { "network": "facebook" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

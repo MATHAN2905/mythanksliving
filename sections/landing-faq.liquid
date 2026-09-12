@@ -1,0 +1,205 @@
+{{ 'landing-faq.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'landing-faq.js' | asset_url }}" defer></script>
+
+{% liquid
+  assign section_classes = 'landing-faq color-custom-' | append: section.id
+
+  if section.settings.enable_section == false
+    assign section_classes = section_classes | append: ' landing-faq--hidden'
+  endif
+  if section.settings.show_on_desktop == false
+    assign section_classes = section_classes | append: ' landing-faq--desktop-hidden'
+  endif
+  if section.settings.show_on_tablet == false
+    assign section_classes = section_classes | append: ' landing-faq--tablet-hidden'
+  endif
+  if section.settings.show_on_mobile == false
+    assign section_classes = section_classes | append: ' landing-faq--mobile-hidden'
+  endif
+
+  assign overlay_color = section.settings.overlay_color
+  if section.settings.background_image == blank
+    assign overlay_color = 'transparent'
+  endif
+
+  assign row_shadow = 'none'
+  if section.settings.enable_row_shadow
+    assign row_shadow = '0 10px 20px rgb(8 36 61 / 0.06)'
+  endif
+%}
+
+{% render 'contrast-override', background_color: section.settings.background_color, text_color: section.settings.text_color, section_id: section.id %}
+
+<landing-faq
+  id="faq"
+  class="{{ section_classes }}"
+  data-animate="{{ section.settings.enable_animation }}"
+  data-single-open="{{ section.settings.single_open_mode }}"
+  style="
+    --lfq-bg: {{ section.settings.background_color }};
+    --lfq-bg-image: {% if section.settings.background_image != blank %}url('{{ section.settings.background_image | image_url: width: 2600 }}'){% else %}none{% endif %};
+    --lfq-overlay: {{ overlay_color }};
+    --lfq-overlay-opacity: {{ section.settings.overlay_opacity }};
+    --lfq-text: {{ section.settings.text_color }};
+    --lfq-heading: {{ section.settings.heading_color }};
+    --lfq-accent: {{ section.settings.accent_color }};
+    --lfq-container-width: {{ section.settings.container_width }}px;
+    --lfq-content-width: {{ section.settings.content_width }}px;
+    --lfq-head-align: {{ section.settings.heading_align }};
+    --lfq-row-gap: {{ section.settings.row_gap }}px;
+    --lfq-row-radius: {{ section.settings.row_radius }}px;
+    --lfq-row-bg: {{ section.settings.row_background }};
+    --lfq-border-rgb: {{ section.settings.row_border_color.rgb }};
+    --lfq-border-opacity: {{ section.settings.row_border_opacity }};
+    --lfq-shadow: {{ row_shadow }};
+    --lfq-heading-size-desktop: {{ section.settings.heading_size_desktop }}px;
+    --lfq-heading-size-mobile: {{ section.settings.heading_size_mobile }}px;
+    --lfq-heading-weight: {{ section.settings.heading_weight }};
+    --lfq-body-size-desktop: {{ section.settings.body_size_desktop }}px;
+    --lfq-body-size-mobile: {{ section.settings.body_size_mobile }}px;
+    --lfq-question-size: {{ section.settings.question_size }}px;
+    --lfq-space-top-desktop: {{ section.settings.padding_top_desktop }}px;
+    --lfq-space-bottom-desktop: {{ section.settings.padding_bottom_desktop }}px;
+    --lfq-space-top-tablet: {{ section.settings.padding_top_tablet }}px;
+    --lfq-space-bottom-tablet: {{ section.settings.padding_bottom_tablet }}px;
+    --lfq-space-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --lfq-space-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+  "
+>
+  <div class="landing-faq__bg" aria-hidden="true"></div>
+  <div class="landing-faq__overlay" aria-hidden="true"></div>
+
+  <div class="landing-faq__inner">
+    <div class="landing-faq__head" data-reveal="up">
+      {% if section.settings.eyebrow != blank %}
+        <p class="landing-faq__eyebrow">{{ section.settings.eyebrow }}</p>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <h2 class="landing-faq__heading">{{ section.settings.heading }}</h2>
+      {% endif %}
+
+      {% if section.settings.intro != blank %}
+        <div class="landing-faq__intro rte">{{ section.settings.intro }}</div>
+      {% endif %}
+    </div>
+
+    <div class="landing-faq__list" data-reveal="up">
+      {% for block in section.blocks %}
+        {% if block.type == 'faq_item' and block.settings.question != blank and block.settings.answer != blank %}
+          <details class="landing-faq__item" name="landing-faq-{{ section.id }}" {% if block.settings.open_by_default %}open{% endif %} {{ block.shopify_attributes }}>
+            <summary class="landing-faq__summary">
+              <span>{{ block.settings.question }}</span>
+              <span class="landing-faq__icon" aria-hidden="true">+</span>
+            </summary>
+            <div class="landing-faq__answer rte">{{ block.settings.answer }}</div>
+          </details>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</landing-faq>
+
+{% schema %}
+{
+  "name": "Landing FAQ",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    { "type": "header", "content": "Visibility" },
+    { "type": "checkbox", "id": "enable_section", "label": "Enable section", "default": true },
+    { "type": "checkbox", "id": "show_on_desktop", "label": "Show on desktop", "default": true },
+    { "type": "checkbox", "id": "show_on_tablet", "label": "Show on tablet", "default": true },
+    { "type": "checkbox", "id": "show_on_mobile", "label": "Show on mobile", "default": true },
+
+    { "type": "header", "content": "Content" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Need help?" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Frequently asked questions" },
+    { "type": "richtext", "id": "intro", "label": "Intro", "default": "<p>Answers to the most common questions about the book, bonus content, and ordering.</p>" },
+    { "type": "select", "id": "heading_align", "label": "Heading alignment", "options": [{ "value": "left", "label": "Left" }, { "value": "center", "label": "Center" }, { "value": "right", "label": "Right" }], "default": "center" },
+
+    { "type": "header", "content": "Layout" },
+    { "type": "range", "id": "container_width", "label": "Container width", "min": 960, "max": 1760, "step": 20, "unit": "px", "default": 1320 },
+    { "type": "range", "id": "content_width", "label": "Content width", "min": 860, "max": 1720, "step": 20, "unit": "px", "default": 1240 },
+    { "type": "range", "id": "row_gap", "label": "Row gap", "min": 6, "max": 28, "step": 2, "unit": "px", "default": 10 },
+    { "type": "range", "id": "row_radius", "label": "Row radius", "min": 0, "max": 28, "step": 2, "unit": "px", "default": 14 },
+
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "background_color", "label": "Section background", "default": "#f4f9fd" },
+    { "type": "image_picker", "id": "background_image", "label": "Background image" },
+    { "type": "color", "id": "overlay_color", "label": "Overlay color", "default": "#0f315600" },
+    { "type": "range", "id": "overlay_opacity", "label": "Overlay opacity", "min": 0, "max": 100, "step": 2, "unit": "%", "default": 0 },
+    { "type": "color", "id": "row_background", "label": "Row background", "default": "#ffffffe0" },
+    { "type": "color", "id": "row_border_color", "label": "Row border", "default": "#adc6dc" },
+    { "type": "range", "id": "row_border_opacity", "label": "Row border opacity", "min": 0, "max": 100, "step": 2, "unit": "%", "default": 80 },
+    { "type": "checkbox", "id": "enable_row_shadow", "label": "Enable row shadow", "default": true },
+    { "type": "color", "id": "heading_color", "label": "Heading color", "default": "#123d5d" },
+    { "type": "color", "id": "text_color", "label": "Body text", "default": "#355977" },
+    { "type": "color", "id": "accent_color", "label": "Accent color", "default": "#6f9ec5" },
+
+    { "type": "header", "content": "Typography and behavior" },
+    { "type": "range", "id": "heading_size_desktop", "label": "Heading size desktop", "min": 24, "max": 64, "step": 2, "unit": "px", "default": 46 },
+    { "type": "range", "id": "heading_size_mobile", "label": "Heading size mobile", "min": 20, "max": 44, "step": 2, "unit": "px", "default": 30 },
+    { "type": "select", "id": "heading_weight", "label": "Heading weight", "options": [{ "value": "600", "label": "Semibold" }, { "value": "700", "label": "Bold" }], "default": "700" },
+    { "type": "range", "id": "question_size", "label": "Question text size", "min": 14, "max": 26, "step": 1, "unit": "px", "default": 18 },
+    { "type": "range", "id": "body_size_desktop", "label": "Body size desktop", "min": 12, "max": 20, "step": 1, "unit": "px", "default": 16 },
+    { "type": "range", "id": "body_size_mobile", "label": "Body size mobile", "min": 11, "max": 17, "step": 1, "unit": "px", "default": 14 },
+    { "type": "checkbox", "id": "single_open_mode", "label": "Keep only one row open", "default": true },
+    { "type": "checkbox", "id": "enable_animation", "label": "Enable reveal animation", "default": true },
+
+    { "type": "header", "content": "Spacing" },
+    { "type": "range", "id": "padding_top_desktop", "label": "Desktop top spacing", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 36 },
+    { "type": "range", "id": "padding_bottom_desktop", "label": "Desktop bottom spacing", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 36 },
+    { "type": "range", "id": "padding_top_tablet", "label": "Tablet top spacing", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 24 },
+    { "type": "range", "id": "padding_bottom_tablet", "label": "Tablet bottom spacing", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 24 },
+    { "type": "range", "id": "padding_top_mobile", "label": "Mobile top spacing", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 20 },
+    { "type": "range", "id": "padding_bottom_mobile", "label": "Mobile bottom spacing", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 20 }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ item",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Question", "default": "What is Thanks Living about?" },
+        { "type": "richtext", "id": "answer", "label": "Answer", "default": "<p>It is a practical, faith-centered guide to living with gratitude in every season.</p>" },
+        { "type": "checkbox", "id": "open_by_default", "label": "Open by default", "default": false }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [
+    {
+      "name": "Landing FAQ",
+      "blocks": [
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "What is Thanks Living about?",
+            "answer": "<p>It is a practical, faith-centered guide to living with gratitude in every season.</p>",
+            "open_by_default": true
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Does the book include bonus content?",
+            "answer": "<p>Yes. You can scan the QR experience section to access bonus reflections and resources.</p>",
+            "open_by_default": false
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Is this useful for small groups or families?",
+            "answer": "<p>Absolutely. Many readers use it for group conversations, shared devotionals, and weekly study.</p>",
+            "open_by_default": false
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

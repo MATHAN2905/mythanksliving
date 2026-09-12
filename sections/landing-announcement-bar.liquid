@@ -1,0 +1,640 @@
+{{ 'landing-announcement-bar.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'landing-announcement-bar.js' | asset_url }}" defer></script>
+
+{% liquid
+  assign section_classes = 'landing-announcement color-custom-' | append: section.id
+
+  if section.settings.show_on_desktop == false
+    assign section_classes = section_classes | append: ' landing-announcement--desktop-hidden'
+  endif
+
+  if section.settings.show_on_tablet == false
+    assign section_classes = section_classes | append: ' landing-announcement--tablet-hidden'
+  endif
+
+  if section.settings.show_on_mobile == false
+    assign section_classes = section_classes | append: ' landing-announcement--mobile-hidden'
+  endif
+
+  assign section_background = section.settings.background_color
+  if section.settings.enable_gradient
+    assign section_background = 'linear-gradient(90deg, ' | append: section.settings.gradient_color_start | append: ', ' | append: section.settings.gradient_color_end | append: ')'
+  endif
+
+  assign content_background = section.settings.content_background_color
+  if section.settings.enable_glass_effect
+    assign content_background = section.settings.glass_background_color
+  endif
+
+  assign border_opacity_value = section.settings.border_opacity | divided_by: 100.0
+  assign slider_enabled = false
+  if section.blocks.size > 1
+    assign slider_enabled = true
+  endif
+
+  assign overlay_color = section.settings.overlay_color
+  if section.settings.background_image == blank
+    assign overlay_color = 'transparent'
+  endif
+
+  assign text_align = section.settings.text_align
+  if text_align == 'left'
+    assign dot_align = 'flex-start'
+  elsif text_align == 'right'
+    assign dot_align = 'flex-end'
+  else
+    assign dot_align = 'center'
+  endif
+%}
+
+{% render 'contrast-override', background_color: section.settings.background_color, text_color: section.settings.text_color, section_id: section.id %}
+
+{% if section.settings.enable_section %}
+<section
+  class="{{ section_classes }}"
+  data-animate="{{ section.settings.enable_animation }}"
+  style="
+    --lab-background: {{ section_background }};
+    --lab-content-background: {{ content_background }};
+    --lab-text-color: {{ section.settings.text_color }};
+    --lab-dot-rgb: {{ section.settings.text_color.rgb }};
+    --lab-border-rgb: {{ section.settings.border_color.rgb }};
+    --lab-border-opacity: {{ border_opacity_value }};
+    --lab-radius: {{ section.settings.border_radius }}px;
+    --lab-shadow: {% if section.settings.enable_shadow %}0 12px 28px rgb(9 45 88 / 0.12){% else %}none{% endif %};
+    --lab-blur: {% if section.settings.enable_glass_effect %}{{ section.settings.blur_amount }}px{% else %}0px{% endif %};
+    --lab-container-width: {{ section.settings.container_width }}px;
+    --lab-content-width: {{ section.settings.content_width }}px;
+    --lab-min-height: {{ section.settings.min_height }}px;
+    --lab-font-size-desktop: {{ section.settings.font_size_desktop }}px;
+    --lab-font-size-mobile: {{ section.settings.font_size_mobile }}px;
+    --lab-font-weight: {{ section.settings.font_weight }};
+    --lab-letter-spacing: {{ section.settings.letter_spacing }}px;
+    --lab-line-height: {{ section.settings.line_height }};
+    --lab-text-align: {{ text_align }};
+    --lab-padding-top-desktop: {{ section.settings.padding_top_desktop }}px;
+    --lab-padding-bottom-desktop: {{ section.settings.padding_bottom_desktop }}px;
+    --lab-inline-padding-desktop: {{ section.settings.padding_inline_desktop }}px;
+    --lab-padding-top-tablet: {{ section.settings.padding_top_tablet }}px;
+    --lab-padding-bottom-tablet: {{ section.settings.padding_bottom_tablet }}px;
+    --lab-inline-padding-tablet: {{ section.settings.padding_inline_tablet }}px;
+    --lab-padding-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --lab-padding-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+    --lab-inline-padding-mobile: {{ section.settings.padding_inline_mobile }}px;
+    --lab-overlay-color: {{ overlay_color }};
+    --lab-overlay-opacity: {{ section.settings.overlay_opacity }};
+  "
+>
+  <div class="landing-announcement__background" aria-hidden="true"{% if section.settings.background_image != blank %} style="--lab-background-image: url('{{ section.settings.background_image | image_url: width: 2400 }}');"{% endif %}></div>
+  <div class="landing-announcement__overlay" aria-hidden="true"></div>
+
+  <div class="landing-announcement__inner">
+    <landing-announcement-bar
+      class="landing-announcement__content"
+      data-content
+      data-autoplay="{{ section.settings.enable_autoplay }}"
+      data-interval="{{ section.settings.autoplay_speed }}"
+      role="region"
+      aria-label="{{ section.settings.accessibility_label | escape }}"
+    >
+      <div class="landing-announcement__slider">
+        <div class="landing-announcement__track" data-track>
+          {% for block in section.blocks %}
+            {% liquid
+              assign block_text_color = section.settings.text_color
+              if block.settings.text_color != blank
+                assign block_text_color = block.settings.text_color
+              endif
+            %}
+
+            <div
+              class="landing-announcement__item"
+              data-item
+              aria-hidden="{% if forloop.first %}false{% else %}true{% endif %}"
+              style="color: {{ block_text_color }};"
+              {{ block.shopify_attributes }}
+            >
+              {% if block.settings.custom_icon != blank %}
+                <span class="landing-announcement__icon landing-announcement__icon--image">
+                  {{ block.settings.custom_icon | image_url: width: 48 | image_tag: loading: 'lazy', widths: '24, 36, 48', sizes: '18px', alt: block.settings.custom_icon.alt }}
+                </span>
+              {% elsif block.settings.icon != 'none' %}
+                <span class="landing-announcement__icon">
+                  {% case block.settings.icon %}
+                    {% when 'sparkle' %}
+                      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2.5L14.6 9.4 21.5 12l-6.9 2.6L12 21.5l-2.6-6.9L2.5 12l6.9-2.6L12 2.5z" fill="currentColor"/></svg>
+                    {% when 'book' %}
+                      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v18.5h-13A2.5 2.5 0 0 1 4.5 18 2.5 2.5 0 0 1 7 15.5h11V4H6.5A1.5 1.5 0 0 0 5 5.5V18" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    {% when 'heart' %}
+                      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 20.2s-6.5-4.3-8.7-8a5 5 0 0 1 8.1-5.6l.6.7.6-.7a5 5 0 0 1 8.1 5.6c-2.2 3.7-8.7 8-8.7 8Z" fill="currentColor"/></svg>
+                    {% when 'check' %}
+                      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m4.5 12 5 5 10-10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    {% when 'leaf' %}
+                      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M19.5 4.5c-6.1.1-11 5-11 11V20h4.5c6 0 10.9-4.9 11-11V4.5h-4.5Z" stroke="currentColor" stroke-width="1.8"/><path d="M8.8 15.2c2.2-2.2 5-3.9 8.2-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                  {% endcase %}
+                </span>
+              {% endif %}
+
+              {% if block.settings.link != blank %}
+                <a class="landing-announcement__item-link" href="{{ block.settings.link }}" {% render 'landing-link-target', url: block.settings.link %}>{{ block.settings.text }}</a>
+              {% else %}
+                <span>{{ block.settings.text }}</span>
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+
+        {% if slider_enabled and section.settings.show_dots %}
+          <div class="landing-announcement__dots" style="justify-content: {{ dot_align }};">
+            {% for block in section.blocks %}
+              <button
+                class="landing-announcement__dot"
+                type="button"
+                data-dot
+                aria-current="{% if forloop.first %}true{% else %}false{% endif %}"
+                aria-label="Show message {{ forloop.index }}"
+              ></button>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+
+      {% if section.settings.show_close_button %}
+        <button class="landing-announcement__dismiss" type="button" data-dismiss aria-label="{{ section.settings.close_button_label | escape }}">
+          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M3 3l10 10M13 3 3 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </button>
+      {% endif %}
+    </landing-announcement-bar>
+  </div>
+</section>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Landing Announcement Bar",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Visibility"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_section",
+      "label": "Enable section",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_on_desktop",
+      "label": "Show on desktop",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_on_tablet",
+      "label": "Show on tablet",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_on_mobile",
+      "label": "Show on mobile",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "accessibility_label",
+      "label": "Accessibility label",
+      "default": "Announcement"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_autoplay",
+      "label": "Rotate announcements",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "label": "Rotation speed",
+      "min": 2,
+      "max": 10,
+      "step": 1,
+      "unit": "s",
+      "default": 5
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dots",
+      "label": "Show navigation dots",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_close_button",
+      "label": "Show close button",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "close_button_label",
+      "label": "Close button accessibility label",
+      "default": "Close announcement"
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Text alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "font_size_desktop",
+      "label": "Desktop font size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "font_size_mobile",
+      "label": "Mobile font size",
+      "min": 11,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 13
+    },
+    {
+      "type": "select",
+      "id": "font_weight",
+      "label": "Font weight",
+      "options": [
+        { "value": "400", "label": "Regular" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semibold" },
+        { "value": "700", "label": "Bold" }
+      ],
+      "default": "500"
+    },
+    {
+      "type": "range",
+      "id": "line_height",
+      "label": "Line height",
+      "min": 1,
+      "max": 2,
+      "step": 0.1,
+      "default": 1.4
+    },
+    {
+      "type": "range",
+      "id": "letter_spacing",
+      "label": "Letter spacing",
+      "min": -1,
+      "max": 3,
+      "step": 0.1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Color & Background"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#f8fcff"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_gradient",
+      "label": "Use gradient background",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "gradient_color_start",
+      "label": "Gradient start",
+      "default": "#f8fcff"
+    },
+    {
+      "type": "color",
+      "id": "gradient_color_end",
+      "label": "Gradient end",
+      "default": "#edf7ff"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay color",
+      "default": "#0f315600"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Overlay opacity",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 0
+    },
+    {
+      "type": "color",
+      "id": "content_background_color",
+      "label": "Content background",
+      "default": "#ffffff00"
+    },
+    {
+      "type": "color",
+      "id": "glass_background_color",
+      "label": "Glass background",
+      "default": "#ffffffb3"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_glass_effect",
+      "label": "Enable blur glass effect",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "blur_amount",
+      "label": "Blur amount",
+      "min": 0,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 6
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#0f3156"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "default": "#d9e8f5"
+    },
+    {
+      "type": "range",
+      "id": "border_opacity",
+      "label": "Border opacity",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "container_width",
+      "label": "Container width",
+      "min": 960,
+      "max": 1680,
+      "step": 20,
+      "unit": "px",
+      "default": 1320
+    },
+    {
+      "type": "range",
+      "id": "content_width",
+      "label": "Content width",
+      "min": 480,
+      "max": 1600,
+      "step": 20,
+      "unit": "px",
+      "default": 1320
+    },
+    {
+      "type": "range",
+      "id": "min_height",
+      "label": "Minimum height",
+      "min": 36,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 46
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_shadow",
+      "label": "Enable shadow",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "label": "Desktop top spacing",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "label": "Desktop bottom spacing",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "padding_inline_desktop",
+      "label": "Desktop side spacing",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "padding_top_tablet",
+      "label": "Tablet top spacing",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_tablet",
+      "label": "Tablet bottom spacing",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "padding_inline_tablet",
+      "label": "Tablet side spacing",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Mobile top spacing",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Mobile bottom spacing",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "padding_inline_mobile",
+      "label": "Mobile side spacing",
+      "min": 0,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Animation"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_animation",
+      "label": "Enable reveal animation",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "announcement",
+      "name": "Announcement",
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "Available everywhere. Order your copy today."
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "none", "label": "None" },
+            { "value": "sparkle", "label": "Sparkle" },
+            { "value": "book", "label": "Book" },
+            { "value": "heart", "label": "Heart" },
+            { "value": "check", "label": "Check" },
+            { "value": "leaf", "label": "Leaf" }
+          ],
+          "default": "sparkle"
+        },
+        {
+          "type": "image_picker",
+          "id": "custom_icon",
+          "label": "Custom icon image"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Custom text color"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "Landing Announcement Bar",
+      "blocks": [
+        {
+          "type": "announcement",
+          "settings": {
+            "text": "<strong>Available Everywhere</strong> \u2022 Amazon, Audible, Spotify, and more"
+          }
+        },
+        {
+          "type": "announcement",
+          "settings": {
+            "icon": "book",
+            "text": "Get the book and unlock your personal QR video message from Stu"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,276 @@
+{{ 'landing-qr-experience.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'landing-qr-experience.js' | asset_url }}" defer></script>
+
+{% liquid
+  assign section_classes = 'landing-qr-experience color-custom-' | append: section.id
+
+  if section.settings.enable_section == false
+    assign section_classes = section_classes | append: ' landing-qr-experience--hidden'
+  endif
+  if section.settings.show_on_desktop == false
+    assign section_classes = section_classes | append: ' landing-qr-experience--desktop-hidden'
+  endif
+  if section.settings.show_on_tablet == false
+    assign section_classes = section_classes | append: ' landing-qr-experience--tablet-hidden'
+  endif
+  if section.settings.show_on_mobile == false
+    assign section_classes = section_classes | append: ' landing-qr-experience--mobile-hidden'
+  endif
+
+  if section.settings.qr_column_position == 'left'
+    assign section_classes = section_classes | append: ' landing-qr-experience--qr-left'
+  endif
+
+  assign overlay_color = section.settings.overlay_color
+  if section.settings.background_image == blank
+    assign overlay_color = 'transparent'
+  endif
+
+  assign panel_shadow = 'none'
+  if section.settings.enable_panel_shadow
+    assign panel_shadow = '0 16px 30px rgb(9 39 66 / 0.1)'
+  endif
+
+  assign encoded_qr_target = section.settings.qr_target_url | url_encode
+  assign generated_qr = 'https://api.qrserver.com/v1/create-qr-code/?size=900x900&data=' | append: encoded_qr_target
+%}
+
+{% render 'contrast-override', background_color: section.settings.background_color, text_color: section.settings.text_color, section_id: section.id %}
+
+<landing-qr-experience
+  class="{{ section_classes }}"
+  data-animate="{{ section.settings.enable_animation }}"
+  data-pulse="{{ section.settings.enable_qr_pulse }}"
+  data-qr-url="{{ section.settings.qr_target_url | escape }}"
+  style="
+    --lqe-bg: {{ section.settings.background_color }};
+    --lqe-bg-image: {% if section.settings.background_image != blank %}url('{{ section.settings.background_image | image_url: width: 2600 }}'){% else %}none{% endif %};
+    --lqe-overlay: {{ overlay_color }};
+    --lqe-overlay-opacity: {{ section.settings.overlay_opacity }};
+    --lqe-panel-bg: {{ section.settings.panel_background }};
+    --lqe-border-rgb: {{ section.settings.panel_border_color.rgb }};
+    --lqe-border-opacity: {{ section.settings.panel_border_opacity }};
+    --lqe-shadow: {{ panel_shadow }};
+    --lqe-text: {{ section.settings.text_color }};
+    --lqe-heading: {{ section.settings.heading_color }};
+    --lqe-accent: {{ section.settings.accent_color }};
+    --lqe-container-width: {{ section.settings.container_width }}px;
+    --lqe-content-width: {{ section.settings.content_width }}px;
+    --lqe-qr-col-width: {{ section.settings.qr_column_width }}px;
+    --lqe-panel-radius: {{ section.settings.panel_radius }}px;
+    --lqe-qr-card-bg: {{ section.settings.qr_card_background }};
+    --lqe-qr-card-radius: {{ section.settings.qr_card_radius }}px;
+    --lqe-qr-size: {{ section.settings.qr_size }}px;
+    --lqe-phone-width: {{ section.settings.phone_preview_width }}px;
+    --lqe-heading-size-desktop: {{ section.settings.heading_size_desktop }}px;
+    --lqe-heading-size-mobile: {{ section.settings.heading_size_mobile }}px;
+    --lqe-heading-weight: {{ section.settings.heading_weight }};
+    --lqe-body-size-desktop: {{ section.settings.body_size_desktop }}px;
+    --lqe-body-size-mobile: {{ section.settings.body_size_mobile }}px;
+    --lqe-button-bg: {{ section.settings.button_background }};
+    --lqe-button-hover: {{ section.settings.button_background_hover }};
+    --lqe-button-text: {{ section.settings.button_text_color }};
+    --lqe-button-border: {{ section.settings.button_border_color }};
+    --lqe-button-radius: {{ section.settings.button_radius }}px;
+    --lqe-space-top-desktop: {{ section.settings.padding_top_desktop }}px;
+    --lqe-space-bottom-desktop: {{ section.settings.padding_bottom_desktop }}px;
+    --lqe-space-top-tablet: {{ section.settings.padding_top_tablet }}px;
+    --lqe-space-bottom-tablet: {{ section.settings.padding_bottom_tablet }}px;
+    --lqe-space-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --lqe-space-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+  "
+>
+  <div class="landing-qr-experience__bg" aria-hidden="true"></div>
+  <div class="landing-qr-experience__overlay" aria-hidden="true"></div>
+
+  <div class="landing-qr-experience__inner">
+    <article class="landing-qr-experience__panel">
+      <div class="landing-qr-experience__content" data-reveal="left">
+        {% if section.settings.eyebrow != blank %}
+          <p class="landing-qr-experience__eyebrow">{{ section.settings.eyebrow }}</p>
+        {% endif %}
+
+        {% if section.settings.heading != blank %}
+          <h2 class="landing-qr-experience__heading">{{ section.settings.heading }}</h2>
+        {% endif %}
+
+        {% if section.settings.description != blank %}
+          <div class="landing-qr-experience__description rte">{{ section.settings.description }}</div>
+        {% endif %}
+
+        {% if section.blocks.size > 0 %}
+          <div class="landing-qr-experience__list">
+            {% for block in section.blocks %}
+              {% if block.type == 'experience_item' and block.settings.text != blank %}
+                <p class="landing-qr-experience__item" {{ block.shopify_attributes }}>{{ block.settings.text }}</p>
+              {% endif %}
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        {% if section.settings.button_label != blank %}
+          <a class="landing-qr-experience__cta" href="{{ section.settings.button_url | default: '#' }}" {% render 'landing-link-target', url: section.settings.button_url %}>{{ section.settings.button_label }}</a>
+        {% endif %}
+      </div>
+
+      <div class="landing-qr-experience__qr-col" data-reveal="right">
+        <div class="landing-qr-experience__qr-card">
+          {% if section.settings.qr_label != blank %}
+            <p class="landing-qr-experience__qr-label">{{ section.settings.qr_label }}</p>
+          {% endif %}
+
+          <div class="landing-qr-experience__qr-wrap">
+            {% if section.settings.qr_image != blank %}
+              {{ section.settings.qr_image | image_url: width: 900 | image_tag: widths: '200,280,360,500,700,900', sizes: '(max-width: 989px) 58vw, 22vw', loading: 'lazy', alt: section.settings.qr_alt | default: section.settings.qr_label }}
+            {% elsif section.settings.qr_target_url != blank %}
+              <img src="{{ generated_qr }}" loading="lazy" width="900" height="900" alt="{{ section.settings.qr_alt | default: section.settings.qr_label | escape }}">
+            {% else %}
+              <div class="landing-qr-experience__note">Add a QR image or target URL in settings.</div>
+            {% endif %}
+          </div>
+
+          {% if section.settings.show_qr_target and section.settings.qr_target_url != blank %}
+            <p class="landing-qr-experience__qr-target">{{ section.settings.qr_target_url }}</p>
+          {% endif %}
+
+          <div class="landing-qr-experience__actions">
+            {% if section.settings.enable_copy_button and section.settings.qr_target_url != blank %}
+              <button
+                type="button"
+                class="landing-qr-experience__action"
+                data-copy-qr-link
+                data-default-text="{{ section.settings.copy_button_label | escape }}"
+                aria-pressed="false"
+              >
+                {{ section.settings.copy_button_label }}
+              </button>
+            {% endif %}
+
+            {% if section.settings.enable_open_button and section.settings.qr_target_url != blank %}
+              <a class="landing-qr-experience__action" href="{{ section.settings.qr_target_url }}" target="_blank" rel="noopener noreferrer">{{ section.settings.open_button_label }}</a>
+            {% endif %}
+          </div>
+
+          <span class="visually-hidden" data-copy-status aria-live="polite"></span>
+
+          {% if section.settings.phone_preview_image != blank %}
+            <div class="landing-qr-experience__phone">
+              {{ section.settings.phone_preview_image | image_url: width: 900 | image_tag: widths: '180,260,340,420,600,900', sizes: '190px', loading: 'lazy', alt: section.settings.phone_preview_alt | default: section.settings.heading }}
+            </div>
+          {% endif %}
+
+          {% if section.settings.qr_note != blank %}
+            <p class="landing-qr-experience__note">{{ section.settings.qr_note }}</p>
+          {% endif %}
+        </div>
+      </div>
+    </article>
+  </div>
+</landing-qr-experience>
+
+{% schema %}
+{
+  "name": "Landing QR Experience",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    { "type": "header", "content": "Visibility" },
+    { "type": "checkbox", "id": "enable_section", "label": "Enable section", "default": true },
+    { "type": "checkbox", "id": "show_on_desktop", "label": "Show on desktop", "default": true },
+    { "type": "checkbox", "id": "show_on_tablet", "label": "Show on tablet", "default": true },
+    { "type": "checkbox", "id": "show_on_mobile", "label": "Show on mobile", "default": true },
+
+    { "type": "header", "content": "Content" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Bonus content" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Scan for the QR experience" },
+    { "type": "richtext", "id": "description", "label": "Description", "default": "<p>Scan the code to unlock an exclusive message, book resources, and a guided gratitude reflection from Stu.</p>" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Get the book" },
+    { "type": "url", "id": "button_url", "label": "Button link" },
+
+    { "type": "header", "content": "QR card" },
+    { "type": "text", "id": "qr_label", "label": "QR heading", "default": "Scan with your phone camera" },
+    { "type": "text", "id": "qr_target_url", "label": "QR target URL", "default": "https://example.com/thanks-living-bonus" },
+    { "type": "image_picker", "id": "qr_image", "label": "Custom QR image" },
+    { "type": "text", "id": "qr_alt", "label": "QR image alt text", "default": "QR code to bonus content" },
+    { "type": "checkbox", "id": "show_qr_target", "label": "Show target URL text", "default": false },
+    { "type": "checkbox", "id": "enable_copy_button", "label": "Enable copy link button", "default": true },
+    { "type": "text", "id": "copy_button_label", "label": "Copy button label", "default": "Copy link" },
+    { "type": "checkbox", "id": "enable_open_button", "label": "Enable open link button", "default": true },
+    { "type": "text", "id": "open_button_label", "label": "Open link button label", "default": "Open link" },
+    { "type": "text", "id": "qr_note", "label": "QR note", "default": "Camera not opening links automatically? Use Copy link." },
+
+    { "type": "header", "content": "Phone preview" },
+    { "type": "image_picker", "id": "phone_preview_image", "label": "Phone preview image" },
+    { "type": "text", "id": "phone_preview_alt", "label": "Phone preview alt text", "default": "Preview of bonus content on phone" },
+
+    { "type": "header", "content": "Layout" },
+    { "type": "select", "id": "qr_column_position", "label": "QR column position", "options": [{ "value": "right", "label": "Right" }, { "value": "left", "label": "Left" }], "default": "right" },
+    { "type": "range", "id": "container_width", "label": "Container width", "min": 960, "max": 1760, "step": 20, "unit": "px", "default": 1320 },
+    { "type": "range", "id": "content_width", "label": "Content width", "min": 860, "max": 1720, "step": 20, "unit": "px", "default": 1240 },
+    { "type": "range", "id": "qr_column_width", "label": "QR column width", "min": 300, "max": 700, "step": 10, "unit": "px", "default": 470 },
+    { "type": "range", "id": "panel_radius", "label": "Panel radius", "min": 0, "max": 40, "step": 2, "unit": "px", "default": 20 },
+    { "type": "range", "id": "qr_card_radius", "label": "QR card radius", "min": 0, "max": 34, "step": 2, "unit": "px", "default": 18 },
+    { "type": "range", "id": "qr_size", "label": "QR size", "min": 140, "max": 360, "step": 4, "unit": "px", "default": 260 },
+    { "type": "range", "id": "phone_preview_width", "label": "Phone preview width", "min": 120, "max": 300, "step": 4, "unit": "px", "default": 180 },
+
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "background_color", "label": "Section background", "default": "#eef6fd" },
+    { "type": "image_picker", "id": "background_image", "label": "Background image" },
+    { "type": "color", "id": "overlay_color", "label": "Overlay color", "default": "#0f315600" },
+    { "type": "range", "id": "overlay_opacity", "label": "Overlay opacity", "min": 0, "max": 100, "step": 2, "unit": "%", "default": 0 },
+    { "type": "color", "id": "panel_background", "label": "Panel background", "default": "#ffffffe0" },
+    { "type": "color", "id": "panel_border_color", "label": "Panel border", "default": "#afc9e0" },
+    { "type": "range", "id": "panel_border_opacity", "label": "Panel border opacity", "min": 0, "max": 100, "step": 2, "unit": "%", "default": 80 },
+    { "type": "checkbox", "id": "enable_panel_shadow", "label": "Enable panel shadow", "default": true },
+    { "type": "color", "id": "qr_card_background", "label": "QR card background", "default": "#ffffff" },
+    { "type": "color", "id": "text_color", "label": "Body text", "default": "#355977" },
+    { "type": "color", "id": "heading_color", "label": "Heading color", "default": "#123d5d" },
+    { "type": "color", "id": "accent_color", "label": "Accent color", "default": "#6f9ec5" },
+
+    { "type": "header", "content": "Typography and effects" },
+    { "type": "range", "id": "heading_size_desktop", "label": "Heading size desktop", "min": 24, "max": 64, "step": 2, "unit": "px", "default": 46 },
+    { "type": "range", "id": "heading_size_mobile", "label": "Heading size mobile", "min": 20, "max": 44, "step": 2, "unit": "px", "default": 30 },
+    { "type": "select", "id": "heading_weight", "label": "Heading weight", "options": [{ "value": "600", "label": "Semibold" }, { "value": "700", "label": "Bold" }], "default": "700" },
+    { "type": "range", "id": "body_size_desktop", "label": "Body size desktop", "min": 12, "max": 20, "step": 1, "unit": "px", "default": 16 },
+    { "type": "range", "id": "body_size_mobile", "label": "Body size mobile", "min": 11, "max": 17, "step": 1, "unit": "px", "default": 14 },
+    { "type": "range", "id": "button_radius", "label": "Button radius", "min": 0, "max": 24, "step": 2, "unit": "px", "default": 10 },
+    { "type": "color", "id": "button_background", "label": "Button background", "default": "#123d5d" },
+    { "type": "color", "id": "button_background_hover", "label": "Button hover background", "default": "#0f3150" },
+    { "type": "color", "id": "button_text_color", "label": "Button text color", "default": "#ffffff" },
+    { "type": "color", "id": "button_border_color", "label": "Button border color", "default": "#123d5d" },
+    { "type": "checkbox", "id": "enable_qr_pulse", "label": "Enable QR pulse effect", "default": true },
+    { "type": "checkbox", "id": "enable_animation", "label": "Enable reveal animation", "default": true },
+
+    { "type": "header", "content": "Spacing" },
+    { "type": "range", "id": "padding_top_desktop", "label": "Desktop top spacing", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 32 },
+    { "type": "range", "id": "padding_bottom_desktop", "label": "Desktop bottom spacing", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 36 },
+    { "type": "range", "id": "padding_top_tablet", "label": "Tablet top spacing", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 24 },
+    { "type": "range", "id": "padding_bottom_tablet", "label": "Tablet bottom spacing", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 24 },
+    { "type": "range", "id": "padding_top_mobile", "label": "Mobile top spacing", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 20 },
+    { "type": "range", "id": "padding_bottom_mobile", "label": "Mobile bottom spacing", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 20 }
+  ],
+  "blocks": [
+    {
+      "type": "experience_item",
+      "name": "Experience item",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Text", "default": "Unlock a personal video message and guided reflection." }
+      ]
+    }
+  ],
+  "max_blocks": 5,
+  "presets": [
+    {
+      "name": "Landing QR Experience",
+      "blocks": [
+        { "type": "experience_item", "settings": { "text": "Unlock a personal video message and guided reflection." } },
+        { "type": "experience_item", "settings": { "text": "Access bonus study prompts for family or small groups." } },
+        { "type": "experience_item", "settings": { "text": "Keep the link handy with one-tap copy to your phone." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

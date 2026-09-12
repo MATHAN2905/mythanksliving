@@ -1,0 +1,415 @@
+{{ 'landing-video-section.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'landing-video-section.js' | asset_url }}" defer></script>
+
+{% liquid
+  assign section_classes = 'landing-video-section color-custom-' | append: section.id
+
+  if section.settings.enable_section == false
+    assign section_classes = section_classes | append: ' landing-video-section--hidden'
+  endif
+  if section.settings.show_on_desktop == false
+    assign section_classes = section_classes | append: ' landing-video-section--desktop-hidden'
+  endif
+  if section.settings.show_on_tablet == false
+    assign section_classes = section_classes | append: ' landing-video-section--tablet-hidden'
+  endif
+  if section.settings.show_on_mobile == false
+    assign section_classes = section_classes | append: ' landing-video-section--mobile-hidden'
+  endif
+
+  if section.settings.media_position == 'right'
+    assign section_classes = section_classes | append: ' landing-video-section--media-right'
+  endif
+
+  assign overlay_color = section.settings.overlay_color
+  if section.settings.background_image == blank
+    assign overlay_color = 'transparent'
+  endif
+
+  assign selected_video = section.settings.video
+  assign video_url = section.settings.video_url | strip
+  assign video_mode = blank
+  assign embed_base = blank
+  assign native_video = blank
+  assign native_video_url = blank
+  assign provider = blank
+  assign video_id = blank
+
+  if selected_video != blank
+    if selected_video.host == 'youtube'
+      assign provider = 'youtube'
+      assign video_id = selected_video.external_id
+      assign video_mode = 'embed'
+    elsif selected_video.host == 'vimeo'
+      assign provider = 'vimeo'
+      assign video_id = selected_video.external_id
+      assign video_mode = 'embed'
+    else
+      assign video_mode = 'native'
+      assign native_video = selected_video
+    endif
+  endif
+
+  if video_mode == blank and video_url != blank
+    if video_url contains 'youtu.be/'
+      assign provider = 'youtube'
+      assign video_id = video_url | split: 'youtu.be/' | last | split: '?' | first | split: '&' | first
+      assign video_mode = 'embed'
+    elsif video_url contains 'youtube.com/watch'
+      assign provider = 'youtube'
+      assign video_id = video_url | split: 'v=' | last | split: '&' | first
+      assign video_mode = 'embed'
+    elsif video_url contains 'youtube.com/embed/'
+      assign provider = 'youtube'
+      assign video_id = video_url | split: 'embed/' | last | split: '?' | first
+      assign video_mode = 'embed'
+    elsif video_url contains 'vimeo.com/'
+      assign provider = 'vimeo'
+      assign video_id = video_url | split: '/' | last | split: '?' | first
+      assign video_mode = 'embed'
+    elsif video_url contains 'cdn.shopify.com' or video_url contains '.mp4' or video_url contains '.mov' or video_url contains '.webm'
+      assign video_mode = 'native'
+      assign native_video_url = video_url
+    endif
+  endif
+
+  if provider == 'youtube' and video_id != blank
+    assign embed_base = 'https://www.youtube.com/embed/' | append: video_id
+    assign embed_base = embed_base | append: '?autoplay=' | append: section.settings.enable_autoplay
+    if section.settings.mute_video
+      assign embed_base = embed_base | append: '&mute=1'
+    else
+      assign embed_base = embed_base | append: '&mute=0'
+    endif
+    assign embed_base = embed_base | append: '&rel=0&modestbranding=1&playsinline=1'
+  elsif provider == 'vimeo' and video_id != blank
+    assign embed_base = 'https://player.vimeo.com/video/' | append: video_id
+    assign embed_base = embed_base | append: '?autoplay=' | append: section.settings.enable_autoplay
+    if section.settings.mute_video
+      assign embed_base = embed_base | append: '&muted=1'
+    else
+      assign embed_base = embed_base | append: '&muted=0'
+    endif
+    assign embed_base = embed_base | append: '&title=0&byline=0&portrait=0'
+  endif
+
+  assign poster_src = blank
+  if section.settings.poster_image != blank
+    assign poster_src = section.settings.poster_image | image_url: width: 1800
+  elsif native_video != blank and native_video.preview_image != blank
+    assign poster_src = native_video.preview_image | image_url: width: 1800
+  endif
+
+  assign has_video = false
+  if video_mode == 'embed' and embed_base != blank
+    assign has_video = true
+  elsif video_mode == 'native'
+    if native_video != blank or native_video_url != blank
+      assign has_video = true
+    endif
+  endif
+
+  assign video_page_url = section.settings.button_page_url | strip
+  if video_page_url == blank
+    if pages.video != blank
+      assign video_page_url = pages.video.url
+    else
+      assign video_page_url = '/pages/video'
+    endif
+  endif
+
+  assign section_video_src = blank
+  if native_video_url != blank
+    assign section_video_src = native_video_url
+  elsif native_video != blank and native_video.sources.size > 0
+    assign section_video_src = native_video.sources.first.url
+  elsif embed_base != blank
+    assign section_video_src = embed_base
+  endif
+
+  assign cta_url = section.settings.button_url | strip
+  assign use_video_page = false
+
+  if cta_url == blank
+    assign use_video_page = true
+  elsif section_video_src != blank and cta_url == section_video_src
+    assign use_video_page = true
+  elsif cta_url contains 'cdn.shopify.com/videos' or cta_url contains '.mov' or cta_url contains '.mp4' or cta_url contains '.webm'
+    assign use_video_page = true
+  elsif cta_url contains 'youtube.com' or cta_url contains 'youtu.be' or cta_url contains 'vimeo.com'
+    assign use_video_page = true
+  endif
+
+  if use_video_page
+    assign cta_url = video_page_url
+    if section_video_src != blank
+      assign encoded_video_src = section_video_src | url_encode
+      if video_page_url contains '?'
+        assign cta_url = video_page_url | append: '&v=' | append: encoded_video_src
+      else
+        assign cta_url = video_page_url | append: '?v=' | append: encoded_video_src
+      endif
+    endif
+  elsif cta_url == blank
+    assign cta_url = '#'
+  endif
+
+  assign shadow_value = 'none'
+  if section.settings.enable_panel_shadow
+    assign shadow_value = '0 16px 30px rgb(1 20 36 / 0.25)'
+  endif
+%}
+
+{% render 'contrast-override', background_color: section.settings.background_color, text_color: section.settings.text_color, section_id: section.id %}
+
+{% style %}
+  #shopify-section-{{ section.id }} {
+    --lvs-section-bg: {{ section.settings.background_color | default: '#0a2740' }};
+    background: {{ section.settings.background_color | default: '#0a2740' }};
+    background-color: {{ section.settings.background_color | default: '#0a2740' }};
+  }
+{% endstyle %}
+
+<landing-video-section
+  id="message-from-stu"
+  class="{{ section_classes }}"
+  data-autoplay="{{ section.settings.enable_autoplay }}"
+  data-mute="{{ section.settings.mute_video }}"
+  data-animate="{{ section.settings.enable_animation }}"
+  style="
+    --lvs-bg: {{ section.settings.background_color | default: '#0a2740' }};
+    --lvs-bg-image: {% if section.settings.background_image != blank %}url('{{ section.settings.background_image | image_url: width: 2600 }}'){% else %}none{% endif %};
+    --lvs-overlay: {{ overlay_color }};
+    --lvs-overlay-opacity: {{ section.settings.overlay_opacity }};
+    --lvs-text: {{ section.settings.text_color }};
+    --lvs-heading-color: {{ section.settings.heading_color }};
+    --lvs-accent: {{ section.settings.accent_color }};
+    --lvs-panel-bg: {{ section.settings.panel_background }};
+    --lvs-border-rgb: {{ section.settings.panel_border_color.rgb }};
+    --lvs-border-opacity: {{ section.settings.panel_border_opacity }};
+    --lvs-shadow: {{ shadow_value }};
+    --lvs-container-width: {{ section.settings.container_width }}px;
+    --lvs-content-width: {{ section.settings.content_width }}px;
+    --lvs-media-width: {{ section.settings.media_width }};
+    --lvs-aspect: {{ section.settings.video_aspect_ratio }};
+    --lvs-video-radius: {{ section.settings.video_radius }}px;
+    --lvs-panel-radius: {{ section.settings.panel_radius }}px;
+    --lvs-heading-size-desktop: {{ section.settings.heading_size_desktop }}px;
+    --lvs-heading-size-mobile: {{ section.settings.heading_size_mobile }}px;
+    --lvs-heading-weight: {{ section.settings.heading_weight }};
+    --lvs-body-size-desktop: {{ section.settings.body_size_desktop }}px;
+    --lvs-body-size-mobile: {{ section.settings.body_size_mobile }}px;
+    --lvs-button-bg: {{ section.settings.button_background }};
+    --lvs-button-hover: {{ section.settings.button_background_hover }};
+    --lvs-button-text: {{ section.settings.button_text_color }};
+    --lvs-button-border: {{ section.settings.button_border_color }};
+    --lvs-button-radius: {{ section.settings.button_radius }}px;
+    --lvs-play-size: {{ section.settings.play_button_size }}px;
+    --lvs-play-bg: {{ section.settings.play_button_color }};
+    --lvs-play-icon: {{ section.settings.play_icon_color }};
+    --lvs-space-top-desktop: {{ section.settings.padding_top_desktop }}px;
+    --lvs-space-bottom-desktop: {{ section.settings.padding_bottom_desktop }}px;
+    --lvs-space-top-tablet: {{ section.settings.padding_top_tablet }}px;
+    --lvs-space-bottom-tablet: {{ section.settings.padding_bottom_tablet }}px;
+    --lvs-space-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --lvs-space-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+  "
+>
+  <div class="landing-video-section__bg" aria-hidden="true"></div>
+  <div class="landing-video-section__overlay" aria-hidden="true"></div>
+
+  <div class="landing-video-section__inner">
+    <section class="landing-video-section__panel">
+      <div class="landing-video-section__media" data-reveal="left">
+        {% if video_mode == 'embed' and embed_base != blank %}
+          <iframe
+            class="landing-video-section__frame"
+            title="{{ section.settings.video_title | escape }}"
+            data-embed-src="{{ embed_base }}"
+            data-video-type="embed"
+            {% if section.settings.enable_autoplay %}src="{{ embed_base }}"{% endif %}
+            loading="lazy"
+            allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+            allowfullscreen
+          ></iframe>
+        {% elsif video_mode == 'native' and native_video != blank %}
+          {{
+            native_video
+            | video_tag:
+              class: 'landing-video-section__frame landing-video-section__video',
+              controls: true,
+              playsinline: true,
+              muted: section.settings.mute_video,
+              autoplay: section.settings.enable_autoplay,
+              preload: 'metadata',
+              poster: poster_src,
+              image_size: '1800x'
+          }}
+        {% elsif video_mode == 'native' and native_video_url != blank %}
+          <video
+            class="landing-video-section__frame landing-video-section__video"
+            playsinline
+            controls
+            preload="metadata"
+            {% if poster_src != blank %}poster="{{ poster_src }}"{% endif %}
+            {% if section.settings.enable_autoplay %}autoplay{% endif %}
+            {% if section.settings.mute_video or section.settings.enable_autoplay %}muted{% endif %}
+          >
+            <source src="{{ native_video_url }}" type="video/mp4">
+          </video>
+        {% else %}
+          <div class="landing-video-section__frame landing-video-section__placeholder" aria-hidden="true"></div>
+        {% endif %}
+
+        {% if has_video and section.settings.enable_autoplay == false %}
+          <button class="landing-video-section__poster" type="button" data-poster aria-label="{{ section.settings.play_button_label | escape }}">
+            {% if section.settings.poster_image != blank %}
+              {{ section.settings.poster_image | image_url: width: 1800 | image_tag: widths: '320,560,820,1200,1600,1800', sizes: '(max-width: 989px) 92vw, 52vw', loading: 'lazy', alt: section.settings.poster_alt | default: section.settings.video_title }}
+            {% elsif native_video != blank and native_video.preview_image != blank %}
+              {{ native_video.preview_image | image_url: width: 1800 | image_tag: widths: '320,560,820,1200,1600,1800', sizes: '(max-width: 989px) 92vw, 52vw', loading: 'lazy', alt: section.settings.poster_alt | default: section.settings.video_title }}
+            {% else %}
+              <span class="landing-video-section__poster-fallback"></span>
+            {% endif %}
+            <span class="landing-video-section__play" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M8 5.8v12.4l10-6.2-10-6.2Z" fill="currentColor"/></svg>
+            </span>
+          </button>
+        {% endif %}
+      </div>
+
+      <div class="landing-video-section__content" data-reveal="right">
+        {% if section.settings.eyebrow != blank %}
+          <p class="landing-video-section__eyebrow">{{ section.settings.eyebrow }}</p>
+        {% endif %}
+
+        {% if section.settings.heading != blank %}
+          <h2 class="landing-video-section__heading">{{ section.settings.heading }}</h2>
+        {% endif %}
+
+        {% if section.settings.description != blank %}
+          <div class="landing-video-section__description rte">{{ section.settings.description }}</div>
+        {% endif %}
+
+        {% if section.blocks.size > 0 %}
+          <div class="landing-video-section__points">
+            {% for block in section.blocks %}
+              {% if block.type == 'point' and block.settings.text != blank %}
+                <p class="landing-video-section__point" {{ block.shopify_attributes }}>{{ block.settings.text }}</p>
+              {% endif %}
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        {% if section.settings.button_label != blank %}
+          <a
+            class="landing-video-section__cta"
+            href="{{ cta_url | default: '#' }}"
+            {% render 'landing-link-target', url: cta_url %}
+          >{{ section.settings.button_label }}</a>
+        {% endif %}
+      </div>
+    </section>
+  </div>
+</landing-video-section>
+
+{% schema %}
+{
+  "name": "Landing Video Section",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    { "type": "header", "content": "Visibility" },
+    { "type": "checkbox", "id": "enable_section", "label": "Enable section", "default": true },
+    { "type": "checkbox", "id": "show_on_desktop", "label": "Show on desktop", "default": true },
+    { "type": "checkbox", "id": "show_on_tablet", "label": "Show on tablet", "default": true },
+    { "type": "checkbox", "id": "show_on_mobile", "label": "Show on mobile", "default": true },
+
+    { "type": "header", "content": "Video" },
+    { "type": "video", "id": "video", "label": "Video", "info": "Upload to Shopify or add a YouTube/Vimeo link. Takes priority over the URL field below." },
+    { "type": "text", "id": "video_url", "label": "Video URL (fallback)", "info": "YouTube, Vimeo, or Shopify CDN URL (e.g. cdn.shopify.com/videos/...). Used when no video is selected above." },
+    { "type": "text", "id": "video_title", "label": "Video title", "default": "A Message From Stu" },
+    { "type": "image_picker", "id": "poster_image", "label": "Poster image" },
+    { "type": "text", "id": "poster_alt", "label": "Poster image alt text", "default": "Video poster" },
+    { "type": "checkbox", "id": "enable_autoplay", "label": "Enable autoplay", "default": false },
+    { "type": "checkbox", "id": "mute_video", "label": "Mute video", "default": true },
+    { "type": "text", "id": "play_button_label", "label": "Play button accessibility label", "default": "Play video" },
+    { "type": "select", "id": "video_aspect_ratio", "label": "Video aspect ratio", "options": [{ "value": "16 / 9", "label": "16:9" }, { "value": "4 / 3", "label": "4:3" }, { "value": "1 / 1", "label": "1:1" }], "default": "16 / 9" },
+
+    { "type": "header", "content": "Content" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Watch the story" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "A message from Stu" },
+    { "type": "richtext", "id": "description", "label": "Description", "default": "<p>Hear why this book was written and how it can encourage your walk with God.</p>" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Watch now" },
+    { "type": "url", "id": "button_url", "label": "Button link", "info": "Leave blank or use a video URL to open the video page in a new tab." },
+    { "type": "text", "id": "button_page_url", "label": "Video page path", "info": "Leave blank to use /pages/video with the ?v= video parameter." },
+
+    { "type": "header", "content": "Layout" },
+    { "type": "select", "id": "media_position", "label": "Video position", "options": [{ "value": "left", "label": "Left" }, { "value": "right", "label": "Right" }], "default": "left" },
+    { "type": "select", "id": "media_width", "label": "Video column width", "options": [{ "value": "52%", "label": "52%" }, { "value": "58%", "label": "58%" }, { "value": "64%", "label": "64%" }], "default": "58%" },
+    { "type": "range", "id": "container_width", "label": "Container width", "min": 960, "max": 1760, "step": 20, "unit": "px", "default": 1320 },
+    { "type": "range", "id": "content_width", "label": "Content width", "min": 860, "max": 1720, "step": 20, "unit": "px", "default": 1240 },
+    { "type": "range", "id": "panel_radius", "label": "Panel radius", "min": 0, "max": 32, "step": 2, "unit": "px", "default": 16 },
+    { "type": "range", "id": "video_radius", "label": "Video radius", "min": 0, "max": 32, "step": 2, "unit": "px", "default": 14 },
+
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "background_color", "label": "Section background", "default": "#0f3658" },
+    { "type": "image_picker", "id": "background_image", "label": "Background image" },
+    { "type": "color", "id": "overlay_color", "label": "Overlay color", "default": "#0f365800" },
+    { "type": "range", "id": "overlay_opacity", "label": "Overlay opacity", "min": 0, "max": 100, "step": 2, "unit": "%", "default": 0 },
+    { "type": "color", "id": "panel_background", "label": "Panel background", "default": "#07243ddd" },
+    { "type": "color", "id": "panel_border_color", "label": "Panel border color", "default": "#5280a1" },
+    { "type": "range", "id": "panel_border_opacity", "label": "Panel border opacity", "min": 0, "max": 100, "step": 2, "unit": "%", "default": 60 },
+    { "type": "checkbox", "id": "enable_panel_shadow", "label": "Enable panel shadow", "default": true },
+    { "type": "color", "id": "text_color", "label": "Text color", "default": "#d6e8f8" },
+    { "type": "color", "id": "heading_color", "label": "Heading color", "default": "#f1f8ff" },
+    { "type": "color", "id": "accent_color", "label": "Accent color", "default": "#9dc4e6" },
+
+    { "type": "header", "content": "Typography and controls" },
+    { "type": "range", "id": "heading_size_desktop", "label": "Heading size desktop", "min": 22, "max": 56, "step": 2, "unit": "px", "default": 40 },
+    { "type": "range", "id": "heading_size_mobile", "label": "Heading size mobile", "min": 18, "max": 38, "step": 2, "unit": "px", "default": 28 },
+    { "type": "select", "id": "heading_weight", "label": "Heading weight", "options": [{ "value": "600", "label": "Semibold" }, { "value": "700", "label": "Bold" }], "default": "700" },
+    { "type": "range", "id": "body_size_desktop", "label": "Body size desktop", "min": 12, "max": 20, "step": 1, "unit": "px", "default": 16 },
+    { "type": "range", "id": "body_size_mobile", "label": "Body size mobile", "min": 11, "max": 17, "step": 1, "unit": "px", "default": 14 },
+    { "type": "range", "id": "button_radius", "label": "Button radius", "min": 0, "max": 24, "step": 2, "unit": "px", "default": 10 },
+    { "type": "color", "id": "button_background", "label": "Button background", "default": "#f8c533" },
+    { "type": "color", "id": "button_background_hover", "label": "Button background hover", "default": "#f1bc21" },
+    { "type": "color", "id": "button_text_color", "label": "Button text color", "default": "#123d5d" },
+    { "type": "color", "id": "button_border_color", "label": "Button border color", "default": "#f8c533" },
+    { "type": "range", "id": "play_button_size", "label": "Play button size", "min": 48, "max": 112, "step": 4, "unit": "px", "default": 76 },
+    { "type": "color", "id": "play_button_color", "label": "Play button color", "default": "#f8c533" },
+    { "type": "color", "id": "play_icon_color", "label": "Play icon color", "default": "#123d5d" },
+
+    { "type": "header", "content": "Spacing and animation" },
+    { "type": "range", "id": "padding_top_desktop", "label": "Desktop top spacing", "min": 0, "max": 180, "step": 4, "unit": "px", "default": 24 },
+    { "type": "range", "id": "padding_bottom_desktop", "label": "Desktop bottom spacing", "min": 0, "max": 180, "step": 4, "unit": "px", "default": 28 },
+    { "type": "range", "id": "padding_top_tablet", "label": "Tablet top spacing", "min": 0, "max": 180, "step": 4, "unit": "px", "default": 20 },
+    { "type": "range", "id": "padding_bottom_tablet", "label": "Tablet bottom spacing", "min": 0, "max": 180, "step": 4, "unit": "px", "default": 20 },
+    { "type": "range", "id": "padding_top_mobile", "label": "Mobile top spacing", "min": 0, "max": 180, "step": 4, "unit": "px", "default": 16 },
+    { "type": "range", "id": "padding_bottom_mobile", "label": "Mobile bottom spacing", "min": 0, "max": 180, "step": 4, "unit": "px", "default": 20 },
+    { "type": "checkbox", "id": "enable_animation", "label": "Enable reveal animation", "default": true }
+  ],
+  "blocks": [
+    {
+      "type": "point",
+      "name": "Point",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Text", "default": "A practical and personal story of gratitude." }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Landing Video Section",
+      "blocks": [
+        { "type": "point", "settings": { "text": "A practical and personal story of gratitude." } },
+        { "type": "point", "settings": { "text": "Encouragement for your walk with God." } },
+        { "type": "point", "settings": { "text": "Perfect for groups, families, and personal study." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,272 @@
+.landing-faq {
+  position: relative;
+  width: 100%;
+  overflow: clip;
+  background: var(--lfq-bg, #f4f9fd);
+  color: var(--lfq-text, #355977);
+}
+
+.landing-faq--hidden {
+  display: none;
+}
+
+@media screen and (min-width: 990px) {
+  .landing-faq--desktop-hidden {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 750px) and (max-width: 989px) {
+  .landing-faq--tablet-hidden {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .landing-faq--mobile-hidden {
+    display: none;
+  }
+}
+
+.landing-faq__bg,
+.landing-faq__overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.landing-faq__bg {
+  z-index: -2;
+  background-image: var(--lfq-bg-image, none);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.landing-faq__overlay {
+  z-index: -1;
+  background: var(--lfq-overlay, transparent);
+  opacity: calc(var(--lfq-overlay-opacity, 0) / 100);
+}
+
+.landing-faq__inner {
+  max-width: min(100% - 20px, var(--lfq-container-width, 1320px));
+  margin-inline: auto;
+  padding: var(--lfq-space-top-desktop, 34px) 10px var(--lfq-space-bottom-desktop, 36px);
+}
+
+@media screen and (max-width: 989px) {
+  .landing-faq__inner {
+    max-width: min(100% - 16px, var(--lfq-container-width, 1320px));
+    padding: var(--lfq-space-top-tablet, 24px) 8px var(--lfq-space-bottom-tablet, 24px);
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .landing-faq__inner {
+    max-width: min(100% - 12px, var(--lfq-container-width, 1320px));
+    padding: var(--lfq-space-top-mobile, 18px) 6px var(--lfq-space-bottom-mobile, 20px);
+  }
+}
+
+.landing-faq__head {
+  width: min(100%, var(--lfq-content-width, 1240px));
+  margin-inline: auto;
+  text-align: var(--lfq-head-align, center);
+}
+
+.landing-faq__eyebrow {
+  margin: 0;
+  color: var(--lfq-accent, #6f9ec5);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.landing-faq__heading {
+  margin: 8px 0 0;
+  color: var(--lfq-heading, #123d5d);
+  font-size: clamp(var(--lfq-heading-size-mobile, 30px), 2.4vw, var(--lfq-heading-size-desktop, 46px));
+  line-height: 1.1;
+  font-weight: var(--lfq-heading-weight, 700);
+}
+
+.landing-faq__intro {
+  margin: 10px auto 0;
+  color: var(--lfq-text, #355977);
+  font-size: clamp(var(--lfq-body-size-mobile, 14px), 1vw, var(--lfq-body-size-desktop, 16px));
+  line-height: 1.65;
+  max-width: 70ch;
+}
+
+.landing-faq__list {
+  width: min(100%, var(--lfq-content-width, 1240px));
+  margin: 16px auto 0;
+  display: grid;
+  gap: var(--lfq-row-gap, 10px);
+  align-items: start;
+}
+
+.landing-faq__item {
+  border-radius: var(--lfq-row-radius, 14px);
+  border: 1px solid rgb(var(--lfq-border-rgb, 173 198 220) / calc(var(--lfq-border-opacity, 80) / 100));
+  background: var(--lfq-row-bg, rgb(255 255 255 / 0.88));
+  box-shadow: var(--lfq-shadow, 0 10px 20px rgb(8 36 61 / 0.06));
+  overflow: clip;
+}
+
+.landing-faq__summary {
+  list-style: none;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  align-items: center;
+  padding: 13px 14px;
+  color: var(--lfq-heading, #123d5d);
+  font-size: var(--lfq-question-size, 18px);
+  line-height: 1.4;
+  font-weight: 650;
+}
+
+.landing-faq__summary::-webkit-details-marker {
+  display: none;
+}
+
+.landing-faq__icon {
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  border: 1px solid rgb(var(--lfq-border-rgb, 173 198 220) / calc(var(--lfq-border-opacity, 80) / 100));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--lfq-accent, #6f9ec5);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.landing-faq__item[open] .landing-faq__icon {
+  background: var(--lfq-accent, #6f9ec5);
+  color: #fff;
+}
+
+.landing-faq__answer {
+  padding: 0 14px 13px;
+  color: var(--lfq-text, #355977);
+  font-size: clamp(var(--lfq-body-size-mobile, 14px), 1vw, var(--lfq-body-size-desktop, 16px));
+  line-height: 1.65;
+}
+
+.landing-faq__answer > :first-child {
+  margin-top: 0;
+}
+
+.landing-faq__answer > :last-child {
+  margin-bottom: 0;
+}
+
+.landing-faq__item:not([open]) .landing-faq__answer {
+  display: none;
+}
+
+.landing-faq[data-animate='true'] [data-reveal] {
+  opacity: 0;
+}
+
+.landing-faq.is-ready[data-animate='true'] [data-reveal='up'] {
+  animation: lfqUp 560ms cubic-bezier(0.24, 0.72, 0.2, 1) both;
+}
+
+@keyframes lfqUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landing-faq *,
+  .landing-faq *::before,
+  .landing-faq *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+  }
+}
+
+.landing-faq__inner {
+  padding-top: var(--lfq-space-top-desktop, 56px);
+  padding-bottom: var(--lfq-space-bottom-desktop, 56px);
+}
+
+.landing-faq__eyebrow {
+  display: none;
+}
+
+.landing-faq__heading {
+  font-family: var(--font-heading--family, Georgia, 'Times New Roman', serif);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: clamp(24px, 2vw, 32px);
+}
+
+.landing-faq__intro {
+  display: none;
+}
+
+.landing-faq__list {
+  margin-top: 28px;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px 18px;
+  align-items: start;
+}
+
+.landing-faq__item {
+  align-self: start;
+  height: auto;
+  border-radius: 10px;
+  background: #ffffff;
+  box-shadow: none;
+  border: 1px solid #d6e2ec;
+}
+
+.landing-faq__summary {
+  padding: 16px 18px;
+  font-size: clamp(15px, 1.1vw, 17px);
+  font-weight: 600;
+}
+
+.landing-faq__icon {
+  width: 24px;
+  height: 24px;
+  border: 0;
+  background: transparent;
+  color: #5a7a94;
+}
+
+.landing-faq__item[open] .landing-faq__icon {
+  background: transparent;
+  color: #0f3156;
+}
+
+.landing-faq__answer {
+  padding: 0 18px 16px;
+}
+
+.landing-faq__item:not([open]) .landing-faq__answer {
+  display: none;
+}
+
+@media screen and (max-width: 749px) {
+  .landing-faq__list {
+    grid-template-columns: 1fr;
+  }
+}

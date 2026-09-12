@@ -1,0 +1,341 @@
+.landing-retail-logos {
+  position: relative;
+  width: 100%;
+  overflow: clip;
+  background: var(--lrl-bg, #ffffff);
+  color: var(--lrl-text, #0f3156);
+}
+
+.landing-retail-logos--hidden {
+  display: none;
+}
+
+@media screen and (min-width: 990px) {
+  .landing-retail-logos--desktop-hidden {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 750px) and (max-width: 989px) {
+  .landing-retail-logos--tablet-hidden {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .landing-retail-logos--mobile-hidden {
+    display: none;
+  }
+}
+
+.landing-retail-logos__bg {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background-image: var(--lrl-bg-image, none);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.landing-retail-logos__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--lrl-overlay, transparent);
+  opacity: calc(var(--lrl-overlay-opacity, 0) / 100);
+}
+
+.landing-retail-logos__inner {
+  max-width: min(100% - 24px, var(--lrl-container-width, 1320px));
+  margin-inline: auto;
+  padding: var(--lrl-space-top-desktop, 18px) var(--lrl-space-inline-desktop, 16px) var(--lrl-space-bottom-desktop, 20px);
+}
+
+@media screen and (max-width: 989px) {
+  .landing-retail-logos__inner {
+    padding: var(--lrl-space-top-tablet, 16px) var(--lrl-space-inline-tablet, 12px) var(--lrl-space-bottom-tablet, 18px);
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .landing-retail-logos__inner {
+    max-width: min(100% - 14px, var(--lrl-container-width, 1320px));
+    padding: var(--lrl-space-top-mobile, 14px) var(--lrl-space-inline-mobile, 8px) var(--lrl-space-bottom-mobile, 14px);
+  }
+}
+
+.landing-retail-logos__title-wrap {
+  text-align: center;
+  margin-bottom: clamp(12px, 2vw, 18px);
+}
+
+.landing-retail-logos__title {
+  margin: 0;
+  font-size: clamp(var(--lrl-title-size-mobile, 12px), 1.1vw, var(--lrl-title-size-desktop, 16px));
+  font-weight: var(--lrl-title-weight, 700);
+  letter-spacing: var(--lrl-title-letter-spacing, 3px);
+  line-height: var(--lrl-title-line-height, 1.2);
+  text-transform: uppercase;
+  color: var(--lrl-title-color, #5f7d95);
+}
+
+.landing-retail-logos__title::before,
+.landing-retail-logos__title::after {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: rgb(var(--lrl-title-dot-rgb, 120 155 182) / 0.55);
+  margin-inline: 10px;
+  transform: translateY(-1px);
+}
+
+.landing-retail-logos__list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: min(100%, var(--lrl-content-width, 1240px));
+  margin-inline: auto;
+  gap: var(--lrl-grid-gap, 12px);
+}
+
+.landing-retail-logos__item {
+  flex: 0 1 auto;
+  width: min(100%, calc((100% - (var(--lrl-grid-columns, 6) - 1) * var(--lrl-grid-gap, 12px)) / var(--lrl-grid-columns, 6)));
+  max-width: 220px;
+  min-height: var(--lrl-card-height, 76px);
+  border-radius: var(--lrl-card-radius, 12px);
+  border: 1px solid rgb(var(--lrl-card-border-rgb, 208 224 239) / calc(var(--lrl-card-border-opacity, 70) / 100));
+  background: var(--lrl-card-bg, #ffffff);
+  box-shadow: var(--lrl-card-shadow, 0 8px 18px rgb(15 49 86 / 0.06));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+}
+
+.landing-retail-logos__item:hover,
+.landing-retail-logos__item:focus-within {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgb(11 45 82 / 0.12);
+  border-color: rgb(var(--lrl-card-border-rgb, 208 224 239) / 1);
+}
+
+.landing-retail-logos__link {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.landing-retail-logos__logo-wrap {
+  width: min(100%, var(--lrl-logo-max-width, 154px));
+}
+
+.landing-retail-logos__logo {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  max-height: var(--lrl-logo-max-height, 30px);
+}
+
+.landing-retail-logos__logo-text {
+  margin: 0;
+  font-size: clamp(11px, 0.84vw, 14px);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--lrl-logo-fallback-color, #325471);
+  text-align: center;
+}
+
+.landing-retail-logos__slider {
+  display: none;
+}
+
+@media screen and (max-width: 989px) {
+  .landing-retail-logos__item {
+    width: min(100%, calc((100% - (var(--lrl-grid-columns-tablet, 3) - 1) * var(--lrl-grid-gap, 12px)) / var(--lrl-grid-columns-tablet, 3)));
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .landing-retail-logos[data-mobile-slider='true'] .landing-retail-logos__list {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: var(--lrl-grid-gap-mobile, 10px);
+    padding-bottom: 6px;
+    scrollbar-width: thin;
+    scrollbar-color: rgb(130 162 187 / 0.35) transparent;
+  }
+
+  .landing-retail-logos[data-mobile-slider='true'] .landing-retail-logos__item {
+    flex: 0 0 var(--lrl-slide-width, 74%);
+    scroll-snap-align: start;
+    min-height: var(--lrl-card-height-mobile, 64px);
+  }
+
+  .landing-retail-logos[data-mobile-slider='true'] .landing-retail-logos__slider {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .landing-retail-logos[data-mobile-slider='true'] .landing-retail-logos__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    border: 0;
+    background: rgb(114 150 180 / 0.35);
+    padding: 0;
+  }
+
+  .landing-retail-logos[data-mobile-slider='true'] .landing-retail-logos__dot[aria-current='true'] {
+    background: rgb(53 95 128 / 0.85);
+  }
+
+  .landing-retail-logos:not([data-mobile-slider='true']) .landing-retail-logos__item {
+    width: min(100%, calc((100% - (var(--lrl-grid-columns-mobile, 2) - 1) * var(--lrl-grid-gap-mobile, 10px)) / var(--lrl-grid-columns-mobile, 2)));
+    min-height: var(--lrl-card-height-mobile, 64px);
+  }
+}
+
+.landing-retail-logos[data-animate='true'] .landing-retail-logos__title-wrap,
+.landing-retail-logos[data-animate='true'] .landing-retail-logos__list {
+  animation: landingRetailFadeUp 620ms ease both;
+}
+
+@keyframes landingRetailFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landing-retail-logos *,
+  .landing-retail-logos *::before,
+  .landing-retail-logos *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+  }
+}
+
+.landing-retail-logos__inner {
+  padding-top: var(--lrl-space-top-desktop, 36px);
+  padding-bottom: var(--lrl-space-bottom-desktop, 40px);
+}
+
+.landing-retail-logos__title-wrap {
+  margin-bottom: clamp(20px, 2.4vw, 28px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.landing-retail-logos__title {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  white-space: nowrap;
+}
+
+.landing-retail-logos__title::before,
+.landing-retail-logos__title::after {
+  content: '';
+  display: block;
+  width: clamp(40px, 12vw, 120px);
+  height: 1px;
+  border-radius: 0;
+  background: #c5d4e0;
+  margin-inline: 0;
+  transform: none;
+}
+
+.landing-retail-logos__list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 8px 24px;
+}
+
+.landing-retail-logos__item {
+  flex: 0 1 auto;
+  width: auto;
+  min-width: 120px;
+  max-width: 180px;
+  min-height: 48px;
+  border-radius: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  padding: 4px 12px;
+}
+
+.landing-retail-logos__logo-wrap {
+  width: min(100%, var(--lrl-logo-max-width, 140px));
+}
+
+.landing-retail-logos__logo {
+  max-height: 28px;
+  /* filter: grayscale(1); */
+  opacity: 0.7;
+}
+
+.landing-retail-logos__logo-text {
+  letter-spacing: 0.02em;
+  color: #6a8499;
+  font-weight: 600;
+  text-transform: none;
+  font-size: clamp(12px, 0.9vw, 15px);
+}
+
+.landing-retail-logos__item:hover,
+.landing-retail-logos__item:focus-within {
+  transform: none;
+  box-shadow: none;
+}
+
+.landing-retail-logos__item:hover .landing-retail-logos__logo {
+  opacity: 1;
+}
+
+@media screen and (max-width: 989px) {
+  .landing-retail-logos__list {
+    justify-content: center;
+  }
+
+  .landing-retail-logos__item {
+    min-height: 44px;
+    min-width: 110px;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .landing-retail-logos__list {
+    justify-content: center;
+  }
+
+  .landing-retail-logos__item {
+    min-height: 40px;
+    min-width: 100px;
+  }
+}

@@ -1,0 +1,1365 @@
+{{ 'landing-hero.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'landing-hero.js' | asset_url }}" defer></script>
+
+{% liquid
+  assign section_classes = 'landing-hero color-custom-' | append: section.id
+
+  if section.settings.enable_section == false
+    assign section_classes = section_classes | append: ' landing-hero--hidden'
+  endif
+  if section.settings.show_on_desktop == false
+    assign section_classes = section_classes | append: ' landing-hero--desktop-hidden'
+  endif
+  if section.settings.show_on_tablet == false
+    assign section_classes = section_classes | append: ' landing-hero--tablet-hidden'
+  endif
+  if section.settings.show_on_mobile == false
+    assign section_classes = section_classes | append: ' landing-hero--mobile-hidden'
+  endif
+
+  assign panel_background = section.settings.panel_background
+  if section.settings.enable_glass
+    assign panel_background = section.settings.glass_background
+  endif
+
+  assign gradient_style = 'none'
+  if section.settings.enable_gradient
+    assign gradient_style = 'radial-gradient(circle at 76% 32%, ' | append: section.settings.gradient_color_1 | append: ' 0%, ' | append: section.settings.gradient_color_2 | append: ' 44%, ' | append: section.settings.gradient_color_3 | append: ' 100%)'
+  endif
+
+  assign overlay_color = section.settings.overlay_color
+  if section.settings.background_image == blank
+    assign overlay_color = 'transparent'
+  endif
+
+  assign button_alignment = 'flex-start'
+  assign text_align_self = 'start'
+  if section.settings.text_align == 'center'
+    assign button_alignment = 'center'
+    assign text_align_self = 'center'
+  elsif section.settings.text_align == 'right'
+    assign button_alignment = 'flex-end'
+    assign text_align_self = 'end'
+  endif
+
+  assign primary_icon = section.settings.primary_button_icon
+  assign secondary_icon = section.settings.secondary_button_icon
+%}
+
+{% render 'contrast-override'
+  , background_color: section.settings.background_color
+  , text_color: section.settings.body_color
+  , section_id: section.id %}
+
+<landing-hero
+  class="{{ section_classes }}"
+  data-reveal="{{ section.settings.enable_reveal_animation }}"
+  data-book-float="{{ section.settings.enable_book_float }}"
+  data-particles="{{ section.settings.enable_particles_animation }}"
+  style="
+    --lhr-bg: {{ section.settings.background_color }};
+    --lhr-bg-image: {% if section.settings.background_image != blank %}url('{{ section.settings.background_image | image_url: width: 2800 }}'){% else %}none{% endif %};
+    --lhr-gradient: {{ gradient_style }};
+    --lhr-overlay: {{ overlay_color }};
+    --lhr-overlay-opacity: {{ section.settings.overlay_opacity }};
+    --lhr-panel-bg: {{ panel_background }};
+    --lhr-text: {{ section.settings.body_color }};
+    --lhr-border-rgb: {{ section.settings.border_color.rgb }};
+    --lhr-border-opacity: {{ section.settings.border_opacity }};
+    --lhr-shadow: {% if section.settings.enable_shadow %}0 30px 50px rgb(15 49 86 / 0.08){% else %}none{% endif %};
+    --lhr-blur: {% if section.settings.enable_glass %}{{ section.settings.glass_blur }}px{% else %}0px{% endif %};
+    --lhr-radius: {{ section.settings.border_radius }}px;
+    --lhr-container-width: {{ section.settings.container_width }}px;
+    --lhr-content-width: {{ section.settings.content_width }}px;
+    --lhr-text-max-width: {{ section.settings.text_content_width }}px;
+    --lhr-min-height-desktop: {{ section.settings.min_height_desktop }}px;
+    --lhr-media-min-height-desktop: {{ section.settings.media_min_height_desktop }}px;
+    --lhr-media-min-height-mobile: {{ section.settings.media_min_height_mobile }}px;
+    --lhr-space-top-desktop: {{ section.settings.padding_top_desktop }}px;
+    --lhr-space-bottom-desktop: {{ section.settings.padding_bottom_desktop }}px;
+    --lhr-space-inline-desktop: {{ section.settings.padding_inline_desktop }}px;
+    --lhr-space-top-tablet: {{ section.settings.padding_top_tablet }}px;
+    --lhr-space-bottom-tablet: {{ section.settings.padding_bottom_tablet }}px;
+    --lhr-space-inline-tablet: {{ section.settings.padding_inline_tablet }}px;
+    --lhr-space-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --lhr-space-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+    --lhr-space-inline-mobile: {{ section.settings.padding_inline_mobile }}px;
+    --lhr-heading-color: {{ section.settings.heading_color }};
+    --lhr-eyebrow-color: {{ section.settings.eyebrow_color }};
+    --lhr-body-color: {{ section.settings.body_color }};
+    --lhr-author-color: {{ section.settings.author_color }};
+    --lhr-author-sub-color: {{ section.settings.author_sub_color }};
+    --lhr-heading-size-desktop: {{ section.settings.heading_size_desktop }}px;
+    --lhr-heading-size-mobile: {{ section.settings.heading_size_mobile }}px;
+    --lhr-heading-weight: {{ section.settings.heading_weight }};
+    --lhr-heading-letter-spacing: {{ section.settings.heading_letter_spacing }}px;
+    --lhr-heading-line-height: {{ section.settings.heading_line_height }};
+    --lhr-eyebrow-size-desktop: {{ section.settings.eyebrow_size_desktop }}px;
+    --lhr-eyebrow-size-mobile: {{ section.settings.eyebrow_size_mobile }}px;
+    --lhr-eyebrow-weight: {{ section.settings.eyebrow_weight }};
+    --lhr-eyebrow-letter-spacing: {{ section.settings.eyebrow_letter_spacing }}px;
+    --lhr-eyebrow-line-height: {{ section.settings.eyebrow_line_height }};
+    --lhr-body-size-desktop: {{ section.settings.body_size_desktop }}px;
+    --lhr-body-size-mobile: {{ section.settings.body_size_mobile }}px;
+    --lhr-body-weight: {{ section.settings.body_weight }};
+    --lhr-body-letter-spacing: {{ section.settings.body_letter_spacing }}px;
+    --lhr-body-line-height: {{ section.settings.body_line_height }};
+    --lhr-author-size-desktop: {{ section.settings.author_size_desktop }}px;
+    --lhr-author-size-mobile: {{ section.settings.author_size_mobile }}px;
+    --lhr-author-weight: {{ section.settings.author_weight }};
+    --lhr-author-letter-spacing: {{ section.settings.author_letter_spacing }}px;
+    --lhr-author-line-height: {{ section.settings.author_line_height }};
+    --lhr-button-size-desktop: {{ section.settings.button_size_desktop }}px;
+    --lhr-button-size-mobile: {{ section.settings.button_size_mobile }}px;
+    --lhr-button-weight: {{ section.settings.button_weight }};
+    --lhr-button-radius: {{ section.settings.button_radius }}px;
+    --lhr-primary-button-bg: {{ section.settings.primary_button_bg }};
+    --lhr-primary-button-bg-hover: {{ section.settings.primary_button_bg_hover }};
+    --lhr-primary-button-text: {{ section.settings.primary_button_text }};
+    --lhr-primary-button-border: {{ section.settings.primary_button_border }};
+    --lhr-secondary-button-bg: {{ section.settings.secondary_button_bg }};
+    --lhr-secondary-button-bg-hover: {{ section.settings.secondary_button_bg_hover }};
+    --lhr-secondary-button-text: {{ section.settings.secondary_button_text }};
+    --lhr-secondary-button-border: {{ section.settings.secondary_button_border }};
+    --lhr-book-max-width: {{ section.settings.book_width_desktop }}px;
+    --lhr-book-offset-x: {{ section.settings.book_offset_x }}px;
+    --lhr-book-offset-y: {{ section.settings.book_offset_y }}px;
+    --lhr-book-float-speed: {{ section.settings.book_float_speed }}s;
+    --lhr-media-glow-blur: {{ section.settings.media_glow_blur }}px;
+    --lhr-flower-right-size: {{ section.settings.flower_right_size }}px;
+    --lhr-flower-left-size: {{ section.settings.flower_left_size }}px;
+    --lhr-flower-right-offset: {{ section.settings.flower_right_offset_x }};
+    --lhr-flower-bottom-offset: {{ section.settings.flower_right_offset_y }};
+    --lhr-flower-left-offset: {{ section.settings.flower_left_offset_x }};
+    --lhr-flower-top-offset: {{ section.settings.flower_left_offset_y }};
+    --lhr-particle-speed: {{ section.settings.particle_speed }}s;
+    --lhr-text-align: {{ section.settings.text_align }};
+    --lhr-text-align-self: {{ text_align_self }};
+    --lhr-button-align: {{ button_alignment }};
+  ">
+  <div class="landing-hero__bg" aria-hidden="true"></div>
+  <div class="landing-hero__gradient" aria-hidden="true"></div>
+  <div class="landing-hero__atmosphere" aria-hidden="true">
+    <span class="landing-hero__light landing-hero__light--1"></span>
+    <span class="landing-hero__light landing-hero__light--2"></span>
+    <span class="landing-hero__light landing-hero__light--3"></span>
+    <span class="landing-hero__light landing-hero__light--4"></span>
+  </div>
+  <div class="landing-hero__overlay" aria-hidden="true"></div>
+
+  <div class="landing-hero__inner">
+    <div class="landing-hero__panel">
+      <div class="landing-hero__grid">
+        <div class="landing-hero__content" data-reveal="left">
+
+        {% if section.settings.heading_1 != blank or section.settings.heading_2 != blank %}
+          <h1 class="landing-hero__heading">
+            <span class="landing-hero__heading-1">
+              {{ section.settings.heading_1 }}
+            </span>
+            <span class="landing-hero__living-word">
+              {{ section.settings.heading_2 }}
+            </span>
+          </h1>
+        {% endif %}
+
+          {% if section.settings.eyebrow != blank %}
+            <p class="landing-hero__eyebrow">{{ section.settings.eyebrow }}</p>
+          {% endif %}
+
+          {% if section.settings.description != blank %}
+            <div class="landing-hero__description rte">{{ section.settings.description }}</div>
+          {% endif %}
+
+          {% if section.settings.author_name != blank %}
+            <p class="landing-hero__author">{{ section.settings.author_name }}</p>
+          {% endif %}
+
+          {% if section.settings.author_subtitle != blank %}
+            <p class="landing-hero__author-sub">{{ section.settings.author_subtitle }}</p>
+          {% endif %}
+
+          <div class="landing-hero__buttons">
+            {% if section.settings.primary_button_label != blank %}
+              <a class="landing-hero__button landing-hero__button--primary" href="{{ section.settings.primary_button_url | default: '#' }}" {% render 'landing-link-target', url: section.settings.primary_button_url %}>
+                {% if primary_icon != 'none' %}
+                  <span class="landing-hero__button-icon" aria-hidden="true">
+                    {% case primary_icon %}
+                      {% when 'cart' %}
+                        <svg viewBox="0 0 24 24" fill="none"><path
+                            d="M3.8 5h2.2l2 10.5h10.3l2.1-7.9H7.1"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round" /><circle
+                            cx="10"
+                            cy="19"
+                            r="1.6"
+                            fill="currentColor" /><circle
+                            cx="17"
+                            cy="19"
+                            r="1.6"
+                            fill="currentColor" /></svg>
+                      {% when 'play' %}
+                        <svg viewBox="0 0 24 24" fill="none"><path d="M8 6.5v11l9-5.5-9-5.5Z" fill="currentColor" /></svg>
+                      {% when 'book' %}
+                        <svg viewBox="0 0 24 24" fill="none"><path
+                            d="M4 5a2 2 0 0 1 2-2h14v18H7a3 3 0 0 1 0-6h11V5H6a1 1 0 0 0-1 1v12"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linejoin="round" /></svg>
+                    {% endcase %}
+                  </span>
+                {% endif %}
+                <span>{{ section.settings.primary_button_label }}</span>
+              </a>
+            {% endif %}
+
+            {% if section.settings.secondary_button_label != blank %}
+              <a class="landing-hero__button landing-hero__button--secondary" href="{{ section.settings.secondary_button_url | default: '#' }}" {% render 'landing-link-target', url: section.settings.secondary_button_url %}>
+                {% if secondary_icon != 'none' %}
+                  <span class="landing-hero__button-icon" aria-hidden="true">
+                    {% case secondary_icon %}
+                      {% when 'play' %}
+                        <svg viewBox="0 0 24 24" fill="none"><path d="M8 6.5v11l9-5.5-9-5.5Z" fill="currentColor" /></svg>
+                      {% when 'arrow' %}
+                        <svg viewBox="0 0 24 24" fill="none"><path
+                            d="M5 12h14m0 0-5-5m5 5-5 5"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round" /></svg>
+                      {% when 'book' %}
+                        <svg viewBox="0 0 24 24" fill="none"><path
+                            d="M4 5a2 2 0 0 1 2-2h14v18H7a3 3 0 0 1 0-6h11V5H6a1 1 0 0 0-1 1v12"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linejoin="round" /></svg>
+                    {% endcase %}
+                  </span>
+                {% endif %}
+                <span>{{ section.settings.secondary_button_label }}</span>
+              </a>
+            {% endif %}
+          </div>
+
+          {% if section.blocks.size > 0 %}
+            <div class="landing-hero__badges">
+              {% for block in section.blocks %}
+                {% if block.type == 'feature_badge' and block.settings.label != blank %}
+                  <div class="landing-hero__badge" {{ block.shopify_attributes }}>
+                    <span class="landing-hero__badge-icon">
+                      {% if block.settings.icon_image != blank %}
+                        {{ block.settings.icon_image | image_url: width: 36 | image_tag: loading: 'lazy', widths: '20,36', sizes: '12px', alt: block.settings.label }}
+                      {% else %}
+                        {% case block.settings.icon %}
+                          {% when 'faith' %}
+                            <svg viewBox="0 0 24 24" fill="none"><path
+                                d="M12 3v18M6.8 8h10.4"
+                                stroke="currentColor"
+                                stroke-width="1.9"
+                                stroke-linecap="round" /></svg>
+                          {% when 'heart' %}
+                            <svg viewBox="0 0 24 24" fill="none"><path d="M12 20.2s-6.5-4.3-8.7-8a5 5 0 0 1 8.1-5.6l.6.7.6-.7a5 5 0 0 1 8.1 5.6c-2.2 3.7-8.7 8-8.7 8Z" fill="currentColor" /></svg>
+                          {% when 'sun' %}
+                            <svg viewBox="0 0 24 24" fill="none"><circle
+                                cx="12"
+                                cy="12"
+                                r="4"
+                                fill="currentColor" /><path
+                                d="M12 3v2.2M12 18.8V21M3 12h2.2M18.8 12H21M5.4 5.4l1.6 1.6M17 17l1.6 1.6M5.4 18.6 7 17M17 7l1.6-1.6"
+                                stroke="currentColor"
+                                stroke-width="1.6"
+                                stroke-linecap="round" /></svg>
+                          {% else %}
+                            <svg viewBox="0 0 24 24" fill="none"><path
+                                d="M19.5 4.5c-6.1.1-11 5-11 11V20h4.5c6 0 10.9-4.9 11-11V4.5h-4.5Z"
+                                stroke="currentColor"
+                                stroke-width="1.8" /><path
+                                d="M8.8 15.2c2.2-2.2 5-3.9 8.2-5"
+                                stroke="currentColor"
+                                stroke-width="1.8"
+                                stroke-linecap="round" /></svg>
+                        {% endcase %}
+                      {% endif %}
+                    </span>
+                    <span>{{ block.settings.label }}</span>
+                  </div>
+                {% endif %}
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="landing-hero__media" data-reveal="right">
+          <div class="landing-hero__media-glow" aria-hidden="true"></div>
+          <div class="landing-hero__media-glow landing-hero__media-glow--soft" aria-hidden="true"></div>
+
+          {% if section.settings.flower_left != blank %}
+            <div class="landing-hero__flower landing-hero__flower--left" aria-hidden="true">
+              {{ section.settings.flower_left | image_url: width: 600 | image_tag: loading: 'lazy', widths: '180,300,420,600', sizes: '(max-width: 989px) 32vw, 16vw', alt: '' }}
+            </div>
+          {% endif %}
+
+          <div class="landing-hero__book-wrap">
+            {% if section.settings.book_image != blank %}
+              {{ section.settings.book_image | image_url: width: 1400 | image_tag: class: 'landing-hero__book-image', widths: '300,420,560,760,940,1200,1400', sizes: '(max-width: 989px) 78vw, min(48vw, 620px)', loading: 'eager', fetchpriority: 'high', alt: section.settings.book_image.alt }}
+            {% else %}
+              {{ 'hero-apparel-1' | placeholder_svg_tag: 'landing-hero__book-image' }}
+            {% endif %}
+          </div>
+
+          {% if section.settings.flower_right != blank %}
+            <div class="landing-hero__flower landing-hero__flower--right" aria-hidden="true">
+              {{ section.settings.flower_right | image_url: width: 700 | image_tag: loading: 'lazy', widths: '220,360,520,700', sizes: '(max-width: 989px) 40vw, 22vw', alt: '' }}
+            </div>
+          {% endif %}
+
+          {% for block in section.blocks %}
+            {% if block.type == 'particle' %}
+              <span
+                class="landing-hero__particle{% if block.settings.shape == 'leaf' %} landing-hero__particle--leaf{% endif %}"
+                style="
+                  --lhr-particle-top: {{ block.settings.top }}%;
+                  --lhr-particle-left: {{ block.settings.left }}%;
+                  --lhr-particle-size: {{ block.settings.size }}px;
+                  --lhr-particle-color: {{ block.settings.color }};
+                  --lhr-particle-opacity: {{ block.settings.opacity | divided_by: 100.0 }};
+                  --lhr-particle-rotation: {{ block.settings.rotation }}deg;
+                  --lhr-particle-blur: {{ block.settings.blur }}px;
+                "
+                {{ block.shopify_attributes }}
+                aria-hidden="true"></span>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</landing-hero>
+
+{% schema %}
+  {
+    "name": "Landing Hero Banner",
+    "tag": "section",
+    "class": "section",
+    "disabled_on": {
+      "groups": ["header", "footer"]
+    },
+    "settings": [
+      {
+        "type": "header",
+        "content": "Visibility"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_section",
+        "label": "Enable section",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_on_desktop",
+        "label": "Show on desktop",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_on_tablet",
+        "label": "Show on tablet",
+        "default": true
+      }, {
+        "type": "checkbox",
+        "id": "show_on_mobile",
+        "label": "Show on mobile",
+        "default": true
+      }, {
+        "type": "header",
+        "content": "Content"
+      }, {
+        "type": "inline_richtext",
+        "id": "eyebrow",
+        "label": "Subtitle",
+        "default": "Embracing the power of <em>gratitude</em> every day"
+      }, {
+        "type": "inline_richtext",
+        "id": "heading_1",
+        "label": "Heading 1",
+        "default": "Thanks"
+      }, {
+        "type": "inline_richtext",
+        "id": "heading_2",
+        "label": "Heading 2",
+        "default": "Living"
+      }, {
+        "type": "richtext",
+        "id": "description",
+        "label": "Description",
+        "default": "<p>A life of gratitude transforms our hearts, strengthens our faith, and fills every day with purpose, joy, and hope.</p>"
+      }, {
+        "type": "text",
+        "id": "author_name",
+        "label": "Author name",
+        "default": "Stu Epperson Jr."
+      }, {
+        "type": "text",
+        "id": "author_subtitle",
+        "label": "Author subtitle",
+        "default": "Foreword by Dr. Gary Chapman"
+      }, {
+        "type": "select",
+        "id": "text_align",
+        "label": "Text alignment",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left"
+          }, {
+            "value": "center",
+            "label": "Center"
+          }, {
+            "value": "right",
+            "label": "Right"
+          }
+        ],
+        "default": "left"
+      }, {
+        "type": "header",
+        "content": "Buttons"
+      }, {
+        "type": "text",
+        "id": "primary_button_label",
+        "label": "Primary button label",
+        "default": "Order now"
+      }, {
+        "type": "url",
+        "id": "primary_button_url",
+        "label": "Primary button URL"
+      }, {
+        "type": "select",
+        "id": "primary_button_icon",
+        "label": "Primary button icon",
+        "options": [
+          {
+            "value": "none",
+            "label": "None"
+          }, {
+            "value": "cart",
+            "label": "Cart"
+          }, {
+            "value": "play",
+            "label": "Play"
+          }, {
+            "value": "book",
+            "label": "Book"
+          }
+        ],
+        "default": "cart"
+      }, {
+        "type": "text",
+        "id": "secondary_button_label",
+        "label": "Secondary button label",
+        "default": "Hear from Stu"
+      }, {
+        "type": "url",
+        "id": "secondary_button_url",
+        "label": "Secondary button URL"
+      }, {
+        "type": "select",
+        "id": "secondary_button_icon",
+        "label": "Secondary button icon",
+        "options": [
+          {
+            "value": "none",
+            "label": "None"
+          }, {
+            "value": "play",
+            "label": "Play"
+          }, {
+            "value": "arrow",
+            "label": "Arrow"
+          }, {
+            "value": "book",
+            "label": "Book"
+          }
+        ],
+        "default": "play"
+      }, {
+        "type": "header",
+        "content": "Hero media"
+      }, {
+        "type": "image_picker",
+        "id": "book_image",
+        "label": "Book image"
+      }, {
+        "type": "range",
+        "id": "book_width_desktop",
+        "label": "Book width desktop",
+        "min": 280,
+        "max": 760,
+        "step": 10,
+        "unit": "px",
+        "default": 580
+      }, {
+        "type": "range",
+        "id": "book_offset_x",
+        "label": "Book offset X",
+        "min": -120,
+        "max": 120,
+        "step": 4,
+        "unit": "px",
+        "default": 12
+      }, {
+        "type": "range",
+        "id": "book_offset_y",
+        "label": "Book offset Y",
+        "min": -120,
+        "max": 120,
+        "step": 4,
+        "unit": "px",
+        "default": 0
+      }, {
+        "type": "checkbox",
+        "id": "enable_book_float",
+        "label": "Enable floating book animation",
+        "default": true
+      }, {
+        "type": "range",
+        "id": "book_float_speed",
+        "label": "Book float speed",
+        "min": 3,
+        "max": 14,
+        "step": 0.5,
+        "unit": "s",
+        "default": 6
+      }, {
+        "type": "image_picker",
+        "id": "flower_left",
+        "label": "Left decorative image"
+      }, {
+        "type": "range",
+        "id": "flower_left_size",
+        "label": "Left image size",
+        "min": 90,
+        "max": 440,
+        "step": 10,
+        "unit": "px",
+        "default": 190
+      }, {
+        "type": "range",
+        "id": "flower_left_offset_x",
+        "label": "Left image horizontal offset",
+        "min": -220,
+        "max": 220,
+        "step": 5,
+        "unit": "px",
+        "default": -30
+      }, {
+        "type": "range",
+        "id": "flower_left_offset_y",
+        "label": "Left image vertical offset",
+        "min": -180,
+        "max": 220,
+        "step": 5,
+        "unit": "px",
+        "default": 20
+      }, {
+        "type": "image_picker",
+        "id": "flower_right",
+        "label": "Right decorative image"
+      }, {
+        "type": "range",
+        "id": "flower_right_size",
+        "label": "Right image size",
+        "min": 90,
+        "max": 520,
+        "step": 10,
+        "unit": "px",
+        "default": 270
+      }, {
+        "type": "range",
+        "id": "flower_right_offset_x",
+        "label": "Right image horizontal offset",
+        "min": -220,
+        "max": 220,
+        "step": 5,
+        "unit": "px",
+        "default": -30
+      }, {
+        "type": "range",
+        "id": "flower_right_offset_y",
+        "label": "Right image vertical offset",
+        "min": -220,
+        "max": 220,
+        "step": 5,
+        "unit": "px",
+        "default": -10
+      }, {
+        "type": "header",
+        "content": "Colors and backgrounds"
+      }, {
+        "type": "color",
+        "id": "background_color",
+        "label": "Section background",
+        "default": "#f6fbff"
+      }, {
+        "type": "image_picker",
+        "id": "background_image",
+        "label": "Background image"
+      }, {
+        "type": "checkbox",
+        "id": "enable_gradient",
+        "label": "Enable gradient",
+        "default": true
+      }, {
+        "type": "color",
+        "id": "gradient_color_1",
+        "label": "Gradient color 1",
+        "default": "#9bdcff"
+      }, {
+        "type": "color",
+        "id": "gradient_color_2",
+        "label": "Gradient color 2",
+        "default": "#edf8ff"
+      }, {
+        "type": "color",
+        "id": "gradient_color_3",
+        "label": "Gradient color 3",
+        "default": "#ffffff"
+      }, {
+        "type": "color",
+        "id": "overlay_color",
+        "label": "Overlay color",
+        "default": "#0f315600"
+      }, {
+        "type": "range",
+        "id": "overlay_opacity",
+        "label": "Overlay opacity",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "%",
+        "default": 0
+      }, {
+        "type": "color",
+        "id": "panel_background",
+        "label": "Panel background",
+        "default": "#ffffff66"
+      }, {
+        "type": "checkbox",
+        "id": "enable_glass",
+        "label": "Enable glass morphism",
+        "default": true
+      }, {
+        "type": "color",
+        "id": "glass_background",
+        "label": "Glass background",
+        "default": "#ffffff8c"
+      }, {
+        "type": "range",
+        "id": "glass_blur",
+        "label": "Glass blur",
+        "min": 0,
+        "max": 24,
+        "step": 1,
+        "unit": "px",
+        "default": 8
+      }, {
+        "type": "color",
+        "id": "border_color",
+        "label": "Panel border color",
+        "default": "#d2e3f2"
+      }, {
+        "type": "range",
+        "id": "border_opacity",
+        "label": "Panel border opacity",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "%",
+        "default": 100
+      }, {
+        "type": "checkbox",
+        "id": "enable_shadow",
+        "label": "Enable panel shadow",
+        "default": true
+      }, {
+        "type": "range",
+        "id": "border_radius",
+        "label": "Panel corner radius",
+        "min": 0,
+        "max": 48,
+        "step": 1,
+        "unit": "px",
+        "default": 20
+      }, {
+        "type": "header",
+        "content": "Typography"
+      }, {
+        "type": "color",
+        "id": "heading_color",
+        "label": "Heading color",
+        "default": "#062440"
+      }, {
+        "type": "color",
+        "id": "eyebrow_color",
+        "label": "Subtitle color",
+        "default": "#2e6a95"
+      }, {
+        "type": "color",
+        "id": "body_color",
+        "label": "Body text color",
+        "default": "#284763"
+      }, {
+        "type": "color",
+        "id": "author_color",
+        "label": "Author name color",
+        "default": "#e0a715"
+      }, {
+        "type": "color",
+        "id": "author_sub_color",
+        "label": "Author subtitle color",
+        "default": "#5b7188"
+      }, {
+        "type": "range",
+        "id": "heading_size_desktop",
+        "label": "Heading size desktop",
+        "min": 48,
+        "max": 168,
+        "step": 2,
+        "unit": "px",
+        "default": 104
+      }, {
+        "type": "range",
+        "id": "heading_size_mobile",
+        "label": "Heading size mobile",
+        "min": 28,
+        "max": 92,
+        "step": 2,
+        "unit": "px",
+        "default": 52
+      }, {
+        "type": "select",
+        "id": "heading_weight",
+        "label": "Heading weight",
+        "options": [
+          {
+            "value": "400",
+            "label": "Regular"
+          }, {
+            "value": "500",
+            "label": "Medium"
+          }, {
+            "value": "600",
+            "label": "Semibold"
+          }, {
+            "value": "700",
+            "label": "Bold"
+          }
+        ],
+        "default": "500"
+      }, {
+        "type": "range",
+        "id": "heading_letter_spacing",
+        "label": "Heading letter spacing",
+        "min": -4,
+        "max": 4,
+        "step": 0.1,
+        "unit": "px",
+        "default": -1
+      }, {
+        "type": "range",
+        "id": "heading_line_height",
+        "label": "Heading line height",
+        "min": 0.8,
+        "max": 1.4,
+        "step": 0.1,
+        "default": 0.9
+      }, {
+        "type": "range",
+        "id": "eyebrow_size_desktop",
+        "label": "Subtitle size desktop",
+        "min": 12,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "default": 28
+      }, {
+        "type": "range",
+        "id": "eyebrow_size_mobile",
+        "label": "Subtitle size mobile",
+        "min": 11,
+        "max": 30,
+        "step": 1,
+        "unit": "px",
+        "default": 18
+      }, {
+        "type": "select",
+        "id": "eyebrow_weight",
+        "label": "Subtitle weight",
+        "options": [
+          {
+            "value": "400",
+            "label": "Regular"
+          }, {
+            "value": "500",
+            "label": "Medium"
+          }, {
+            "value": "600",
+            "label": "Semibold"
+          }
+        ],
+        "default": "500"
+      }, {
+        "type": "range",
+        "id": "eyebrow_letter_spacing",
+        "label": "Subtitle letter spacing",
+        "min": -1,
+        "max": 3,
+        "step": 0.1,
+        "unit": "px",
+        "default": 0
+      }, {
+        "type": "range",
+        "id": "eyebrow_line_height",
+        "label": "Subtitle line height",
+        "min": 1,
+        "max": 1.8,
+        "step": 0.1,
+        "default": 1.2
+      }, {
+        "type": "range",
+        "id": "body_size_desktop",
+        "label": "Body size desktop",
+        "min": 12,
+        "max": 28,
+        "step": 1,
+        "unit": "px",
+        "default": 18
+      }, {
+        "type": "range",
+        "id": "body_size_mobile",
+        "label": "Body size mobile",
+        "min": 11,
+        "max": 22,
+        "step": 1,
+        "unit": "px",
+        "default": 14
+      }, {
+        "type": "select",
+        "id": "body_weight",
+        "label": "Body weight",
+        "options": [
+          {
+            "value": "300",
+            "label": "Light"
+          }, {
+            "value": "400",
+            "label": "Regular"
+          }, {
+            "value": "500",
+            "label": "Medium"
+          }
+        ],
+        "default": "400"
+      }, {
+        "type": "range",
+        "id": "body_letter_spacing",
+        "label": "Body letter spacing",
+        "min": -1,
+        "max": 2,
+        "step": 0.1,
+        "unit": "px",
+        "default": 0
+      }, {
+        "type": "range",
+        "id": "body_line_height",
+        "label": "Body line height",
+        "min": 1.2,
+        "max": 2,
+        "step": 0.1,
+        "default": 1.6
+      }, {
+        "type": "range",
+        "id": "author_size_desktop",
+        "label": "Author name size desktop",
+        "min": 16,
+        "max": 52,
+        "step": 1,
+        "unit": "px",
+        "default": 34
+      }, {
+        "type": "range",
+        "id": "author_size_mobile",
+        "label": "Author name size mobile",
+        "min": 14,
+        "max": 36,
+        "step": 1,
+        "unit": "px",
+        "default": 22
+      }, {
+        "type": "select",
+        "id": "author_weight",
+        "label": "Author name weight",
+        "options": [
+          {
+            "value": "500",
+            "label": "Medium"
+          }, {
+            "value": "600",
+            "label": "Semibold"
+          }, {
+            "value": "700",
+            "label": "Bold"
+          }
+        ],
+        "default": "700"
+      }, {
+        "type": "range",
+        "id": "author_letter_spacing",
+        "label": "Author name letter spacing",
+        "min": 0,
+        "max": 5,
+        "step": 0.1,
+        "unit": "px",
+        "default": 1.6
+      }, {
+        "type": "range",
+        "id": "author_line_height",
+        "label": "Author name line height",
+        "min": 1,
+        "max": 1.6,
+        "step": 0.1,
+        "default": 1.1
+      }, {
+        "type": "range",
+        "id": "button_size_desktop",
+        "label": "Button size desktop",
+        "min": 12,
+        "max": 22,
+        "step": 1,
+        "unit": "px",
+        "default": 15
+      }, {
+        "type": "range",
+        "id": "button_size_mobile",
+        "label": "Button size mobile",
+        "min": 11,
+        "max": 20,
+        "step": 1,
+        "unit": "px",
+        "default": 13
+      }, {
+        "type": "select",
+        "id": "button_weight",
+        "label": "Button weight",
+        "options": [
+          {
+            "value": "500",
+            "label": "Medium"
+          }, {
+            "value": "600",
+            "label": "Semibold"
+          }, {
+            "value": "700",
+            "label": "Bold"
+          }
+        ],
+        "default": "700"
+      }, {
+        "type": "range",
+        "id": "button_radius",
+        "label": "Button corner radius",
+        "min": 0,
+        "max": 40,
+        "step": 1,
+        "unit": "px",
+        "default": 10
+      }, {
+        "type": "color",
+        "id": "primary_button_bg",
+        "label": "Primary button background",
+        "default": "#f8c533"
+      }, {
+        "type": "color",
+        "id": "primary_button_bg_hover",
+        "label": "Primary button hover",
+        "default": "#f2bc1e"
+      }, {
+        "type": "color",
+        "id": "primary_button_text",
+        "label": "Primary button text",
+        "default": "#0f3156"
+      }, {
+        "type": "color",
+        "id": "primary_button_border",
+        "label": "Primary button border",
+        "default": "#f8c533"
+      }, {
+        "type": "color",
+        "id": "secondary_button_bg",
+        "label": "Secondary button background",
+        "default": "#ffffff"
+      }, {
+        "type": "color",
+        "id": "secondary_button_bg_hover",
+        "label": "Secondary button hover",
+        "default": "#eef6fd"
+      }, {
+        "type": "color",
+        "id": "secondary_button_text",
+        "label": "Secondary button text",
+        "default": "#0f3156"
+      }, {
+        "type": "color",
+        "id": "secondary_button_border",
+        "label": "Secondary button border",
+        "default": "#c6d9eb"
+      }, {
+        "type": "header",
+        "content": "Layout and spacing"
+      }, {
+        "type": "range",
+        "id": "container_width",
+        "label": "Container width",
+        "min": 960,
+        "max": 1760,
+        "step": 20,
+        "unit": "px",
+        "default": 1320
+      }, {
+        "type": "range",
+        "id": "content_width",
+        "label": "Content width",
+        "min": 880,
+        "max": 1720,
+        "step": 20,
+        "unit": "px",
+        "default": 1280
+      }, {
+        "type": "range",
+        "id": "text_content_width",
+        "label": "Text column width",
+        "min": 360,
+        "max": 920,
+        "step": 10,
+        "unit": "px",
+        "default": 560
+      }, {
+        "type": "range",
+        "id": "min_height_desktop",
+        "label": "Desktop section min height",
+        "min": 420,
+        "max": 980,
+        "step": 10,
+        "unit": "px",
+        "default": 670
+      }, {
+        "type": "range",
+        "id": "media_min_height_desktop",
+        "label": "Desktop media min height",
+        "min": 260,
+        "max": 760,
+        "step": 10,
+        "unit": "px",
+        "default": 540
+      }, {
+        "type": "range",
+        "id": "media_min_height_mobile",
+        "label": "Mobile media min height",
+        "min": 240,
+        "max": 560,
+        "step": 10,
+        "unit": "px",
+        "default": 360
+      }, {
+        "type": "range",
+        "id": "padding_top_desktop",
+        "label": "Desktop top spacing",
+        "min": 0,
+        "max": 200,
+        "step": 4,
+        "unit": "px",
+        "default": 40
+      }, {
+        "type": "range",
+        "id": "padding_bottom_desktop",
+        "label": "Desktop bottom spacing",
+        "min": 0,
+        "max": 200,
+        "step": 4,
+        "unit": "px",
+        "default": 24
+      }, {
+        "type": "range",
+        "id": "padding_inline_desktop",
+        "label": "Desktop side spacing",
+        "min": 0,
+        "max": 80,
+        "step": 4,
+        "unit": "px",
+        "default": 16
+      }, {
+        "type": "range",
+        "id": "padding_top_tablet",
+        "label": "Tablet top spacing",
+        "min": 0,
+        "max": 200,
+        "step": 4,
+        "unit": "px",
+        "default": 24
+      }, {
+        "type": "range",
+        "id": "padding_bottom_tablet",
+        "label": "Tablet bottom spacing",
+        "min": 0,
+        "max": 200,
+        "step": 4,
+        "unit": "px",
+        "default": 24
+      }, {
+        "type": "range",
+        "id": "padding_inline_tablet",
+        "label": "Tablet side spacing",
+        "min": 0,
+        "max": 80,
+        "step": 4,
+        "unit": "px",
+        "default": 12
+      }, {
+        "type": "range",
+        "id": "padding_top_mobile",
+        "label": "Mobile top spacing",
+        "min": 0,
+        "max": 200,
+        "step": 4,
+        "unit": "px",
+        "default": 20
+      }, {
+        "type": "range",
+        "id": "padding_bottom_mobile",
+        "label": "Mobile bottom spacing",
+        "min": 0,
+        "max": 200,
+        "step": 4,
+        "unit": "px",
+        "default": 20
+      }, {
+        "type": "range",
+        "id": "padding_inline_mobile",
+        "label": "Mobile side spacing",
+        "min": 0,
+        "max": 60,
+        "step": 4,
+        "unit": "px",
+        "default": 8
+      }, {
+        "type": "header",
+        "content": "Animation"
+      }, {
+        "type": "checkbox",
+        "id": "enable_reveal_animation",
+        "label": "Enable reveal animation",
+        "default": true
+      }, {
+        "type": "checkbox",
+        "id": "enable_particles_animation",
+        "label": "Enable particles animation",
+        "default": true
+      }, {
+        "type": "range",
+        "id": "particle_speed",
+        "label": "Particles animation speed",
+        "min": 3,
+        "max": 16,
+        "step": 0.5,
+        "unit": "s",
+        "default": 8
+      }, {
+        "type": "range",
+        "id": "media_glow_blur",
+        "label": "Media glow blur",
+        "min": 0,
+        "max": 30,
+        "step": 1,
+        "unit": "px",
+        "default": 12
+      }
+    ],
+    "blocks": [
+      {
+        "type": "feature_badge",
+        "name": "Feature badge",
+        "limit": 6,
+        "settings": [
+          {
+            "type": "text",
+            "id": "label",
+            "label": "Label",
+            "default": "Christian Living"
+          }, {
+            "type": "select",
+            "id": "icon",
+            "label": "Icon",
+            "options": [
+              {
+                "value": "leaf",
+                "label": "Leaf"
+              }, {
+                "value": "faith",
+                "label": "Faith"
+              }, {
+                "value": "heart",
+                "label": "Heart"
+              }, {
+                "value": "sun",
+                "label": "Sun"
+              }
+            ],
+            "default": "leaf"
+          }, {
+            "type": "image_picker",
+            "id": "icon_image",
+            "label": "Custom icon image"
+          }
+        ]
+      }, {
+        "type": "particle",
+        "name": "Floating particle",
+        "limit": 12,
+        "settings": [
+          {
+            "type": "select",
+            "id": "shape",
+            "label": "Particle shape",
+            "options": [
+              {
+                "value": "circle",
+                "label": "Circle"
+              }, {
+                "value": "leaf",
+                "label": "Leaf"
+              }
+            ],
+            "default": "leaf"
+          },
+          {
+            "type": "range",
+            "id": "top",
+            "label": "Top position",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "default": 40
+          },
+          {
+            "type": "range",
+            "id": "left",
+            "label": "Left position",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "default": 60
+          },
+          {
+            "type": "range",
+            "id": "size",
+            "label": "Size",
+            "min": 4,
+            "max": 30,
+            "step": 1,
+            "unit": "px",
+            "default": 12
+          }, {
+            "type": "range",
+            "id": "opacity",
+            "label": "Opacity",
+            "min": 10,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "default": 78
+          }, {
+            "type": "range",
+            "id": "rotation",
+            "label": "Rotation",
+            "min": -180,
+            "max": 180,
+            "step": 4,
+            "unit": "deg",
+            "default": 8
+          }, {
+            "type": "range",
+            "id": "blur",
+            "label": "Blur",
+            "min": 0,
+            "max": 8,
+            "step": 0.5,
+            "unit": "px",
+            "default": 0
+          }, {
+            "type": "color",
+            "id": "color",
+            "label": "Color",
+            "default": "#f5c634"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Landing Hero Banner",
+        "blocks": [
+          {
+            "type": "feature_badge",
+            "settings": {
+              "label": "Christian Living",
+              "icon": "leaf"
+            }
+          },
+          {
+            "type": "feature_badge",
+            "settings": {
+              "label": "Inspirational",
+              "icon": "heart"
+            }
+          },
+          {
+            "type": "feature_badge",
+            "settings": {
+              "label": "Moody Publishers",
+              "icon": "sun"
+            }
+          },
+          {
+            "type": "particle",
+            "settings": {
+              "top": 32,
+              "left": 74,
+              "size": 14,
+              "rotation": -16
+            }
+          }, {
+            "type": "particle",
+            "settings": {
+              "top": 56,
+              "left": 68,
+              "size": 10,
+              "rotation": 24
+            }
+          }, {
+            "type": "particle",
+            "settings": {
+              "top": 24,
+              "left": 86,
+              "size": 12,
+              "rotation": -8
+            }
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
