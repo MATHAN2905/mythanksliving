@@ -448,6 +448,7 @@
           "type": "ai_gen_block_6403a13",
           "name": "Buy product",
           "settings": {
+            "background_image": "shopify://shop_images/Background_Image.png",
             "background_position": "center center",
             "background_position_mobile": "center top",
             "background_max_width": 1440,
@@ -459,7 +460,7 @@
             "qr_brand_text": "THANKSLIVING",
             "qr_tagline_text": "A LIFE OF GRATITUDE",
             "qr_scan_text": "SCAN FOR A DAILY GRATITUDE VERSE",
-            "qr_target_url": "https://example.com/thanks-living-bonus",
+            "qr_target_url": "https://mythanksliving.com/pages/daily-verse",
             "feature_1_title": "Daily Inspiration",
             "feature_1_text": "A new gratitude verse every day",
             "feature_2_title": "Meaningful Reminder",

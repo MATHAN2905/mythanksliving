@@ -71,6 +71,7 @@
             "fallback_text": "A life of gratitude transforms our hearts every day.",
             "footer_verse": "In everything give thanks; for this is the will of God in Christ Jesus concerning you.",
             "footer_reference": "1 Thessalonians 5:18 (KJV)",
+            "background_image": "shopify://shop_images/Verse_Background.png",
             "background_max_width": 1440,
             "show_rule": true,
             "verse_font": "serif",
