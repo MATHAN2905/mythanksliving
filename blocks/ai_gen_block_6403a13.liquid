@@ -1,0 +1,1872 @@
+{% doc %}
+  Thanks Living Bracelet hero + purchase section matching brand mockups.
+{% enddoc %}
+
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+{% assign featured_product = all_products['thanks-living-bracelet'] %}
+
+{% liquid
+  if block.settings.background_image != blank
+    assign background_image_url = block.settings.background_image | image_url: width: 2400
+  else
+    assign background_image_url = 'bracelet-section-background.jpg' | asset_url
+  endif
+
+  if block.settings.background_image_mobile != blank
+    assign background_image_mobile_url = block.settings.background_image_mobile | image_url: width: 1200
+  else
+    assign background_image_mobile_url = 'bracelet-section-background-mobile.jpg' | asset_url
+  endif
+
+  assign qr_target_url = block.settings.qr_target_url
+  if qr_target_url == blank
+    assign qr_target_url = shop.url
+  endif
+  assign encoded_qr_target = qr_target_url | url_encode
+  assign generated_qr_url = 'https://api.qrserver.com/v1/create-qr-code/?size=600x600&ecc=H&data=' | append: encoded_qr_target
+
+  assign qr_scan_text = block.settings.qr_scan_text | default: 'SCAN FOR A DAILY GRATITUDE VERSE'
+  if qr_scan_text contains 'GRATITUDE VERSE'
+    assign qr_scan_line_1 = qr_scan_text | replace: 'GRATITUDE VERSE', '' | strip
+    assign qr_scan_line_2 = 'GRATITUDE VERSE'
+  else
+    assign qr_scan_line_1 = qr_scan_text
+    assign qr_scan_line_2 = ''
+  endif
+%}
+
+{% style %}
+  .ai-buy-product-{{ ai_gen_id }} {
+    --tl-navy: {{ block.settings.navy_color }};
+    --tl-yellow: {{ block.settings.accent_color }};
+    --tl-teal: {{ block.settings.teal_color }};
+    --tl-icon-bg: rgba(186, 224, 235, 0.72);
+    --tl-section-bg: #f6fbff;
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    color: {{ block.settings.text_color }};
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__scene {
+    position: relative;
+    overflow: hidden;
+    border-radius: {{ block.settings.corner_radius }}px;
+    isolation: isolate;
+    background: var(--tl-section-bg);
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__scene::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-image: url('{{ background_image_url }}');
+    background-size: cover;
+    background-position: {{ block.settings.background_position }};
+    background-repeat: no-repeat;
+    opacity: calc({{ block.settings.background_outer_opacity | default: 35 }} / 100);
+    pointer-events: none;
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, black 18%);
+    mask-image: linear-gradient(180deg, transparent 0%, black 18%);
+  }
+
+  @media screen and (max-width: 989px) {
+    .ai-buy-product-{{ ai_gen_id }}__scene {
+      overflow: visible;
+    }
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__background {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    z-index: 1;
+    width: 100%;
+    max-width: {{ block.settings.background_max_width }}px;
+    background-image: url('{{ background_image_url }}');
+    background-size: cover;
+    background-position: {{ block.settings.background_position }};
+    background-repeat: no-repeat;
+    transform: translateX(-50%);
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, black 16%);
+    mask-image: linear-gradient(180deg, transparent 0%, black 16%);
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__background::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      var(--tl-section-bg) 0%,
+      rgb(246 251 255 / 0.45) 10%,
+      rgb(246 251 255 / 0) 20%,
+      rgb(255 255 255 / 0) 45%,
+      rgb(255 255 255 / 0.18) 100%
+    );
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__layout {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: minmax(280px, 1.05fr) minmax(400px, 1.85fr) minmax(300px, 340px);
+    gap: clamp(20px, 3vw, 40px);
+    align-items: end;
+    max-width: 1440px;
+    min-height: 620px;
+    margin: 0 auto;
+    padding: clamp(32px, 4.5vw, 56px) clamp(24px, 4vw, 48px) clamp(28px, 4vw, 52px);
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__hero-stage {
+    display: contents;
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__hero {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    grid-column: 1;
+    grid-row: 1;
+    align-self: start;
+    padding-top: 8px;
+    max-width: 420px;
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__headline {
+    margin: 0;
+    max-width: 11em;
+    color: var(--tl-navy);
+    font-family: {{ settings.type_heading_font.family }}, Georgia, serif;
+    font-size: clamp(36px, 4.2vw, 54px);
+    line-height: 1.06;
+    font-weight: 700;
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__headline-break {
+    display: inline;
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__subheadline {
+    margin: 0;
+    max-width: 38ch;
+    color: var(--tl-navy);
+    font-size: clamp(15px, 1.5vw, 17px);
+    line-height: 1.6;
+    opacity: 0.88;
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__features-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 10px;
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__feature {
+    display: grid;
+    grid-template-columns: 56px minmax(0, 1fr);
+    gap: 14px;
+    align-items: start;
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__feature-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    color: var(--tl-navy);
+    background: var(--tl-icon-bg);
+    border: 1.5px solid rgba(255, 255, 255, 0.85);
+    box-shadow: 0 0 0 1px rgba(18, 46, 77, 0.08);
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__feature-icon svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__feature-title {
+    margin: 0 0 4px;
+    color: var(--tl-navy);
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__feature-text {
+    margin: 0;
+    color: var(--tl-navy);
+    font-size: 14px;
+    line-height: 1.5;
+    opacity: 0.78;
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__visual {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: clamp(8px, 1.2vw, 14px);
+    grid-column: 2;
+    grid-row: 1;
+    align-self: end;
+    min-height: 100%;
+    margin-bottom: clamp(28px, 4vw, 48px);
+    padding-bottom: 0;
+    overflow: visible;
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__product-image {
+    flex: 0 1 auto;
+    width: 100%;
+    max-width: clamp(380px, 42vw, 520px);
+    filter: drop-shadow(0 16px 24px rgba(5, 29, 66, 0.14));
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__product-image img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    transform: scale(1.06);
+    transform-origin: bottom center;
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__buy-aside {
+    grid-column: 3;
+    grid-row: 1;
+    justify-self: end;
+    align-self: center;
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__qr-card {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex: 0 0 clamp(118px, 11.5vw, 175px);
+    flex-direction: column;
+    align-items: center;
+    align-self: flex-end;
+    width: clamp(118px, 11.5vw, 175px);
+    min-height: 0;
+    margin-bottom: clamp(16px, 2.2vw, 28px);
+    aspect-ratio: 7 / 10;
+    padding: clamp(12px, 1.4vw, 16px) clamp(8px, 1vw, 12px) clamp(10px, 1.2vw, 14px);
+    border-radius: 16px 16px 14px 14px;
+    background:
+      radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.14) 0%, transparent 52%),
+      linear-gradient(180deg, #47b8cf 0%, #38a8bf 28%, var(--tl-teal) 100%);
+    box-shadow:
+      0 10px 24px rgba(5, 29, 66, 0.18),
+      0 2px 8px rgba(5, 29, 66, 0.1);
+    color: #ffffff;
+    text-align: center;
+    isolation: isolate;
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__qr-card::before {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    border-radius: inherit;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.12) 0.6px, transparent 0.6px);
+    background-size: 3px 3px;
+    opacity: 0.28;
+    pointer-events: none;
+    content: '';
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__qr-header,
+  .ai-buy-product-{{ ai_gen_id }}__qr-divider,
+  .ai-buy-product-{{ ai_gen_id }}__qr-code-stage,
+  .ai-buy-product-{{ ai_gen_id }}__qr-scan {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__qr-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding-top: 2px;
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__qr-brand {
+    margin: 0;
+    color: #ffffff;
+    font-family: {{ settings.type_heading_font.family }}, Georgia, serif;
+    font-size: clamp(8px, 0.95vw, 11px);
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    line-height: 1.15;
+    text-transform: uppercase;
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__qr-tagline {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.96);
+    font-size: clamp(6px, 0.72vw, 8px);
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    line-height: 1.25;
+    text-transform: uppercase;
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__qr-divider {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: min(100%, 118px);
+    margin: clamp(6px, 0.9vw, 10px) auto clamp(8px, 1vw, 12px);
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__qr-divider-line {
+    flex: 1;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.52);
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__qr-divider-dot {
+    flex-shrink: 0;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--tl-yellow);
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__qr-code-stage {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(3px, 0.5vw, 6px);
+    margin: 0 auto;
+    min-height: 0;
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__qr-rays {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: clamp(5px, 0.7vw, 7px);
+    width: clamp(12px, 1.6vw, 18px);
+    flex-shrink: 0;
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__qr-rays--left {
+    align-items: flex-end;
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__qr-rays--right {
+    align-items: flex-start;
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__qr-ray {
+    display: block;
+    height: clamp(2px, 0.28vw, 3px);
+    border-radius: 999px;
+    background: var(--tl-yellow);
+    box-shadow: 0 0 0 0.5px rgba(255, 255, 255, 0.08);
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__qr-rays--left .ai-buy-product-{{ ai_gen_id }}__qr-ray {
+    transform-origin: right center;
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__qr-rays--right .ai-buy-product-{{ ai_gen_id }}__qr-ray {
+    transform-origin: left center;
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__qr-rays--left .ai-buy-product-{{ ai_gen_id }}__qr-ray:nth-child(1) {
+    width: clamp(10px, 1.5vw, 14px);
+    transform: rotate(28deg);
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__qr-rays--left .ai-buy-product-{{ ai_gen_id }}__qr-ray:nth-child(2) {
+    width: clamp(12px, 1.8vw, 18px);
+    transform: rotate(0deg);
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__qr-rays--left .ai-buy-product-{{ ai_gen_id }}__qr-ray:nth-child(3) {
+    width: clamp(10px, 1.5vw, 14px);
+    transform: rotate(-28deg);
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__qr-rays--right .ai-buy-product-{{ ai_gen_id }}__qr-ray:nth-child(1) {
+    width: clamp(10px, 1.5vw, 14px);
+    transform: rotate(-28deg);
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__qr-rays--right .ai-buy-product-{{ ai_gen_id }}__qr-ray:nth-child(2) {
+    width: clamp(12px, 1.8vw, 18px);
+    transform: rotate(0deg);
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__qr-rays--right .ai-buy-product-{{ ai_gen_id }}__qr-ray:nth-child(3) {
+    width: clamp(10px, 1.5vw, 14px);
+    transform: rotate(28deg);
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__qr-code-area {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    width: clamp(72px, 70%, 118px);
+    aspect-ratio: 1;
+    padding: clamp(4px, 0.6vw, 6px);
+    border-radius: clamp(6px, 0.8vw, 10px);
+    background: #ffffff;
+    box-shadow: 0 1px 0 rgba(18, 46, 77, 0.06);
+    overflow: hidden;
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__qr-code-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 4px;
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__qr-code-logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: clamp(14px, 22%, 22px);
+    height: clamp(14px, 22%, 22px);
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 0 2px #ffffff;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__qr-code-logo svg {
+    display: block;
+    width: 72%;
+    height: 72%;
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__qr-scan {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin: clamp(6px, 0.8vw, 10px) 0 0;
+    color: #ffffff;
+    font-size: clamp(6px, 0.72vw, 8px);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    line-height: 1.28;
+    text-transform: uppercase;
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__qr-scan-line {
+    display: block;
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__purchase-card {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: 320px;
+    padding: 30px 28px 26px;
+    background: {{ block.settings.background_color }};
+    border: 1px solid {{ block.settings.border_color }};
+    border-radius: 20px;
+    box-shadow: 0 14px 36px rgba(5, 29, 66, 0.1);
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__purchase-card .shopify-product-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__purchase-header {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__purchase-title {
+    margin: 0;
+    color: var(--tl-navy);
+    font-family: {{ settings.type_heading_font.family }}, Georgia, serif;
+    font-size: clamp(24px, 2.1vw, 28px);
+    line-height: 1.08;
+    font-weight: 700;
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__purchase-subtitle {
+    margin: 0;
+    color: rgba(18, 46, 77, 0.62);
+    font-size: 13px;
+    line-height: 1.4;
+    font-weight: 500;
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__price-row {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__price-group {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 10px;
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__price-current {
+    font-size: clamp(28px, 2.8vw, 32px);
+    font-weight: 700;
+    line-height: 1;
+    color: var(--tl-navy);
+    letter-spacing: -0.01em;
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__price-compare {
+    font-size: 15px;
+    font-weight: 500;
+    color: #9aa3ad;
+    text-decoration: line-through;
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__save-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 11px;
+    border-radius: 999px;
+    background: var(--tl-yellow);
+    color: var(--tl-navy);
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__quantity-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__quantity-label {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--tl-navy);
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__quantity-selector {
+    display: inline-flex;
+    align-items: stretch;
+    overflow: hidden;
+    border: 1px solid #c5dce9;
+    border-radius: 10px;
+    background: #ffffff;
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__qty-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    min-height: 36px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--tl-navy);
+    font-size: 17px;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__qty-btn:hover {
+    background: rgba(5, 29, 66, 0.05);
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__qty-input {
+    width: 40px;
+    min-height: 36px;
+    padding: 0;
+    border: 0;
+    border-inline: 1px solid #d8dde5;
+    background: transparent;
+    color: var(--tl-navy);
+    font: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    appearance: textfield;
+    -moz-appearance: textfield;
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__qty-input::-webkit-outer-spin-button,
+  .ai-buy-product-{{ ai_gen_id }}__qty-input::-webkit-inner-spin-button {
+    margin: 0;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__availability {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__availability::before {
+    width: 7px;
+    height: 7px;
+    content: '';
+    border-radius: 50%;
+    background: currentColor;
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__availability--unavailable { color: #8a2f2f; }
+
+  .ai-buy-product-{{ ai_gen_id }}__button {
+    width: 100%;
+    min-height: 50px;
+    padding: 14px 20px;
+    border: 0;
+    border-radius: 12px;
+    background: var(--tl-yellow);
+    color: var(--tl-navy);
+    font: inherit;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px rgba(255, 206, 77, 0.35);
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__button:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+    transform: none;
+    box-shadow: none;
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__trust {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+    margin-top: 2px;
+    padding-top: 18px;
+    border-top: 1px solid #e8ebf0;
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__trust-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding-inline: 6px;
+    text-align: center;
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__trust-item:not(:last-child)::after {
+    position: absolute;
+    top: 6px;
+    right: 0;
+    width: 1px;
+    height: calc(100% - 12px);
+    content: '';
+    background: #e8ebf0;
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__trust-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    color: var(--tl-navy);
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__trust-icon svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__trust-label {
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1.25;
+    color: var(--tl-navy);
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__features-bar {
+    display: none;
+  }
+
+  @media screen and (min-width: 990px) {
+    .ai-buy-product-{{ ai_gen_id }}__headline {
+      max-width: 12.5em;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__visual {
+      justify-content: center;
+      padding-inline: clamp(8px, 1.5vw, 20px);
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__product-image {
+      max-width: clamp(400px, 44vw, 520px);
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__product-image img {
+      transform: scale(1.08);
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__qr-card {
+      flex: 0 0 clamp(168px, 14vw, 200px);
+      width: clamp(168px, 14vw, 200px);
+      margin-bottom: clamp(18px, 2.4vw, 32px);
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__purchase-card {
+      max-width: 320px;
+      padding: 30px 28px 26px;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__purchase-title {
+      font-size: 28px;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__price-current {
+      font-size: 32px;
+    }
+  }
+
+  @media screen and (min-width: 990px) and (max-width: 1300px) {
+    .ai-buy-product-{{ ai_gen_id }}__layout {
+      grid-template-columns: minmax(200px, 0.9fr) minmax(240px, 1.35fr) minmax(240px, 280px);
+      gap: clamp(12px, 1.6vw, 20px);
+      padding: clamp(24px, 3vw, 40px) clamp(16px, 2vw, 28px) clamp(24px, 3vw, 40px);
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__headline {
+      font-size: clamp(28px, 3.2vw, 42px);
+      max-width: 10.5em;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__visual {
+      margin-bottom: clamp(36px, 4.8vw, 52px);
+      padding-inline: 0;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__product-image {
+      max-width: clamp(280px, 32vw, 420px);
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__qr-card {
+      flex: 0 0 clamp(132px, 12vw, 160px);
+      width: clamp(132px, 12vw, 160px);
+      margin-bottom: clamp(20px, 2.6vw, 32px);
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__buy-aside,
+    .ai-buy-product-{{ ai_gen_id }}__purchase-card {
+      width: 100%;
+      max-width: 280px;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__buy-aside {
+      justify-self: stretch;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__purchase-card {
+      padding: 22px 18px 18px;
+      gap: 14px;
+      box-sizing: border-box;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__purchase-title {
+      font-size: 22px;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__price-current {
+      font-size: 26px;
+    }
+  }
+
+  @media screen and (max-width: 989px) {
+    .ai-buy-product-{{ ai_gen_id }}__layout {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      min-height: 0;
+      max-width: none;
+      padding: 0;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__hero-stage {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      padding: clamp(20px, 5vw, 28px) clamp(18px, 5vw, 24px) 0;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__hero {
+      grid-column: auto;
+      grid-row: auto;
+      padding-top: 0;
+      gap: 14px;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__headline {
+      max-width: none;
+      font-size: clamp(30px, 8.2vw, 38px);
+      line-height: 1.06;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__headline-break {
+      display: none;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__subheadline {
+      max-width: 36ch;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__features-list {
+      display: none;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__visual {
+      grid-column: auto;
+      grid-row: auto;
+      justify-content: center;
+      align-items: flex-end;
+      flex-wrap: nowrap;
+      gap: clamp(4px, 2vw, 10px);
+      width: 100%;
+      min-height: clamp(220px, 58vw, 300px);
+      margin-top: -4px;
+      margin-bottom: 0;
+      padding: 0 0 10px;
+      overflow: visible;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__buy-aside {
+      grid-column: auto;
+      grid-row: auto;
+      width: 100%;
+      max-width: 420px;
+      margin-inline: auto;
+      justify-self: center;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__product-image {
+      flex: 1 1 auto;
+      width: min(74vw, 360px);
+      max-width: 360px;
+      min-width: 0;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__product-image img {
+      transform: scale(1.2);
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__qr-card {
+      flex: 0 0 clamp(108px, 27vw, 132px);
+      width: clamp(108px, 27vw, 132px);
+      align-self: flex-end;
+      margin-bottom: clamp(14px, 2.8vw, 24px);
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__features-bar {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0;
+      margin: 0;
+      padding: 14px clamp(18px, 5vw, 24px) 20px;
+      border-top: 1px solid rgba(18, 46, 77, 0.1);
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__features-bar-item {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      padding: 0 6px;
+      text-align: center;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__features-bar-item:not(:last-child)::after {
+      position: absolute;
+      top: 8px;
+      right: 0;
+      width: 1px;
+      height: calc(100% - 16px);
+      content: '';
+      background: rgba(18, 46, 77, 0.12);
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__features-bar-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: var(--tl-icon-bg);
+      border: 1px solid rgba(18, 46, 77, 0.08);
+      color: var(--tl-navy);
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__features-bar-icon svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__features-bar-label {
+      margin: 0;
+      color: var(--tl-navy);
+      font-size: 11px;
+      font-weight: 700;
+      line-height: 1.25;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__purchase-card {
+      grid-column: auto;
+      grid-row: auto;
+      width: calc(100% - 32px);
+      max-width: 420px;
+      margin: 8px auto clamp(20px, 5vw, 28px);
+      padding: 20px 18px 16px;
+      border-radius: 18px;
+      border-inline: 1px solid {{ block.settings.border_color }};
+      box-shadow: 0 16px 40px rgba(5, 29, 66, 0.12);
+      box-sizing: border-box;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__price-row {
+      align-items: center;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__purchase-title {
+      font-size: clamp(24px, 6.5vw, 28px);
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__scene::before,
+    .ai-buy-product-{{ ai_gen_id }}__background {
+      background-position: {{ block.settings.background_position_mobile }};
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-buy-product-{{ ai_gen_id }}__trust-label {
+      font-size: 10px;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__features-bar-label {
+      font-size: 10px;
+    }
+  }
+
+  @media screen and (min-width: 750px) and (max-width: 989px) {
+    .ai-buy-product-{{ ai_gen_id }}__layout {
+      padding-bottom: 0;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__hero-stage {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+      padding: 18px 20px 0;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__hero {
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__headline-break {
+      display: inline;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__visual {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: center;
+      align-items: flex-end;
+      width: 100%;
+      max-width: min(100%, 520px);
+      min-height: clamp(220px, 48vw, 300px);
+      margin: 6px auto 0;
+      padding: 0 12px 4px;
+      gap: 8px;
+      box-sizing: border-box;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__product-image {
+      flex: 1 1 62%;
+      width: 62%;
+      max-width: 62%;
+      min-width: 0;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__product-image img {
+      display: block;
+      transform: none;
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      object-position: center bottom;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__qr-card {
+      flex: 0 0 32%;
+      width: 32%;
+      max-width: 148px;
+      min-width: 0;
+      align-self: flex-end;
+      margin-bottom: clamp(10px, 2.4vw, 18px);
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__buy-aside,
+    .ai-buy-product-{{ ai_gen_id }}__purchase-card {
+      width: calc(100% - 48px);
+      max-width: 420px;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__purchase-card {
+      margin-inline: auto;
+      padding: 20px 18px 16px;
+      gap: 12px;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__purchase-card .shopify-product-form {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      column-gap: 10px;
+      row-gap: 12px;
+      align-items: end;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__purchase-header {
+      grid-column: 1 / -1;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__price-row {
+      grid-column: 1;
+      grid-row: 2;
+      align-items: flex-end;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__quantity-row {
+      grid-column: 2;
+      grid-row: 2;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 4px;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__availability,
+    .ai-buy-product-{{ ai_gen_id }}__button {
+      grid-column: 1 / -1;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__purchase-title {
+      font-size: 24px;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__price-current {
+      font-size: 26px;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .ai-buy-product-{{ ai_gen_id }} {
+      overflow-x: clip;
+      max-width: 100%;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__scene {
+      border-radius: 0;
+      background: var(--tl-section-bg);
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__scene::before {
+      display: none;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__background {
+      left: 0;
+      width: 100%;
+      max-width: none;
+      transform: none;
+      background-image: url('{{ background_image_mobile_url }}');
+      background-size: cover;
+      background-position: center top;
+      -webkit-mask-image: linear-gradient(180deg, transparent 0%, black 14%);
+      mask-image: linear-gradient(180deg, transparent 0%, black 14%);
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__background::after {
+      background: linear-gradient(
+        180deg,
+        var(--tl-section-bg) 0%,
+        rgb(246 251 255 / 0.4) 10%,
+        rgb(246 251 255 / 0) 18%,
+        rgb(255 255 255 / 0) 40%,
+        rgb(255 255 255 / 0.08) 100%
+      );
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__scene,
+    .ai-buy-product-{{ ai_gen_id }}__layout,
+    .ai-buy-product-{{ ai_gen_id }}__hero-stage,
+    .ai-buy-product-{{ ai_gen_id }}__buy-aside {
+      overflow-x: clip;
+      max-width: 100%;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__hero-stage {
+      padding: 18px 20px 0;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__hero {
+      gap: 12px;
+      max-width: 100%;
+      width: 100%;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__headline {
+      max-width: 11em;
+      font-size: clamp(30px, 8.4vw, 36px);
+      line-height: 1.06;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__headline-break {
+      display: inline;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__subheadline {
+      max-width: 34ch;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__visual {
+      width: 100%;
+      max-width: 100%;
+      min-height: clamp(210px, 56vw, 280px);
+      margin-top: 6px;
+      margin-bottom: 0;
+      padding: 0 12px 4px;
+      gap: 8px;
+      overflow: visible;
+      justify-content: center;
+      align-items: flex-end;
+      box-sizing: border-box;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__product-image {
+      flex: 1 1 62%;
+      width: 62%;
+      max-width: 62%;
+      min-width: 0;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__product-image img {
+      transform: none;
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      object-position: center bottom;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__qr-card {
+      flex: 0 0 32%;
+      width: 32%;
+      max-width: 132px;
+      min-width: 0;
+      align-self: flex-end;
+      margin-bottom: clamp(10px, 3vw, 18px);
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__features-bar {
+      padding: 12px 18px 10px;
+      max-width: 100%;
+      box-sizing: border-box;
+      border-top: none;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__features-bar-item {
+      gap: 10px;
+      padding: 0 6px;
+      min-width: 0;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__features-bar-icon {
+      width: 52px;
+      height: 52px;
+      flex-shrink: 0;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__features-bar-icon svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__features-bar-label {
+      font-size: 10px;
+      line-height: 1.25;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__purchase-card {
+      gap: 12px;
+      width: calc(100% - 32px);
+      max-width: calc(100% - 32px);
+      margin: 4px 16px 20px;
+      padding: 20px 18px 16px;
+      border-radius: 18px;
+      box-shadow: 0 18px 44px rgba(5, 29, 66, 0.14);
+      box-sizing: border-box;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__purchase-card .shopify-product-form {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      column-gap: 10px;
+      row-gap: 12px;
+      align-items: end;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__purchase-header {
+      grid-column: 1 / -1;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__price-row {
+      grid-column: 1;
+      grid-row: 2;
+      align-items: flex-end;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__price-group {
+      flex-wrap: wrap;
+      gap: 6px 8px;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__quantity-row {
+      grid-column: 2;
+      grid-row: 2;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__quantity-label {
+      font-size: 11px;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__availability {
+      grid-column: 1 / -1;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__button {
+      grid-column: 1 / -1;
+      min-height: 48px;
+      padding: 12px 16px;
+      font-size: 12px;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__button::after {
+      content: ' →';
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__purchase-title {
+      font-size: 24px;
+      line-height: 1.06;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__purchase-subtitle {
+      font-size: 12px;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__price-current {
+      font-size: 26px;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__price-compare {
+      font-size: 13px;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__save-badge {
+      font-size: 9px;
+      padding: 4px 8px;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__qty-btn {
+      width: 32px;
+      min-height: 34px;
+      font-size: 16px;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__qty-input {
+      width: 34px;
+      min-height: 34px;
+      font-size: 13px;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__trust {
+      gap: 4px;
+      padding-top: 12px;
+      margin-top: 0;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__trust-item {
+      padding-inline: 4px;
+      gap: 5px;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__trust-icon {
+      width: 20px;
+      height: 20px;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__trust-icon svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__trust-label {
+      font-size: 9px;
+      line-height: 1.2;
+    }
+  }
+
+  @media screen and (max-width: 375px) {
+    .ai-buy-product-{{ ai_gen_id }}__hero-stage {
+      padding-inline: 16px;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__headline {
+      font-size: 28px;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__subheadline {
+      font-size: 13px;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__visual {
+      min-height: clamp(190px, 54vw, 250px);
+      padding-inline: 8px;
+      gap: 6px;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__product-image {
+      flex-basis: 60%;
+      width: 60%;
+      max-width: 60%;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__qr-card {
+      flex-basis: 34%;
+      width: 34%;
+      max-width: 122px;
+      margin-bottom: clamp(8px, 2.8vw, 16px);
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__features-bar {
+      padding-inline: 14px;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__features-bar-icon {
+      width: 46px;
+      height: 46px;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__features-bar-label {
+      font-size: 9px;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__purchase-card {
+      width: calc(100% - 24px);
+      max-width: calc(100% - 24px);
+      margin-inline: 12px;
+      padding: 18px 14px 14px;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__price-current {
+      font-size: 24px;
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__trust-label {
+      font-size: 8px;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-buy-product-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  {% if featured_product != blank %}
+    {% assign selected_variant = featured_product.selected_or_first_available_variant %}
+    {% assign compare_at_price = selected_variant.compare_at_price %}
+    {% assign current_price = selected_variant.price %}
+    {% assign show_compare_price = false %}
+    {% if compare_at_price > current_price %}
+      {% assign show_compare_price = true %}
+      {% assign savings_amount = compare_at_price | minus: current_price %}
+      {% assign savings_percent = savings_amount | times: 100 | divided_by: compare_at_price %}
+    {% endif %}
+
+    <div class="ai-buy-product-{{ ai_gen_id }}__scene">
+      <div class="ai-buy-product-{{ ai_gen_id }}__background" aria-hidden="true"></div>
+
+      <div class="ai-buy-product-{{ ai_gen_id }}__layout">
+        <div class="ai-buy-product-{{ ai_gen_id }}__hero-stage">
+          <div class="ai-buy-product-{{ ai_gen_id }}__hero">
+            {% if block.settings.headline != blank %}
+              {% assign headline_parts = block.settings.headline | split: '. ' %}
+              <h2 class="ai-buy-product-{{ ai_gen_id }}__headline">
+                {%- if headline_parts.size > 1 -%}
+                  {{ headline_parts[0] }}.<br class="ai-buy-product-{{ ai_gen_id }}__headline-break" aria-hidden="true"> {{ headline_parts | slice: 1, headline_parts.size | join: '. ' }}
+                {%- else -%}
+                  {{ block.settings.headline }}
+                {%- endif -%}
+              </h2>
+            {% endif %}
+
+            {% if block.settings.subheadline != blank %}
+              <p class="ai-buy-product-{{ ai_gen_id }}__subheadline">{{ block.settings.subheadline }}</p>
+            {% endif %}
+
+            <div class="ai-buy-product-{{ ai_gen_id }}__features-list">
+              <div class="ai-buy-product-{{ ai_gen_id }}__feature">
+                <span class="ai-buy-product-{{ ai_gen_id }}__feature-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 20.5s-6.5-4.2-6.5-9.5A4.5 4.5 0 0 1 17 5.5L12 10l-5-4.5A4.5 4.5 0 0 1 5.5 11c0 5.3 6.5 9.5 6.5 9.5z"></path>
+                  </svg>
+                </span>
+                <div>
+                  <p class="ai-buy-product-{{ ai_gen_id }}__feature-title">{{ block.settings.feature_1_title }}</p>
+                  <p class="ai-buy-product-{{ ai_gen_id }}__feature-text">{{ block.settings.feature_1_text }}</p>
+                </div>
+              </div>
+              <div class="ai-buy-product-{{ ai_gen_id }}__feature">
+                <span class="ai-buy-product-{{ ai_gen_id }}__feature-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M7 20h10"></path>
+                    <path d="M12 20V10"></path>
+                    <path d="M12 10C12 10 8 8 8 4s8-2 8 2-4 6-4 6"></path>
+                  </svg>
+                </span>
+                <div>
+                  <p class="ai-buy-product-{{ ai_gen_id }}__feature-title">{{ block.settings.feature_2_title }}</p>
+                  <p class="ai-buy-product-{{ ai_gen_id }}__feature-text">{{ block.settings.feature_2_text }}</p>
+                </div>
+              </div>
+              <div class="ai-buy-product-{{ ai_gen_id }}__feature">
+                <span class="ai-buy-product-{{ ai_gen_id }}__feature-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 8h16v13H4z"></path>
+                    <path d="M12 8V5a2 2 0 0 0-2-2H8"></path>
+                    <path d="M12 8h4a2 2 0 0 0 2-2V3"></path>
+                  </svg>
+                </span>
+                <div>
+                  <p class="ai-buy-product-{{ ai_gen_id }}__feature-title">{{ block.settings.feature_3_title }}</p>
+                  <p class="ai-buy-product-{{ ai_gen_id }}__feature-text">{{ block.settings.feature_3_text }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ai-buy-product-{{ ai_gen_id }}__visual">
+            <div class="ai-buy-product-{{ ai_gen_id }}__product-image">
+              {% if featured_product.featured_image %}
+                <img
+                  src="{{ featured_product.featured_image | image_url: width: 1400 }}"
+                  alt="{{ featured_product.featured_image.alt | default: featured_product.title | escape }}"
+                  width="{{ featured_product.featured_image.width }}"
+                  height="{{ featured_product.featured_image.height }}"
+                  loading="lazy"
+                >
+              {% else %}
+                {{ 'product-apparel-1' | placeholder_svg_tag }}
+              {% endif %}
+            </div>
+
+            <div class="ai-buy-product-{{ ai_gen_id }}__qr-card" aria-label="{{ block.settings.qr_placeholder_label }}">
+              <div class="ai-buy-product-{{ ai_gen_id }}__qr-header">
+                <p class="ai-buy-product-{{ ai_gen_id }}__qr-brand">{{ block.settings.qr_brand_text }}</p>
+                <p class="ai-buy-product-{{ ai_gen_id }}__qr-tagline">{{ block.settings.qr_tagline_text }}</p>
+              </div>
+
+              <div class="ai-buy-product-{{ ai_gen_id }}__qr-divider" aria-hidden="true">
+                <span class="ai-buy-product-{{ ai_gen_id }}__qr-divider-line"></span>
+                <span class="ai-buy-product-{{ ai_gen_id }}__qr-divider-dot"></span>
+                <span class="ai-buy-product-{{ ai_gen_id }}__qr-divider-line"></span>
+              </div>
+
+              <div class="ai-buy-product-{{ ai_gen_id }}__qr-code-stage">
+                <div class="ai-buy-product-{{ ai_gen_id }}__qr-rays ai-buy-product-{{ ai_gen_id }}__qr-rays--left" aria-hidden="true">
+                  <span class="ai-buy-product-{{ ai_gen_id }}__qr-ray"></span>
+                  <span class="ai-buy-product-{{ ai_gen_id }}__qr-ray"></span>
+                  <span class="ai-buy-product-{{ ai_gen_id }}__qr-ray"></span>
+                </div>
+
+                <div class="ai-buy-product-{{ ai_gen_id }}__qr-code-area">
+                  {% if block.settings.qr_code_image != blank %}
+                    <img
+                      class="ai-buy-product-{{ ai_gen_id }}__qr-code-image"
+                      src="{{ block.settings.qr_code_image | image_url: width: 400 }}"
+                      alt="{{ block.settings.qr_code_image.alt | default: block.settings.qr_scan_text | escape }}"
+                      width="400"
+                      height="400"
+                      loading="lazy"
+                    >
+                  {% else %}
+                    <img
+                      class="ai-buy-product-{{ ai_gen_id }}__qr-code-image"
+                      src="{{ generated_qr_url }}"
+                      alt="{{ block.settings.qr_scan_text | escape }}"
+                      width="400"
+                      height="400"
+                      loading="lazy"
+                    >
+                    <span class="ai-buy-product-{{ ai_gen_id }}__qr-code-logo" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 20.5s-6.5-4.2-6.5-9.5A4.5 4.5 0 0 1 12 6.5a4.5 4.5 0 0 1 6.5 5 0 0 1-6.5 9.5z" fill="{{ block.settings.teal_color }}"/>
+                      </svg>
+                    </span>
+                  {% endif %}
+                </div>
+
+                <div class="ai-buy-product-{{ ai_gen_id }}__qr-rays ai-buy-product-{{ ai_gen_id }}__qr-rays--right" aria-hidden="true">
+                  <span class="ai-buy-product-{{ ai_gen_id }}__qr-ray"></span>
+                  <span class="ai-buy-product-{{ ai_gen_id }}__qr-ray"></span>
+                  <span class="ai-buy-product-{{ ai_gen_id }}__qr-ray"></span>
+                </div>
+              </div>
+
+              <p class="ai-buy-product-{{ ai_gen_id }}__qr-scan">
+                <span class="ai-buy-product-{{ ai_gen_id }}__qr-scan-line">{{ qr_scan_line_1 }}</span>
+                {% if qr_scan_line_2 != blank %}
+                  <span class="ai-buy-product-{{ ai_gen_id }}__qr-scan-line">{{ qr_scan_line_2 }}</span>
+                {% endif %}
+              </p>
+            </div>
+          </div>
+
+          <div class="ai-buy-product-{{ ai_gen_id }}__features-bar">
+            <div class="ai-buy-product-{{ ai_gen_id }}__features-bar-item">
+              <span class="ai-buy-product-{{ ai_gen_id }}__features-bar-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                </svg>
+              </span>
+              <p class="ai-buy-product-{{ ai_gen_id }}__features-bar-label">{{ block.settings.feature_1_title }}</p>
+            </div>
+            <div class="ai-buy-product-{{ ai_gen_id }}__features-bar-item">
+              <span class="ai-buy-product-{{ ai_gen_id }}__features-bar-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M7 20h10"></path>
+                  <path d="M12 20V10"></path>
+                  <path d="M12 10C12 10 8 8 8 4s8-2 8 2-4 6-4 6"></path>
+                </svg>
+              </span>
+              <p class="ai-buy-product-{{ ai_gen_id }}__features-bar-label">{{ block.settings.feature_2_title }}</p>
+            </div>
+            <div class="ai-buy-product-{{ ai_gen_id }}__features-bar-item">
+              <span class="ai-buy-product-{{ ai_gen_id }}__features-bar-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 8h16v13H4z"></path>
+                  <path d="M12 8V5a2 2 0 0 0-2-2H8"></path>
+                  <path d="M12 8h4a2 2 0 0 0 2-2V3"></path>
+                </svg>
+              </span>
+              <p class="ai-buy-product-{{ ai_gen_id }}__features-bar-label">{{ block.settings.feature_3_title }}</p>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="ai-buy-product-{{ ai_gen_id }}__buy-aside">
+          <div class="ai-buy-product-{{ ai_gen_id }}__purchase-card">
+          <div class="ai-buy-product-{{ ai_gen_id }}__purchase-header">
+            <h3 class="ai-buy-product-{{ ai_gen_id }}__purchase-title">{{ featured_product.title }}</h3>
+            {% if block.settings.product_subtitle != blank %}
+              <p class="ai-buy-product-{{ ai_gen_id }}__purchase-subtitle">{{ block.settings.product_subtitle }}</p>
+            {% endif %}
+          </div>
+
+          {% capture product_form_id %}product-form-{{ ai_gen_id }}{% endcapture %}
+          {% form 'product', featured_product, id: product_form_id %}
+            <input type="hidden" name="id" value="{{ selected_variant.id }}">
+
+            <div class="ai-buy-product-{{ ai_gen_id }}__price-row">
+              <div class="ai-buy-product-{{ ai_gen_id }}__price-group">
+                <span class="ai-buy-product-{{ ai_gen_id }}__price-current">{{ current_price | money }}</span>
+                {% if show_compare_price %}
+                  <span class="ai-buy-product-{{ ai_gen_id }}__price-compare">{{ compare_at_price | money }}</span>
+                  <span class="ai-buy-product-{{ ai_gen_id }}__save-badge">{{ block.settings.save_badge_label | replace: '[percent]', savings_percent }}</span>
+                {% endif %}
+              </div>
+            </div>
+
+            <div class="ai-buy-product-{{ ai_gen_id }}__quantity-row">
+              <p class="ai-buy-product-{{ ai_gen_id }}__quantity-label">{{ block.settings.quantity_label }}</p>
+              <div class="ai-buy-product-{{ ai_gen_id }}__quantity-selector" data-quantity-selector>
+                <button class="ai-buy-product-{{ ai_gen_id }}__qty-btn" type="button" data-quantity-minus aria-label="Decrease quantity">−</button>
+                <input class="ai-buy-product-{{ ai_gen_id }}__qty-input" type="number" name="quantity" value="1" min="1" inputmode="numeric" aria-label="{{ block.settings.quantity_label }}">
+                <button class="ai-buy-product-{{ ai_gen_id }}__qty-btn" type="button" data-quantity-plus aria-label="Increase quantity">+</button>
+              </div>
+            </div>
+
+            {% unless selected_variant.available %}
+              <div class="ai-buy-product-{{ ai_gen_id }}__availability ai-buy-product-{{ ai_gen_id }}__availability--unavailable">{{ block.settings.unavailable_label }}</div>
+            {% endunless %}
+
+            <button class="ai-buy-product-{{ ai_gen_id }}__button" type="submit" {% unless selected_variant.available %}disabled{% endunless %}>
+              {{ block.settings.button_label }}
+            </button>
+          {% endform %}
+
+          <div class="ai-buy-product-{{ ai_gen_id }}__trust">
+            <div class="ai-buy-product-{{ ai_gen_id }}__trust-item">
+              <span class="ai-buy-product-{{ ai_gen_id }}__trust-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 7h11v10H3z"></path>
+                  <path d="M14 10h3l3 3v4h-6z"></path>
+                  <circle cx="7.5" cy="17.5" r="1.5"></circle>
+                  <circle cx="17.5" cy="17.5" r="1.5"></circle>
+                </svg>
+              </span>
+              <span class="ai-buy-product-{{ ai_gen_id }}__trust-label">{{ block.settings.trust_shipping_label }}</span>
+            </div>
+            <div class="ai-buy-product-{{ ai_gen_id }}__trust-item">
+              <span class="ai-buy-product-{{ ai_gen_id }}__trust-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 3l7 4v5c0 4.4-3 7.4-7 9-4-1.6-7-4.6-7-9V7z"></path>
+                  <path d="M9.5 12.5l1.8 1.8 3.5-3.8"></path>
+                </svg>
+              </span>
+              <span class="ai-buy-product-{{ ai_gen_id }}__trust-label">{{ block.settings.trust_checkout_label }}</span>
+            </div>
+            <div class="ai-buy-product-{{ ai_gen_id }}__trust-item">
+              <span class="ai-buy-product-{{ ai_gen_id }}__trust-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 8h16v13H4z"></path>
+                  <path d="M12 8V5a2 2 0 0 0-2-2H8"></path>
+                  <path d="M12 8h4a2 2 0 0 0 2-2V3"></path>
+                </svg>
+              </span>
+              <span class="ai-buy-product-{{ ai_gen_id }}__trust-label">{{ block.settings.trust_gifting_label }}</span>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  {% else %}
+    <div class="ai-buy-product-{{ ai_gen_id }}__purchase-card">
+      <p>Thanks Living Bracelet is unavailable. Confirm the product handle is thanks-living-bracelet.</p>
+    </div>
+  {% endif %}
+</div>
+
+<script>
+  (() => {
+    const root = document.querySelector('.ai-buy-product-{{ ai_gen_id }}');
+    if (!root) return;
+
+    root.querySelectorAll('[data-quantity-selector]').forEach((selector) => {
+      const input = selector.querySelector('input[name="quantity"]');
+      const minus = selector.querySelector('[data-quantity-minus]');
+      const plus = selector.querySelector('[data-quantity-plus]');
+      if (!input || !minus || !plus) return;
+
+      const clampQuantity = (value) => Math.max(1, Number.parseInt(value, 10) || 1);
+
+      minus.addEventListener('click', () => {
+        input.value = clampQuantity(Number.parseInt(input.value, 10) - 1);
+      });
+
+      plus.addEventListener('click', () => {
+        input.value = clampQuantity(Number.parseInt(input.value, 10) + 1);
+      });
+
+      input.addEventListener('change', () => {
+        input.value = clampQuantity(input.value);
+      });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Buy product",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image (desktop)",
+      "info": "Uses theme asset bracelet-section-background.jpg when empty."
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image_mobile",
+      "label": "Background image (mobile)",
+      "info": "Portrait background for screens 768px and below. Uses bracelet-section-background-mobile.jpg when empty."
+    },
+    {
+      "type": "select",
+      "id": "background_position",
+      "label": "Background position (desktop)",
+      "options": [
+        { "value": "center center", "label": "Center" },
+        { "value": "left center", "label": "Left center" },
+        { "value": "right center", "label": "Right center" }
+      ],
+      "default": "center center"
+    },
+    {
+      "type": "select",
+      "id": "background_position_mobile",
+      "label": "Background position (mobile)",
+      "options": [
+        { "value": "center top", "label": "Center top" },
+        { "value": "center center", "label": "Center" },
+        { "value": "left top", "label": "Left top" }
+      ],
+      "default": "center top"
+    },
+    {
+      "type": "range",
+      "id": "background_max_width",
+      "label": "Background max width",
+      "min": 960,
+      "max": 1920,
+      "step": 40,
+      "unit": "px",
+      "default": 1440
+    },
+    {
+      "type": "range",
+      "id": "background_outer_opacity",
+      "label": "Side area background opacity",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "%",
+      "default": 35,
+      "info": "Faded background for the area outside the max-width image on wide screens."
+    },
+    {
+      "type": "header",
+      "content": "Hero content"
+    },
+    { "type": "text", "id": "headline", "label": "Headline", "default": "Wear Gratitude. Live It Daily." },
+    {
+      "type": "textarea",
+      "id": "subheadline",
+      "label": "Subheadline",
+      "default": "A simple reminder to pause, read, reflect, and live with gratitude every day."
+    },
+    { "type": "text", "id": "product_subtitle", "label": "Product subtitle", "default": "ThanksLiving Wristband" },
+    { "type": "text", "id": "qr_placeholder_label", "label": "QR card accessibility label", "default": "QR code card" },
+    { "type": "text", "id": "qr_brand_text", "label": "QR card brand", "default": "THANKSLIVING" },
+    { "type": "text", "id": "qr_tagline_text", "label": "QR card tagline", "default": "A LIFE OF GRATITUDE" },
+    { "type": "text", "id": "qr_scan_text", "label": "QR card scan text", "default": "SCAN FOR A DAILY GRATITUDE VERSE" },
+    {
+      "type": "text",
+      "id": "qr_target_url",
+      "label": "QR target URL",
+      "default": "https://example.com/thanks-living-bonus",
+      "info": "Used to generate the QR code when no custom QR image is uploaded. Match the URL used in the Landing QR Experience section."
+    },
+    {
+      "type": "image_picker",
+      "id": "qr_code_image",
+      "label": "QR code image",
+      "info": "Optional custom QR artwork for the teal card. When empty, a functional QR code is generated from the target URL."
+    },
+    {
+      "type": "header",
+      "content": "Features"
+    },
+    { "type": "text", "id": "feature_1_title", "label": "Feature 1 title", "default": "Daily Inspiration" },
+    { "type": "text", "id": "feature_1_text", "label": "Feature 1 text", "default": "A new gratitude verse every day" },
+    { "type": "text", "id": "feature_2_title", "label": "Feature 2 title", "default": "Meaningful Reminder" },
+    { "type": "text", "id": "feature_2_text", "label": "Feature 2 text", "default": "Keep gratitude close" },
+    { "type": "text", "id": "feature_3_title", "label": "Feature 3 title", "default": "Great for Gifting" },
+    { "type": "text", "id": "feature_3_text", "label": "Feature 3 text", "default": "Share a life-changing habit" },
+    {
+      "type": "header",
+      "content": "Purchase card"
+    },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "BUY NOW" },
+    { "type": "text", "id": "quantity_label", "label": "Quantity label", "default": "Quantity" },
+    { "type": "text", "id": "unavailable_label", "label": "Unavailable label", "default": "Currently unavailable" },
+    { "type": "text", "id": "save_badge_label", "label": "Save badge label", "default": "Save [percent]%", "info": "Use [percent] for the calculated discount." },
+    { "type": "text", "id": "trust_shipping_label", "label": "Trust badge 1", "default": "Fast Shipping" },
+    { "type": "text", "id": "trust_checkout_label", "label": "Trust badge 2", "default": "Secure Checkout" },
+    { "type": "text", "id": "trust_gifting_label", "label": "Trust badge 3", "default": "Perfect for Gifting" },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    { "type": "color", "id": "navy_color", "label": "Navy", "default": "#122e4d" },
+    { "type": "color", "id": "accent_color", "label": "Yellow accent", "default": "#ffcc48" },
+    { "type": "color", "id": "teal_color", "label": "Teal accent", "default": "#2b879e" },
+    { "type": "color", "id": "background_color", "label": "Purchase card background", "default": "#ffffff" },
+    { "type": "color", "id": "text_color", "label": "Text", "default": "#122e4d" },
+    { "type": "color", "id": "border_color", "label": "Purchase card border", "default": "#edf1f5" },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    { "type": "range", "id": "corner_radius", "label": "Section radius", "min": 0, "max": 40, "step": 2, "unit": "px", "default": 0 }
+  ],
+  "presets": [{ "name": "Buy product" }],
+  "tag": null,
+  "class": "buy-product-block"
+}
+{% endschema %}

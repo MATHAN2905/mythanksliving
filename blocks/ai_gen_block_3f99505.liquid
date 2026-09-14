@@ -1,0 +1,678 @@
+{% doc %}
+  Daily verse display — matches the Your Daily Verse reference and shares
+  the same verse-of-the-day logic as landing-benefits via verse-of-the-day.js.
+{% enddoc %}
+
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% liquid
+  if block.settings.background_image != blank
+    assign daily_verse_bg = block.settings.background_image | image_url: width: 2400
+  else
+    assign daily_verse_bg = 'thanks-daily-verse-background.jpg' | asset_url
+  endif
+%}
+
+<script src="{{ 'verse-of-the-day.js' | asset_url }}" defer></script>
+<script src="{{ 'ai-daily-verse.js' | asset_url }}" defer></script>
+
+{% style %}
+  .ai-verse-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    color: {{ block.settings.text_color }};
+    box-sizing: border-box;
+  }
+
+  .ai-verse-{{ ai_gen_id }}__scene {
+    overflow: hidden;
+    background: #e8f4fc;
+  }
+
+  .ai-verse-{{ ai_gen_id }}__scene-canvas {
+    position: relative;
+    width: 100%;
+    max-width: {{ block.settings.background_max_width }}px;
+    margin: 0 auto;
+    min-height: calc(min(100vw, {{ block.settings.background_max_width }}px) * 1350 / 2400);
+  }
+
+  .ai-verse-{{ ai_gen_id }}__scene-bg {
+    position: absolute;
+    inset: 0;
+    line-height: 0;
+    pointer-events: none;
+  }
+
+  .ai-verse-{{ ai_gen_id }}__scene-bg::after {
+    position: absolute;
+    inset: 0;
+    content: '';
+    background: linear-gradient(180deg, rgb(255 255 255 / 0.08) 0%, rgb(255 255 255 / 0.02) 42%, rgb(255 255 255 / 0.12) 100%);
+    pointer-events: none;
+  }
+
+  .ai-verse-{{ ai_gen_id }}__scene-bg-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .ai-verse-{{ ai_gen_id }}__scene-canvas::before,
+  .ai-verse-{{ ai_gen_id }}__scene-canvas::after {
+    position: absolute;
+    z-index: 1;
+    pointer-events: none;
+    content: '';
+    border-radius: 999px;
+    background: rgb(244 196 48 / 0.55);
+    filter: blur(0.5px);
+  }
+
+  .ai-verse-{{ ai_gen_id }}__scene-canvas::before {
+    top: 18%;
+    left: 8%;
+    width: 14px;
+    height: 22px;
+    transform: rotate(-24deg);
+  }
+
+  .ai-verse-{{ ai_gen_id }}__scene-canvas::after {
+    top: 28%;
+    right: 12%;
+    width: 10px;
+    height: 16px;
+    transform: rotate(18deg);
+  }
+
+  .ai-verse-{{ ai_gen_id }}__inner {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    align-items: center;
+    justify-items: center;
+    gap: clamp(10px, 1.5vw, 16px);
+    width: 100%;
+    max-width: min(100%, 960px);
+    margin: 0 auto;
+    padding: clamp(20px, 3vw, 36px) clamp(14px, 2vw, 24px);
+    min-height: calc(min(100vw, {{ block.settings.background_max_width }}px) * 1350 / 2400);
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  .ai-verse-{{ ai_gen_id }}__intro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    grid-row: 1;
+    align-self: start;
+    gap: clamp(10px, 1.5vw, 16px);
+    margin: 0;
+    flex-shrink: 0;
+  }
+
+  .ai-verse-{{ ai_gen_id }}__sun {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    margin-bottom: 2px;
+    color: {{ block.settings.accent_color }};
+  }
+
+  .ai-verse-{{ ai_gen_id }}__sun svg {
+    width: 34px;
+    height: 34px;
+  }
+
+  .ai-verse-{{ ai_gen_id }}__eyebrow {
+    margin: 0;
+    color: {{ block.settings.eyebrow_color }};
+    font-size: clamp(11px, 1.2vw, 13px);
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  .ai-verse-{{ ai_gen_id }}__greeting {
+    margin: 0;
+    max-width: min(100%, 680px);
+    color: {{ block.settings.text_color }};
+    font-family: {{ block.settings.verse_font.family }}, Georgia, serif;
+    font-size: clamp(26px, 3.6vw, 44px);
+    line-height: 1.12;
+    font-weight: 600;
+  }
+
+  .ai-verse-{{ ai_gen_id }}__date {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+    padding: 10px 16px;
+    border-radius: 999px;
+    background: rgb(232 244 252 / 0.92);
+    border: 1px solid rgb(196 222 238 / 0.95);
+    color: {{ block.settings.eyebrow_color }};
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+
+  .ai-verse-{{ ai_gen_id }}__date svg {
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+  }
+
+  .ai-verse-{{ ai_gen_id }}__card-wrap {
+    position: relative;
+    grid-row: 2;
+    align-self: center;
+    width: min(52vw, 820px, 100%);
+    margin: 0 auto;
+    padding-top: 28px;
+  }
+
+  .ai-verse-{{ ai_gen_id }}__quote-badge {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    z-index: 3;
+    display: grid;
+    place-items: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 999px;
+    color: {{ block.settings.eyebrow_color }};
+    background: #ffffff;
+    border: 2px solid rgb(126 184 220 / 0.85);
+    box-shadow: 0 8px 22px rgb(15 49 86 / 0.08);
+    transform: translateX(-50%);
+  }
+
+  .ai-verse-{{ ai_gen_id }}__quote-badge svg {
+    width: 26px;
+    height: 26px;
+  }
+
+  .ai-verse-{{ ai_gen_id }}__card {
+    position: relative;
+    padding: clamp(36px, 4vw, 48px) clamp(28px, 4vw, 44px) clamp(24px, 3vw, 32px);
+    border-radius: 24px;
+    background: rgb(255 255 255 / 0.98);
+    border: 1px solid rgb(212 232 246 / 0.95);
+    box-shadow: 0 18px 42px rgb(15 49 86 / 0.1);
+  }
+
+  .ai-verse-{{ ai_gen_id }}__card-lines {
+    position: absolute;
+    top: 32px;
+    left: clamp(48px, 10vw, 120px);
+    right: clamp(48px, 10vw, 120px);
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgb(30 125 176 / 0.28), transparent);
+    pointer-events: none;
+  }
+
+  .ai-verse-{{ ai_gen_id }}__flower {
+    position: absolute;
+    top: 18px;
+    right: clamp(18px, 3.5vw, 32px);
+    width: 58px;
+    height: 58px;
+    pointer-events: none;
+    filter: drop-shadow(0 2px 4px rgb(15 49 86 / 0.08));
+  }
+
+  .ai-verse-{{ ai_gen_id }}__petal {
+    position: absolute;
+    z-index: 1;
+    width: 12px;
+    height: 18px;
+    border-radius: 999px 999px 999px 0;
+    background: rgb(244 196 48 / 0.75);
+    pointer-events: none;
+  }
+
+  .ai-verse-{{ ai_gen_id }}__petal--one {
+    top: 18%;
+    left: 10%;
+    transform: rotate(28deg);
+  }
+
+  .ai-verse-{{ ai_gen_id }}__petal--two {
+    top: 24%;
+    right: 12%;
+    width: 9px;
+    height: 14px;
+    transform: rotate(-12deg);
+  }
+
+  .ai-verse-{{ ai_gen_id }}__verse {
+    margin: 0;
+    padding: 0;
+  }
+
+  .ai-verse-{{ ai_gen_id }}__verse p {
+    margin: 0 auto;
+    max-width: 24ch;
+    color: {{ block.settings.text_color }};
+    font-family: {{ block.settings.verse_font.family }}, Georgia, serif;
+    font-size: clamp(22px, 3vw, 34px);
+    line-height: 1.3;
+    font-weight: 600;
+    font-style: normal;
+    text-align: center;
+  }
+
+  .ai-verse-{{ ai_gen_id }}__reference {
+    display: block;
+    margin: clamp(20px, 2.5vw, 28px) 0 0;
+    color: {{ block.settings.eyebrow_color }};
+    font-size: clamp(12px, 1.2vw, 14px);
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    line-height: 1.2;
+    text-transform: uppercase;
+    font-style: normal;
+    text-align: center;
+  }
+
+  .ai-verse-{{ ai_gen_id }}__rule {
+    width: 58px;
+    height: 3px;
+    margin: 18px auto 0;
+    border-radius: 999px;
+    background: {{ block.settings.accent_color }};
+  }
+
+  .ai-verse-{{ ai_gen_id }}__actions-divider {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: clamp(24px, 3vw, 32px);
+    padding-top: 4px;
+  }
+
+  .ai-verse-{{ ai_gen_id }}__actions-divider::before {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    content: '';
+    background: rgb(212 232 246 / 0.95);
+    transform: translateY(-50%);
+  }
+
+  .ai-verse-{{ ai_gen_id }}__actions-divider-dot {
+    position: relative;
+    z-index: 1;
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: {{ block.settings.accent_color }};
+  }
+
+  .ai-verse-{{ ai_gen_id }}__actions {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 0;
+    margin-top: 18px;
+  }
+
+  .ai-verse-{{ ai_gen_id }}__action {
+    position: relative;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    min-width: 96px;
+    padding: 0 22px;
+    border: 0;
+    background: transparent;
+    color: {{ block.settings.eyebrow_color }};
+    cursor: pointer;
+  }
+
+  .ai-verse-{{ ai_gen_id }}__action:not(:last-child)::after {
+    position: absolute;
+    top: 10px;
+    right: 0;
+    width: 1px;
+    height: calc(100% - 20px);
+    content: '';
+    background: rgb(196 222 238 / 0.95);
+  }
+
+  .ai-verse-{{ ai_gen_id }}__action-icon {
+    display: grid;
+    place-items: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 999px;
+    border: 1.5px solid rgb(126 184 220 / 0.85);
+    background: #ffffff;
+  }
+
+  .ai-verse-{{ ai_gen_id }}__action-icon svg {
+    width: 21px;
+    height: 21px;
+  }
+
+  .ai-verse-{{ ai_gen_id }}__action-label {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .ai-verse-{{ ai_gen_id }}__footer {
+    grid-row: 3;
+    align-self: end;
+    width: 100%;
+    margin: 0;
+    flex-shrink: 0;
+  }
+
+  .ai-verse-{{ ai_gen_id }}__footer-divider {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: min(100%, 520px);
+    margin: 0 auto 12px;
+  }
+
+  .ai-verse-{{ ai_gen_id }}__footer-divider::before,
+  .ai-verse-{{ ai_gen_id }}__footer-divider::after {
+    flex: 1;
+    height: 1px;
+    content: '';
+    background: linear-gradient(to right, transparent, rgb(30 125 176 / 0.35));
+  }
+
+  .ai-verse-{{ ai_gen_id }}__footer-divider::after {
+    background: linear-gradient(to left, transparent, rgb(30 125 176 / 0.35));
+  }
+
+  .ai-verse-{{ ai_gen_id }}__footer-logo {
+    width: 32px;
+    height: 32px;
+    margin-inline: 14px;
+    flex-shrink: 0;
+    object-fit: contain;
+  }
+
+  .ai-verse-{{ ai_gen_id }}__footer-verse {
+    margin: 0 auto;
+    max-width: 44ch;
+    color: {{ block.settings.text_color }};
+    font-family: {{ block.settings.verse_font.family }}, Georgia, serif;
+    font-size: clamp(14px, 1.8vw, 18px);
+    line-height: 1.45;
+    font-style: italic;
+    opacity: 0.94;
+  }
+
+  .ai-verse-{{ ai_gen_id }}__footer-reference {
+    margin: 12px 0 0;
+    color: {{ block.settings.eyebrow_color }};
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  @media screen and (max-width: 989px) {
+    .ai-verse-{{ ai_gen_id }}__inner {
+      width: min(100%, 760px);
+    }
+
+    .ai-verse-{{ ai_gen_id }}__card-wrap {
+      width: min(88vw, 760px, 100%);
+    }
+
+    .ai-verse-{{ ai_gen_id }}__greeting {
+      max-width: 20ch;
+    }
+
+    .ai-verse-{{ ai_gen_id }}__verse p {
+      max-width: 22ch;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-verse-{{ ai_gen_id }}__scene-canvas {
+      min-height: calc(100vw * 1350 / 2400);
+    }
+
+    .ai-verse-{{ ai_gen_id }}__inner {
+      gap: 14px;
+      padding: 20px 16px;
+      min-height: calc(100vw * 1350 / 2400);
+    }
+
+    .ai-verse-{{ ai_gen_id }}__card-wrap {
+      width: 100%;
+    }
+
+    .ai-verse-{{ ai_gen_id }}__greeting {
+      font-size: clamp(26px, 7vw, 34px);
+      max-width: none;
+    }
+
+    .ai-verse-{{ ai_gen_id }}__card {
+      padding: 40px 22px 28px;
+      border-radius: 20px;
+    }
+
+    .ai-verse-{{ ai_gen_id }}__card-lines {
+      left: 32px;
+      right: 32px;
+    }
+
+    .ai-verse-{{ ai_gen_id }}__verse p {
+      font-size: clamp(22px, 6vw, 28px);
+      max-width: none;
+    }
+
+    .ai-verse-{{ ai_gen_id }}__flower {
+      width: 48px;
+      height: 48px;
+      right: 16px;
+    }
+
+    .ai-verse-{{ ai_gen_id }}__action {
+      min-width: 78px;
+      padding-inline: 14px;
+    }
+
+    .ai-verse-{{ ai_gen_id }}__footer-verse {
+      font-size: 16px;
+    }
+  }
+{% endstyle %}
+
+<ai-daily-verse
+  class="ai-verse-{{ ai_gen_id }}"
+  data-verses-url="{{ 'verses.json' | asset_url }}"
+  data-fallback-text="{{ block.settings.fallback_text | escape }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="ai-verse-{{ ai_gen_id }}__scene">
+    <div class="ai-verse-{{ ai_gen_id }}__scene-canvas">
+      <div class="ai-verse-{{ ai_gen_id }}__scene-bg" aria-hidden="true">
+        <img
+          class="ai-verse-{{ ai_gen_id }}__scene-bg-image"
+          src="{{ daily_verse_bg }}"
+          alt=""
+          loading="lazy"
+          width="2400"
+          height="1350"
+        >
+      </div>
+      <span class="ai-verse-{{ ai_gen_id }}__petal ai-verse-{{ ai_gen_id }}__petal--one" aria-hidden="true"></span>
+      <span class="ai-verse-{{ ai_gen_id }}__petal ai-verse-{{ ai_gen_id }}__petal--two" aria-hidden="true"></span>
+
+      <div class="ai-verse-{{ ai_gen_id }}__inner">
+      <div class="ai-verse-{{ ai_gen_id }}__intro">
+        <span class="ai-verse-{{ ai_gen_id }}__sun" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="4.5" fill="currentColor"></circle>
+            <path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.4 5.4l1.6 1.6M17 17l1.6 1.6M5.4 18.6 7 17M17 7l1.6-1.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path>
+          </svg>
+        </span>
+
+        {% if block.settings.eyebrow != blank %}
+          <p class="ai-verse-{{ ai_gen_id }}__eyebrow">{{ block.settings.eyebrow }}</p>
+        {% endif %}
+
+        {% if block.settings.greeting != blank %}
+          <p class="ai-verse-{{ ai_gen_id }}__greeting">{{ block.settings.greeting }}</p>
+        {% endif %}
+
+        <p class="ai-verse-{{ ai_gen_id }}__date" data-verse-date>
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <rect x="4" y="5" width="16" height="15" rx="2" stroke="currentColor" stroke-width="1.6"></rect>
+            <path d="M8 3.5v3M16 3.5v3M4 9.5h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path>
+          </svg>
+          <span data-verse-date-text></span>
+        </p>
+      </div>
+
+      <div class="ai-verse-{{ ai_gen_id }}__card-wrap" data-verse-root>
+        <div class="ai-verse-{{ ai_gen_id }}__quote-badge" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M7.5 8.5c0-2.2 1.5-3.5 3.5-3.5.8 0 1.5.3 2 .8L10 8.5H7.5zm9 0c0-2.2 1.5-3.5 3.5-3.5.8 0 1.5.3 2 .8L19 8.5h-2.5z"></path>
+          </svg>
+        </div>
+
+        <div class="ai-verse-{{ ai_gen_id }}__card">
+          <div class="ai-verse-{{ ai_gen_id }}__card-lines" aria-hidden="true"></div>
+
+          <svg class="ai-verse-{{ ai_gen_id }}__flower" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+            <g fill="#F4C430">
+              <ellipse cx="32" cy="16" rx="7" ry="11" transform="rotate(0 32 32)"></ellipse>
+              <ellipse cx="32" cy="16" rx="7" ry="11" transform="rotate(45 32 32)"></ellipse>
+              <ellipse cx="32" cy="16" rx="7" ry="11" transform="rotate(90 32 32)"></ellipse>
+              <ellipse cx="32" cy="16" rx="7" ry="11" transform="rotate(135 32 32)"></ellipse>
+              <ellipse cx="32" cy="16" rx="7" ry="11" transform="rotate(180 32 32)"></ellipse>
+              <ellipse cx="32" cy="16" rx="7" ry="11" transform="rotate(225 32 32)"></ellipse>
+              <ellipse cx="32" cy="16" rx="7" ry="11" transform="rotate(270 32 32)"></ellipse>
+              <ellipse cx="32" cy="16" rx="7" ry="11" transform="rotate(315 32 32)"></ellipse>
+            </g>
+            <circle cx="32" cy="32" r="9" fill="#E8A317"></circle>
+            <circle cx="32" cy="32" r="5" fill="#D49212"></circle>
+          </svg>
+
+          <blockquote class="ai-verse-{{ ai_gen_id }}__verse">
+            <p data-verse-text>Loading today’s scripture…</p>
+          </blockquote>
+
+          <cite class="ai-verse-{{ ai_gen_id }}__reference" data-verse-reference></cite>
+
+          {% if block.settings.show_rule %}
+            <div class="ai-verse-{{ ai_gen_id }}__rule" aria-hidden="true"></div>
+          {% endif %}
+
+          <div class="ai-verse-{{ ai_gen_id }}__actions-divider" aria-hidden="true">
+            <span class="ai-verse-{{ ai_gen_id }}__actions-divider-dot"></span>
+          </div>
+
+          <div class="ai-verse-{{ ai_gen_id }}__actions">
+            <button type="button" class="ai-verse-{{ ai_gen_id }}__action" data-verse-copy aria-label="Copy scripture" title="Copy">
+              <span class="ai-verse-{{ ai_gen_id }}__action-icon">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.6"></rect><path d="M6 16V6a2 2 0 0 1 2-2h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg>
+              </span>
+              <span class="ai-verse-{{ ai_gen_id }}__action-label" data-verse-action-label>Copy</span>
+            </button>
+            <button type="button" class="ai-verse-{{ ai_gen_id }}__action" data-verse-share aria-label="Share scripture" title="Share">
+              <span class="ai-verse-{{ ai_gen_id }}__action-icon">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="18" cy="5" r="2.5" stroke="currentColor" stroke-width="1.6"></circle><circle cx="6" cy="12" r="2.5" stroke="currentColor" stroke-width="1.6"></circle><circle cx="18" cy="19" r="2.5" stroke="currentColor" stroke-width="1.6"></circle><path d="M8.4 13.2 15.6 17M15.6 7 8.4 10.8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg>
+              </span>
+              <span class="ai-verse-{{ ai_gen_id }}__action-label" data-verse-action-label>Share</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {% if block.settings.footer_verse != blank or block.settings.footer_reference != blank %}
+        <div class="ai-verse-{{ ai_gen_id }}__footer">
+          <div class="ai-verse-{{ ai_gen_id }}__footer-divider" aria-hidden="true">
+            <img
+              class="ai-verse-{{ ai_gen_id }}__footer-logo"
+              src="{{ 'thanks-living-logo-icon.svg' | asset_url }}"
+              width="32"
+              height="32"
+              alt=""
+              loading="lazy"
+            >
+          </div>
+
+          {% if block.settings.footer_verse != blank %}
+            <p class="ai-verse-{{ ai_gen_id }}__footer-verse">{{ block.settings.footer_verse }}</p>
+          {% endif %}
+
+          {% if block.settings.footer_reference != blank %}
+            <p class="ai-verse-{{ ai_gen_id }}__footer-reference">{{ block.settings.footer_reference }}</p>
+          {% endif %}
+        </div>
+      {% endif %}
+      </div>
+    </div>
+  </div>
+</ai-daily-verse>
+
+{% schema %}
+{
+  "name": "Daily verse display",
+  "settings": [
+    { "type": "header", "content": "Header" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Your daily verse" },
+    { "type": "text", "id": "greeting", "label": "Greeting", "default": "Thank you for starting your day with gratitude." },
+    { "type": "textarea", "id": "fallback_text", "label": "Fallback verse text", "default": "A life of gratitude transforms our hearts every day." },
+    { "type": "header", "content": "Footer scripture" },
+    { "type": "textarea", "id": "footer_verse", "label": "Footer verse", "default": "In everything give thanks; for this is the will of God in Christ Jesus concerning you." },
+    { "type": "text", "id": "footer_reference", "label": "Footer reference", "default": "1 Thessalonians 5:18 (KJV)" },
+    { "type": "header", "content": "Background" },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image",
+      "info": "Uses thanks-daily-verse-background.jpg when empty."
+    },
+    {
+      "type": "range",
+      "id": "background_max_width",
+      "label": "Background max width",
+      "min": 960,
+      "max": 1920,
+      "step": 40,
+      "unit": "px",
+      "default": 1440
+    },
+    { "type": "header", "content": "Layout" },
+    { "type": "checkbox", "id": "show_rule", "label": "Show accent rule under reference", "default": true },
+    { "type": "header", "content": "Typography" },
+    { "type": "font_picker", "id": "verse_font", "label": "Verse font", "default": "serif" },
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "text_color", "label": "Verse text", "default": "#0a2740" },
+    { "type": "color", "id": "eyebrow_color", "label": "Labels and reference", "default": "#1e7db0" },
+    { "type": "color", "id": "accent_color", "label": "Accent (sun and rule)", "default": "#f4c430" }
+  ],
+  "presets": [{ "name": "Daily verse display" }],
+  "tag": null,
+  "class": "verse-display-block"
+}
+{% endschema %}

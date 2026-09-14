@@ -1,1 +1,1429 @@
-{"sections":{"landing_hero_ftw9E4":{"type":"landing-hero","blocks":{"feature_badge_iAxH3g":{"type":"feature_badge","settings":{"label":"Moody Publishers","icon":"sun"}},"particle_J99g3p":{"type":"particle","settings":{"shape":"leaf","top":32,"left":74,"size":14,"opacity":78,"rotation":-16,"blur":0,"color":"#f5c634"}},"particle_QXMY3x":{"type":"particle","settings":{"shape":"leaf","top":56,"left":68,"size":10,"opacity":78,"rotation":24,"blur":0,"color":"#f5c634"}},"particle_aGQRGb":{"type":"particle","settings":{"shape":"leaf","top":24,"left":86,"size":12,"opacity":78,"rotation":-8,"blur":0,"color":"#f5c634"}},"particle_petal_4":{"type":"particle","settings":{"shape":"leaf","top":48,"left":92,"size":9,"opacity":65,"rotation":36,"blur":0.5,"color":"#f0b426"}},"particle_petal_5":{"type":"particle","settings":{"shape":"leaf","top":18,"left":62,"size":8,"opacity":55,"rotation":-28,"blur":1,"color":"#f7d060"}},"particle_petal_6":{"type":"particle","settings":{"shape":"circle","top":70,"left":80,"size":6,"opacity":40,"rotation":0,"blur":2,"color":"#ffffff"}}},"block_order":["feature_badge_iAxH3g","particle_J99g3p","particle_QXMY3x","particle_aGQRGb","particle_petal_4","particle_petal_5","particle_petal_6"],"name":"Landing Hero Banner","settings":{"enable_section":true,"show_on_desktop":true,"show_on_tablet":true,"show_on_mobile":true,"eyebrow":"Embracing the Power of <em>Gratitude<\/em> Every Day","heading_1":"Thanks","heading_2":"Living","description":"<p>A life of gratitude transforms our hearts, strengthens our faith, and fills every day with purpose, joy, and hope.<\/p>","author_name":"Stu Epperson Jr.","author_subtitle":"Foreword by Dr. Gary Chapman","text_align":"left","primary_button_label":"Buy Now","primary_button_url":"https:\/\/www.moodypublishers.com\/thanks-living","primary_button_icon":"cart","secondary_button_label":"Hear from Stu","secondary_button_url":"#message-from-stu","secondary_button_icon":"play","book_image":"shopify:\/\/shop_images\/thanks_giving.png","book_width_desktop":640,"book_offset_x":0,"book_offset_y":-48,"enable_book_float":true,"book_float_speed":6.5,"flower_left":"shopify:\/\/shop_images\/ChatGPT_Image_Jul_22_2026_04_58_26_PM.png","flower_left_size":190,"flower_left_offset_x":-30,"flower_left_offset_y":20,"flower_right":"shopify:\/\/shop_images\/ChatGPT_Image_Jul_22_2026_04_58_26_PM.png","flower_right_size":270,"flower_right_offset_x":-30,"flower_right_offset_y":-10,"background_color":"#f6fbff","enable_gradient":true,"gradient_color_1":"#9bdcff","gradient_color_2":"#edf8ff","gradient_color_3":"#ffffff","overlay_color":"rgba(0,0,0,0)","overlay_opacity":0,"panel_background":"rgba(0,0,0,0)","enable_glass":false,"glass_background":"rgba(0,0,0,0)","glass_blur":0,"border_color":"#d2e3f2","border_opacity":0,"enable_shadow":false,"border_radius":0,"heading_color":"#062440","eyebrow_color":"#1a4a6e","body_color":"#284763","author_color":"#e0a715","author_sub_color":"#5b7188","heading_size_desktop":108,"heading_size_mobile":52,"heading_weight":"600","heading_letter_spacing":-1.2,"heading_line_height":0.9,"eyebrow_size_desktop":28,"eyebrow_size_mobile":18,"eyebrow_weight":"400","eyebrow_letter_spacing":0,"eyebrow_line_height":1.3,"body_size_desktop":18,"body_size_mobile":14,"body_weight":"400","body_letter_spacing":0,"body_line_height":1.6,"author_size_desktop":34,"author_size_mobile":22,"author_weight":"700","author_letter_spacing":1.6,"author_line_height":1.1,"button_size_desktop":15,"button_size_mobile":13,"button_weight":"700","button_radius":10,"primary_button_bg":"#f8c533","primary_button_bg_hover":"#f2bc1e","primary_button_text":"#0f3156","primary_button_border":"#f8c533","secondary_button_bg":"#ffffff","secondary_button_bg_hover":"#f7fbff","secondary_button_text":"#0f3156","secondary_button_border":"#c5d5e4","container_width":1320,"content_width":1280,"text_content_width":560,"min_height_desktop":700,"media_min_height_desktop":560,"media_min_height_mobile":360,"padding_top_desktop":40,"padding_bottom_desktop":40,"padding_inline_desktop":16,"padding_top_tablet":24,"padding_bottom_tablet":24,"padding_inline_tablet":12,"padding_top_mobile":20,"padding_bottom_mobile":20,"padding_inline_mobile":8,"enable_reveal_animation":true,"enable_particles_animation":true,"particle_speed":8,"media_glow_blur":22}},"landing_retail_logos_EAft6Y":{"type":"landing-retail-logos","blocks":{"logo_item_6VdhTM":{"type":"logo_item","settings":{"logo_image":"shopify:\/\/shop_images\/images_1.png","logo_alt":"Retail logo","logo_text":"Moody Publisher","link":"https:\/\/www.moodypublishers.com\/thanks-living","open_in_new_tab":true,"logo_width":156,"logo_height":30}},"logo_item_BajzrJ":{"type":"logo_item","settings":{"logo_image":"shopify:\/\/shop_images\/amazon-logo-on-transparent-background-free-vector.jpg","logo_alt":"Retail logo","logo_text":"Amazon","link":"https:\/\/www.amazon.com\/Thanks-Living-Embracing-Power-Gratitude-Every\/dp\/080243889X\/","open_in_new_tab":true,"logo_width":156,"logo_height":30}},"logo_item_CwJW4w":{"type":"logo_item","settings":{"logo_image":"shopify:\/\/shop_images\/images.png","logo_alt":"Retail logo","logo_text":"Barnes & Noble","link":"https:\/\/www.barnesandnoble.com\/w\/thanks-living-stu-epperson\/1149628666?ean=9780802438898","open_in_new_tab":true,"logo_width":156,"logo_height":30}},"logo_item_DeXJCj":{"type":"logo_item","settings":{"logo_image":"shopify:\/\/shop_images\/Books-A-Million_logo.svg","logo_alt":"Retail logo","logo_text":"Books-A-Million","link":"https:\/\/www.booksamillion.com\/p\/9780802438898","open_in_new_tab":true,"logo_width":156,"logo_height":30}},"logo_item_WLhP6z":{"type":"logo_item","settings":{"logo_image":"shopify:\/\/shop_images\/ChristianbookCatalogLogo_1568826141.png","logo_alt":"Retail logo","logo_text":"Christianbook","link":"https:\/\/www.christianbook.com\/thanks-living-embracing-power-gratitude-every\/9780802438898\/pd\/438892","open_in_new_tab":true,"logo_width":156,"logo_height":30}}},"block_order":["logo_item_6VdhTM","logo_item_BajzrJ","logo_item_CwJW4w","logo_item_DeXJCj","logo_item_WLhP6z"],"name":"Landing Retail Logos","settings":{"enable_section":true,"show_on_desktop":true,"show_on_tablet":true,"show_on_mobile":true,"heading":"Available everywhere","heading_color":"#5f7d95","heading_size_desktop":14,"heading_size_mobile":12,"heading_weight":"700","heading_letter_spacing":3,"heading_line_height":1.2,"container_width":1320,"content_width":1280,"columns_desktop":7,"columns_tablet":4,"columns_mobile":2,"logo_gap_desktop":8,"logo_gap_mobile":8,"card_height_desktop":52,"card_height_mobile":44,"card_radius":0,"logo_max_width":140,"logo_max_height":28,"enable_mobile_slider":false,"show_mobile_dots":false,"mobile_slide_width":74,"background_color":"#ffffff","text_color":"#0f3156","overlay_color":"rgba(0,0,0,0)","overlay_opacity":0,"card_background_color":"rgba(0,0,0,0)","card_border_color":"#d0e0ef","card_border_opacity":0,"enable_card_shadow":false,"padding_top_desktop":36,"padding_bottom_desktop":40,"padding_inline_desktop":16,"padding_top_tablet":16,"padding_bottom_tablet":20,"padding_inline_tablet":12,"padding_top_mobile":16,"padding_bottom_mobile":16,"padding_inline_mobile":8,"enable_animation":true}},"landing_benefits_e9VFDM":{"type":"landing-benefits","blocks":{"benefit_card_ygBnzK":{"type":"benefit_card","settings":{"title":"Cultivate Gratitude","description":"Simple, practical way to build a daily habit of thankfulness.","icon":"flower","link":"","icon_circle_color":"","icon_color":"","card_background_color":"","title_color":"","body_color":""}},"benefit_card_wKGc9H":{"type":"benefit_card","settings":{"title":"Strengthen Your Faith","description":"Deepen your relationship with God through His Word and truth.","icon":"heart","link":"","icon_circle_color":"","icon_color":"","card_background_color":"","title_color":"","body_color":""}},"benefit_card_LaRrWH":{"type":"benefit_card","settings":{"title":"Transform Your Life","description":"Experience more joy, peace, and purpose every day.","icon":"sun","link":"","icon_circle_color":"","icon_color":"","card_background_color":"","title_color":"","body_color":""}}},"block_order":["benefit_card_ygBnzK","benefit_card_wKGc9H","benefit_card_LaRrWH"],"name":"Landing Benefits","settings":{"enable_section":true,"show_on_desktop":true,"show_on_tablet":true,"show_on_mobile":true,"enable_verse_of_the_day":true,"verse_eyebrow":"Daily Thanks Living Scriptures","verse_heading_color":"#062440","verse_text_color":"#284763","verse_reference_color":"#e0a715","container_width":1320,"content_width":1280,"columns_desktop":3,"columns_tablet":2,"columns_mobile":1,"gap_desktop":12,"gap_tablet":10,"gap_mobile":10,"card_height_desktop":80,"card_height_mobile":72,"card_radius":0,"background_color":"#f6fbff","text_color":"#0f3156","overlay_color":"rgba(0,0,0,0)","overlay_opacity":0,"card_background_color":"rgba(0,0,0,0)","card_border_color":"#cadef1","card_border_opacity":0,"enable_card_shadow":false,"icon_circle_color":"#1e7db0","icon_color":"#ffd95e","icon_size":72,"title_color":"#153f61","body_color":"#4d6a82","title_size_desktop":24,"title_size_mobile":20,"title_weight":"600","title_letter_spacing":0,"title_line_height":1.2,"body_size_desktop":15,"body_size_mobile":14,"body_weight":"400","body_letter_spacing":0,"body_line_height":1.6,"padding_top_desktop":56,"padding_bottom_desktop":56,"padding_inline_desktop":16,"padding_top_tablet":40,"padding_bottom_tablet":40,"padding_inline_tablet":12,"padding_top_mobile":32,"padding_bottom_mobile":32,"padding_inline_mobile":8,"enable_animation":true,"hover_style":"lift"}},"landing_about_book_Te7PWf":{"type":"landing-about-book","name":"Landing About Book","settings":{"enable_section":true,"show_on_desktop":true,"show_on_tablet":true,"show_on_mobile":true,"image":"shopify:\/\/shop_images\/thanks_giving_with_flower_05210306-6be3-4c71-93f0-57f53b433387.png","image_alt":"Thanks-Living book","eyebrow":"About the book","heading":"A Life Filled With Purpose and Joy","description":"<p>Our lives are divine gifts, but they do not always feel like one. This book helps readers embrace gratitude in every season and grow in biblical hope.<\/p><p>Through scripture, stories, and practical reflection, Thanks Living invites you into a daily rhythm of thanksgiving that transforms how you see God, others, and yourself.<\/p>","show_quote":true,"quote_text":"In everything give thanks; for this is the will of God in Christ Jesus concerning you.","quote_author":"1 Thessalonians 5:18 (KJV)","show_verse":false,"verse_text":"In everything give thanks; for this is the will of God in Christ Jesus concerning you.","verse_reference":"1 Thessalonians 5:18 (KJV)","image_position":"left","media_width":"44%","content_vertical_align":"center","container_width":1320,"content_width":1240,"section_min_height":360,"panel_radius":0,"image_radius":0,"background_color":"#ffffff","overlay_color":"rgba(0,0,0,0)","overlay_opacity":0,"panel_background":"#ffffff","panel_border_color":"#d3e2ef","panel_border_opacity":0,"enable_panel_shadow":false,"text_color":"#2b516e","heading_color":"#123b5b","accent_color":"#f8c533","heading_size_desktop":46,"heading_size_mobile":30,"heading_weight":"600","body_size_desktop":16,"body_size_mobile":14,"quote_size_desktop":17,"quote_size_mobile":14,"padding_top_desktop":24,"padding_bottom_desktop":12,"padding_top_tablet":16,"padding_bottom_tablet":12,"padding_top_mobile":12,"padding_bottom_mobile":12,"enable_animation":true,"animation_style":"fade-left"}},"landing_book_features_eBzKMD":{"type":"landing-book-features","blocks":{"offer_card_groups":{"type":"offer_card","settings":{"title":"Ideal for groups","description":"","icon":"groups"}}},"block_order":["offer_card_groups"],"name":"Bulk Discount Offer","settings":{"enable_section":false,"show_on_desktop":true,"show_on_tablet":true,"show_on_mobile":true,"discount_percent":40,"min_quantity":12,"show_badge":true,"badge_text":"OFF","eyebrow":"Bulk savings","heading":"Order 12+ books and save","subtitle":"Your 40% discount applies automatically at checkout — mix any titles.","button_label":"Order & Save 40%","button_url":"","note":"No coupon needed","container_width":1320,"content_width":920,"panel_radius":20,"card_radius":16,"button_radius":10,"enable_panel_shadow":false,"background_color":"#f4f9fd","background_color_end":"#ffffff","panel_background":"#ffffff","panel_border_color":"#e4ecf3","card_background":"#fbfcfe","card_border_color":"#e2ebf3","badge_background":"#f8c533","badge_text_color":"#0f3156","icon_background":"#eef6fd","icon_color":"#1e7db0","heading_color":"#0f3156","body_color":"#4d6d86","text_color":"#234a69","accent_color":"#f8c533","navy_color":"#0f3156","decor_color":"#c9a24a","button_background":"#f8c533","button_background_hover":"#f1bc21","button_text_color":"#0f3156","heading_size_desktop":36,"heading_size_mobile":26,"body_size_desktop":17,"body_size_mobile":15,"padding_top_desktop":56,"padding_bottom_desktop":56,"padding_top_tablet":44,"padding_bottom_tablet":44,"padding_top_mobile":36,"padding_bottom_mobile":36,"enable_animation":true}},"landing_video_section_HLFxzx":{"type":"landing-video-section","blocks":{"point_m7AbjJ":{"type":"point","settings":{"text":"A practical and personal story of gratitude."}},"point_4BX78J":{"type":"point","settings":{"text":"Encouragement for your walk with God."}},"point_BH4akm":{"type":"point","settings":{"text":"Perfect for groups, families, and personal study."}}},"block_order":["point_m7AbjJ","point_4BX78J","point_BH4akm"],"name":"Landing Video Section","settings":{"enable_section":true,"show_on_desktop":true,"show_on_tablet":true,"show_on_mobile":true,"video_url":"https:\/\/cdn.shopify.com\/videos\/c\/o\/v\/1dda629454c443d8afdb4adb41e8777e.mov","video_title":"A Message From Stu","poster_image":"shopify:\/\/shop_images\/Stu1_1.jpg","poster_alt":"Video poster","enable_autoplay":false,"mute_video":true,"play_button_label":"Play video","video_aspect_ratio":"16 \/ 9","eyebrow":"Watch a personal message","heading":"A Message From Stu","description":"<p>Hear why this book was written and how a life of gratitude can encourage your walk with God.<\/p>","button_label":"Watch now","button_url":"","button_page_url":"","media_position":"left","media_width":"55%","container_width":1320,"content_width":1240,"panel_radius":0,"video_radius":12,"background_color":"#0a2740","overlay_color":"rgba(0,0,0,0)","overlay_opacity":0,"panel_background":"rgba(0,0,0,0)","panel_border_color":"#5280a1","panel_border_opacity":0,"enable_panel_shadow":false,"text_color":"#d6e8f8","heading_color":"#f1f8ff","accent_color":"#f8c533","heading_size_desktop":42,"heading_size_mobile":28,"heading_weight":"600","body_size_desktop":16,"body_size_mobile":14,"button_radius":8,"button_background":"#f8c533","button_background_hover":"#f1bc21","button_text_color":"#123d5d","button_border_color":"#f8c533","play_button_size":76,"play_button_color":"#f8c533","play_icon_color":"#123d5d","padding_top_desktop":56,"padding_bottom_desktop":56,"padding_top_tablet":20,"padding_bottom_tablet":20,"padding_top_mobile":16,"padding_bottom_mobile":20,"enable_animation":true}},"author_spotlight_CJM6yJ":{"type":"author-spotlight","blocks":{"social_link_YAB4rr":{"type":"social_link","settings":{"platform":"facebook","url":"https:\/\/www.facebook.com\/"}},"social_link_BFQbyq":{"type":"social_link","settings":{"platform":"instagram","url":"https:\/\/www.instagram.com\/"}},"social_link_6cQd7z":{"type":"social_link","settings":{"platform":"x","url":"https:\/\/x.com\/"}},"social_link_PkxXTw":{"type":"social_link","settings":{"platform":"youtube","url":"https:\/\/www.youtube.com\/"}},"social_link_n3gnpW":{"type":"social_link","settings":{"platform":"pinterest","url":"https:\/\/www.pinterest.com\/"}}},"block_order":["social_link_YAB4rr","social_link_BFQbyq","social_link_6cQd7z","social_link_PkxXTw","social_link_n3gnpW"],"name":"Author Spotlight","settings":{"eyebrow":"MEET THE AUTHOR","author_image":"shopify:\/\/shop_images\/Stu1_1.jpg","author_name":"Stu Epperson Jr.","bio":"<p><strong>Stu Epperson<\/strong> grew up in a home where gratitude wasn't a response to good circumstances—it was a response to a faithful God. That foundation carried him through loss, shaped decades of ministry, and now lives in every page of <strong>Thanks Living<\/strong>.<\/p><p>As one of Christian radio's most recognized voices, Stu brings biblical clarity, warmth, and conviction to the practice of gratitude for himself, his family, and now for you.<\/p>","extra_text":"","show_panel":true,"discount_percent":40,"min_quantity":12,"show_badge":true,"badge_text":"OFFER","bulk_eyebrow":"Bulk savings","bulk_heading":"Order 12+ books and save","bulk_subtitle":"Your 40% discount applies automatically at checkout — mix any titles.","bulk_button_label":"Order Now","bulk_button_url":"https:\/\/www.moodypublishers.com\/thanks-living","reverse_layout":false,"corner_radius":20,"padding_top":72,"padding_bottom":72,"section_bg":"#ffffff","text_color":"#123b5b","muted_text_color":"#5b7188","accent_color":"#f8c533","panel_bg":"#ffffff","panel_text_color":"#0f3156","panel_muted_color":"#4d6d86"}},"landing_qr_experience_VEmxa9":{"type":"landing-qr-experience","blocks":{"experience_item_hf7mEJ":{"type":"experience_item","settings":{"text":"Unlock a personal video message and guided reflection."}},"experience_item_DWynP8":{"type":"experience_item","settings":{"text":"Access bonus study prompts for family or small groups."}},"experience_item_MVDR3b":{"type":"experience_item","settings":{"text":"Keep the link handy with one-tap copy to your phone."}}},"block_order":["experience_item_hf7mEJ","experience_item_DWynP8","experience_item_MVDR3b"],"disabled":true,"name":"Landing QR Experience","settings":{"enable_section":true,"show_on_desktop":true,"show_on_tablet":true,"show_on_mobile":true,"eyebrow":"Bonus content","heading":"Scan for the QR experience","description":"<p>Scan the code to unlock an exclusive message, book resources, and a guided gratitude reflection from Stu.<\/p>","button_label":"Get the book","button_url":"","qr_label":"Scan with your phone camera","qr_target_url":"https:\/\/example.com\/thanks-living-bonus","qr_alt":"QR code to bonus content","show_qr_target":false,"enable_copy_button":true,"copy_button_label":"Copy link","enable_open_button":true,"open_button_label":"Open link","qr_note":"Camera not opening links automatically? Use Copy link.","phone_preview_alt":"Preview of bonus content on phone","qr_column_position":"right","container_width":1320,"content_width":1240,"qr_column_width":470,"panel_radius":20,"qr_card_radius":18,"qr_size":260,"phone_preview_width":180,"background_color":"#eef6fd","overlay_color":"rgba(0,0,0,0)","overlay_opacity":0,"panel_background":"#ffffffe0","panel_border_color":"#afc9e0","panel_border_opacity":80,"enable_panel_shadow":true,"qr_card_background":"#ffffff","text_color":"#355977","heading_color":"#123d5d","accent_color":"#6f9ec5","heading_size_desktop":46,"heading_size_mobile":30,"heading_weight":"700","body_size_desktop":16,"body_size_mobile":14,"button_radius":10,"button_background":"#123d5d","button_background_hover":"#0f3150","button_text_color":"#ffffff","button_border_color":"#123d5d","enable_qr_pulse":true,"enable_animation":true,"padding_top_desktop":32,"padding_bottom_desktop":36,"padding_top_tablet":24,"padding_bottom_tablet":24,"padding_top_mobile":20,"padding_bottom_mobile":20}},"landing_testimonials_UnjRNd":{"type":"landing-testimonials","blocks":{"testimonial_kC6Ncc":{"type":"testimonial","settings":{"quote":"Gratitude is the #1 result of being filled with the Spirit of God! I pray this book will inspire a flood of thankfulness in your soul. What an important reminder that the abundant source of thanksgiving is the amazing grace of God. The apostle Paul was a man whose life and letters dripped with gratitude. 1 Thessalonians 5:18 embodies the heart of Paul and amplifies the essence of a thankful heart. In Thanks Living, my friend Stu Epperson Jr. gives a clarion call to every believer to live in gratitude fueled by grace. Read it, share it, and live it—to the glory of God.","name":"Dr. David Jeremiah","meta":"Small group leader","rating":5}},"testimonial_GLBhnN":{"type":"testimonial","settings":{"quote":"Having lived many years with pain and disability, I've learned that thanks Living is not the denial of suffering but the doorway to deeper joy in Jesus. In Thanks Living, Stu Epperson warmly points readers to Christ and shows how a grateful heart can flourish even in life's hardest places. This encouraging book will help you offer up thanksgiving as a way of life","name":"Joni Eareckson Tada","meta":"Small group leader","rating":5}},"testimonial_CNRapa":{"type":"testimonial","settings":{"quote":"Thanks Living is like helium to the heart. It lifts your spirits and fills your heart with joy. This is one of the most enjoyable books I've read in some time. Stu provides a solid biblical foundation for a grateful mind, building his message around a single, significant Bible verse and illustrating it with engaging stories and enriching quotations. Once you begin reading this book, you won't want to put it down. I gladly recommend it to you.","name":"Robert J. Morgan","meta":"Small group leader","rating":5}},"testimonial_kXUUqD":{"type":"testimonial","settings":{"quote":"If you allow the message of this book to take root in the soil of your heart, you will find yourself trusting God even in the face of adversity and personal hardship. Drawing on the teaching of scripture and real-life situations, Stu shows us how obeying the command \"in everything give thanks\" actually lifts our burdens, gives us a divine perspective, and honors God. Read this book, let its message transform you, and share it with others.","name":"Dr. Erwin W. Lutzer, Pastor Emeritus","meta":"Small group leader","rating":5}},"testimonial_ekbYrU":{"type":"testimonial","settings":{"quote":"This heartfelt book beautifully illustrates the life-changing power of gratitude. Drawing from scripture, personal stories, and faithful reflection, it invites us to move beyond occasional thankfulness into a daily rhythm of 'thanks living.' It is a compelling reminder that even in life's hardest moments, a grateful heart can transform how we see everything.","name":"Anthony Atala, MD","meta":"Small group leader","rating":5}},"testimonial_BWymbi":{"type":"testimonial","settings":{"quote":"Stu Epperson takes a straightforward verse from Thessalonians and turns it into a practical reminder that Christians are called to give thanks in every season, circumstance, and even through suffering. Gratitude is a form of worship! This book caused me to reflect on the suffering I have witnessed through war, famine, disease, and evil over many years. Stu brings emphasis to a timeless truth: God is in control. He is faithful. We can, and should, always give THANKS.","name":"Ken Isaacs","meta":"Small group leader","rating":5}},"testimonial_bPkbtJ":{"type":"testimonial","settings":{"quote":"Stu Epperson played basketball for me at The Master's University. In Thanks Living, he encourages the reader to spiritually understand the reality of God’s grace in every circumstance. Our team had outstanding achievements, record wins, and conference championships. We lost basketball games when he played for me, but we were never defeated.","name":"Mel Hankinson","meta":"Small group leader","rating":5}},"testimonial_3zERpY":{"type":"testimonial","settings":{"quote":"Some books capture content well, some a writer's personality, and others a timely message. This one does them all. From sensing the author's command of biblical passages to weaving in historic and modern stories, Thanks Living works. I found myself envisioning Stu before his packed Wednesday in the Word sessions at Dairi-O unpacking these passages with ease. It's a delightful and interactive read with enough depth to fill one's soul. Engagingly practical.","name":"Dr. Jerry Pattengale","meta":"Small group leader","rating":5}},"testimonial_Ckiwwg":{"type":"testimonial","settings":{"quote":"Gratitude is the #1 result of being filled with the Spirit of God! I pray this book will inspire a flood of thankfulness in your soul. What an important reminder that the abundant source of thanksgiving is the amazing grace of God. The apostle Paul was a man whose life and letters dripped with gratitude. 1 Thessalonians 5:18 embodies the heart of Paul and amplifies the essence of a thankful heart. In Thanks Living, my friend Stu Epperson Jr. gives a clarion call to every believer to live in gratitude fueled by grace. Read it, share it, and live it—to the glory of God","name":"Dr. David Jeremiah","meta":"Small group leader","rating":5}}},"block_order":["testimonial_kC6Ncc","testimonial_GLBhnN","testimonial_CNRapa","testimonial_kXUUqD","testimonial_ekbYrU","testimonial_BWymbi","testimonial_bPkbtJ","testimonial_3zERpY","testimonial_Ckiwwg"],"name":"Landing Testimonials","settings":{"enable_section":true,"show_on_desktop":true,"show_on_tablet":true,"show_on_mobile":true,"eyebrow":"","heading":"Endorsements","intro":"","heading_align":"center","columns_desktop":"3","columns_tablet":"2","columns_mobile":"1","enable_autoplay":false,"autoplay_interval_ms":5000,"container_width":1320,"content_width":1240,"grid_gap":20,"card_min_height":240,"card_radius":12,"avatar_size":46,"background_color":"#f7fafc","overlay_color":"rgba(0,0,0,0)","overlay_opacity":0,"card_background":"#ffffff","card_border_color":"#adc6dc","card_border_opacity":0,"enable_card_shadow":true,"heading_color":"#123d5d","text_color":"#355977","meta_color":"#5f7f9a","accent_color":"#1e7db0","star_color":"#f0b426","heading_size_desktop":30,"heading_size_mobile":22,"heading_weight":"600","body_size_desktop":16,"body_size_mobile":14,"quote_size":16,"enable_animation":true,"padding_top_desktop":56,"padding_bottom_desktop":56,"padding_top_tablet":24,"padding_bottom_tablet":24,"padding_top_mobile":20,"padding_bottom_mobile":20}},"landing_faq_VwAd67":{"type":"landing-faq","blocks":{"faq_item_1":{"type":"faq_item","settings":{"question":"What is Thanks Living about?","answer":"<p>Thanks Living by Stu Epperson Jr. is a book about developing a daily life of gratitude rooted in scripture. Through biblical teaching, personal stories, and practical reflection, the book shows how thanksgiving can shape our faith, perspective, relationships, and response to both blessings and difficult circumstances.<\/p>","open_by_default":false}},"faq_item_2":{"type":"faq_item","settings":{"question":"What does “Thanks Living” mean?","answer":"<p>“Thanks Living” means making gratitude a way of life rather than something practiced only when circumstances are good. It is the practice of recognizing God's faithfulness and choosing thanksgiving in every season of life.<\/p>","open_by_default":false}},"faq_item_3":{"type":"faq_item","settings":{"question":"What does the Bible say about giving thanks in all circumstances?","answer":"<p>First Thessalonians 5:18 teaches, “In everything give thanks; for this is the will of God in Christ Jesus concerning you.” Thanks Living explores how this biblical principle can become part of everyday life, including during uncertainty, loss, hardship, and seasons of joy.<\/p>","open_by_default":false}},"faq_item_4":{"type":"faq_item","settings":{"question":"How can I practice gratitude every day?","answer":"<p>You can practice gratitude through prayer, scripture, remembering God's faithfulness, thanking others, and intentionally recognizing blessings throughout the day. Thanks Living provides biblical encouragement and practical reflection to help make thanksgiving a daily rhythm.<\/p>","open_by_default":false}},"faq_item_5":{"type":"faq_item","settings":{"question":"How can I be thankful when life is difficult?","answer":"<p>Being thankful during difficult circumstances does not mean ignoring pain or pretending everything is good. Biblical gratitude helps us remember God's character and faithfulness, maintain hope, and approach difficult seasons with a different perspective.<\/p>","open_by_default":false}},"faq_item_6":{"type":"faq_item","settings":{"question":"Who wrote Thanks Living?","answer":"<p>Thanks Living was written by Stu Epperson Jr., a broadcaster, speaker, and ministry leader. Drawing from scripture, personal experiences, ministry experiences, and stories of faith,Stu encourages readers to make gratitude an everyday way of life.<\/p>","open_by_default":false}},"faq_item_7":{"type":"faq_item","settings":{"question":"Who wrote the foreword to Thanks Living?","answer":"<p>The foreword to <em>Thanks Living<\/em> was written by Dr. Gary Chapman, best-selling author of <em>The 5 Love Languages<\/em> and a renowned speaker and counselor.<\/p>","open_by_default":false}},"faq_item_8":{"type":"faq_item","settings":{"question":"Who should read Thanks Living?","answer":"<p>Thanks Living is for anyone who wants to grow in gratitude, strengthen their faith, and develop a more thankful perspective on everyday life. It can be read individually or shared with families, churches, Bible studies, and small groups.<\/p>","open_by_default":false}},"faq_item_9":{"type":"faq_item","settings":{"question":"Is Thanks Living suitable for Bible studies or small groups?","answer":"<p>Yes. Thanks Living can be used for personal reading, Bible studies, church groups, families, and small groups. Its combination of scripture, stories, and practical reflection can encourage meaningful conversations about gratitude, faith, hardship, and God's faithfulness.<\/p>","open_by_default":false}},"faq_item_10":{"type":"faq_item","settings":{"question":"Where can I buy Thanks Living, and are bulk discounts available?","answer":"<p>Thanks Living is published by Moody Publishers and is available through Moody Publishers and participating book retailers. For bulk purchases, orders of 12 or more eligible books receive a 40% discount when ordered through Moody Publishers, subject to Moody Publishers' current bulk-order terms.<\/p>","open_by_default":false}}},"block_order":["faq_item_1","faq_item_2","faq_item_3","faq_item_4","faq_item_5","faq_item_6","faq_item_7","faq_item_8","faq_item_9","faq_item_10"],"name":"Landing FAQ","settings":{"enable_section":true,"show_on_desktop":true,"show_on_tablet":true,"show_on_mobile":true,"eyebrow":"","heading":"Frequently Asked Questions","intro":"","heading_align":"center","container_width":1320,"content_width":1100,"row_gap":14,"row_radius":10,"background_color":"#ffffff","overlay_color":"rgba(0,0,0,0)","overlay_opacity":0,"row_background":"#ffffff","row_border_color":"#d6e2ec","row_border_opacity":100,"enable_row_shadow":false,"heading_color":"#123d5d","text_color":"#355977","accent_color":"#5a7a94","heading_size_desktop":30,"heading_size_mobile":22,"heading_weight":"600","question_size":16,"body_size_desktop":15,"body_size_mobile":14,"single_open_mode":true,"enable_animation":true,"padding_top_desktop":56,"padding_bottom_desktop":56,"padding_top_tablet":24,"padding_bottom_tablet":24,"padding_top_mobile":20,"padding_bottom_mobile":20}},"landing_announcement_bar_TQjjTt":{"type":"landing-announcement-bar","blocks":{"announcement_A8aJbW":{"type":"announcement","settings":{"text":"<strong>Available Everywhere<\/strong> • Amazon, Audible, Spotify, and more","link":"","icon":"sparkle","text_color":""}},"announcement_bYaHkt":{"type":"announcement","settings":{"text":"Get the book and unlock your personal QR video message from Stu","link":"","icon":"book","text_color":""}},"announcement_pdr9F8":{"type":"announcement","settings":{"text":"Available everywhere. Order your copy today.","link":"","icon":"sparkle","text_color":""}},"announcement_QacaMq":{"type":"announcement","disabled":true,"settings":{"text":"Available everywhere. Order your copy today.","link":"","icon":"sparkle","text_color":""}}},"block_order":["announcement_A8aJbW","announcement_bYaHkt","announcement_pdr9F8","announcement_QacaMq"],"disabled":true,"name":"Landing Announcement Bar","settings":{"enable_section":true,"show_on_desktop":true,"show_on_tablet":true,"show_on_mobile":true,"accessibility_label":"Announcement","enable_autoplay":true,"autoplay_speed":5,"show_dots":true,"show_close_button":false,"close_button_label":"Close announcement","text_align":"center","font_size_desktop":15,"font_size_mobile":13,"font_weight":"500","line_height":1.4,"letter_spacing":0,"background_color":"#f8fcff","enable_gradient":true,"gradient_color_start":"#f8fcff","gradient_color_end":"#edf7ff","overlay_color":"rgba(0,0,0,0)","overlay_opacity":0,"content_background_color":"rgba(0,0,0,0)","glass_background_color":"#ffffffb3","enable_glass_effect":false,"blur_amount":6,"text_color":"#0f3156","border_color":"#d9e8f5","border_opacity":100,"container_width":1320,"content_width":1320,"min_height":46,"border_radius":0,"enable_shadow":false,"padding_top_desktop":8,"padding_bottom_desktop":8,"padding_inline_desktop":16,"padding_top_tablet":8,"padding_bottom_tablet":8,"padding_inline_tablet":12,"padding_top_mobile":8,"padding_bottom_mobile":8,"padding_inline_mobile":12,"enable_animation":true}},"landing_final_cta_LHQmdx":{"type":"landing-final-cta","blocks":{"signal_fmGQpe":{"type":"signal","disabled":true,"settings":{"text":"Instant access to bonus content"}},"signal_gHtXwN":{"type":"signal","disabled":true,"settings":{"text":"Instant access to bonus content"}},"signal_NbJf3E":{"type":"signal","disabled":true,"settings":{"text":"Trusted by readers and small groups"}},"signal_kHDmRE":{"type":"signal","disabled":true,"settings":{"text":"Scripture-rooted and practical"}}},"block_order":["signal_fmGQpe","signal_gHtXwN","signal_NbJf3E","signal_kHDmRE"],"name":"Landing Final CTA","settings":{"enable_section":true,"show_on_desktop":true,"show_on_tablet":true,"show_on_mobile":true,"eyebrow":"","heading":"Start Your Journey of Gratitude Today","description":"<p>Take the message home, share it with your family, and begin a practical rhythm of gratitude rooted in scripture.<\/p>","primary_button_label":"Get your copy now","primary_button_url":"https:\/\/www.moodypublishers.com\/thanks-living","secondary_button_label":"","secondary_button_url":"","media_image":"shopify:\/\/shop_images\/thanks_giving.png","media_image_alt":"Thanks Living book","media_caption":"","media_position":"left","container_width":1480,"content_width":1480,"panel_radius":0,"media_width":380,"media_radius":0,"background_color":"#2f8a9e","overlay_color":"rgba(0,0,0,0)","overlay_opacity":0,"grain_opacity":0,"panel_background":"rgba(0,0,0,0)","panel_border_color":"#5f88ab","panel_border_opacity":0,"enable_panel_shadow":false,"heading_color":"#ffffff","text_color":"#e8f6fa","accent_color":"#95bfe6","heading_size_desktop":48,"heading_size_mobile":32,"heading_weight":"600","body_size_desktop":16,"body_size_mobile":14,"button_radius":8,"primary_button_bg":"#f3c541","primary_button_text":"#123d5d","primary_button_border":"#f3c541","secondary_button_bg":"rgba(0,0,0,0)","secondary_button_text":"#f1f8ff","secondary_button_border":"#95bfe6","enable_pulse":false,"enable_animation":true,"padding_top_desktop":0,"padding_bottom_desktop":0,"padding_top_tablet":0,"padding_bottom_tablet":0,"padding_top_mobile":0,"padding_bottom_mobile":0}}},"order":["landing_hero_ftw9E4","landing_retail_logos_EAft6Y","landing_benefits_e9VFDM","landing_about_book_Te7PWf","landing_book_features_eBzKMD","landing_video_section_HLFxzx","author_spotlight_CJM6yJ","landing_qr_experience_VEmxa9","landing_testimonials_UnjRNd","landing_faq_VwAd67","landing_announcement_bar_TQjjTt","landing_final_cta_LHQmdx"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "landing_hero_ftw9E4": {
+      "type": "landing-hero",
+      "blocks": {
+        "feature_badge_iAxH3g": {
+          "type": "feature_badge",
+          "settings": {
+            "label": "Moody Publishers",
+            "icon": "sun"
+          }
+        },
+        "particle_J99g3p": {
+          "type": "particle",
+          "settings": {
+            "shape": "leaf",
+            "top": 32,
+            "left": 74,
+            "size": 14,
+            "opacity": 78,
+            "rotation": -16,
+            "blur": 0,
+            "color": "#f5c634"
+          }
+        },
+        "particle_QXMY3x": {
+          "type": "particle",
+          "settings": {
+            "shape": "leaf",
+            "top": 56,
+            "left": 68,
+            "size": 10,
+            "opacity": 78,
+            "rotation": 24,
+            "blur": 0,
+            "color": "#f5c634"
+          }
+        },
+        "particle_aGQRGb": {
+          "type": "particle",
+          "settings": {
+            "shape": "leaf",
+            "top": 24,
+            "left": 86,
+            "size": 12,
+            "opacity": 78,
+            "rotation": -8,
+            "blur": 0,
+            "color": "#f5c634"
+          }
+        },
+        "particle_petal_4": {
+          "type": "particle",
+          "settings": {
+            "shape": "leaf",
+            "top": 48,
+            "left": 92,
+            "size": 9,
+            "opacity": 65,
+            "rotation": 36,
+            "blur": 0.5,
+            "color": "#f0b426"
+          }
+        },
+        "particle_petal_5": {
+          "type": "particle",
+          "settings": {
+            "shape": "leaf",
+            "top": 18,
+            "left": 62,
+            "size": 8,
+            "opacity": 55,
+            "rotation": -28,
+            "blur": 1,
+            "color": "#f7d060"
+          }
+        },
+        "particle_petal_6": {
+          "type": "particle",
+          "settings": {
+            "shape": "circle",
+            "top": 70,
+            "left": 80,
+            "size": 6,
+            "opacity": 40,
+            "rotation": 0,
+            "blur": 2,
+            "color": "#ffffff"
+          }
+        }
+      },
+      "block_order": [
+        "feature_badge_iAxH3g",
+        "particle_J99g3p",
+        "particle_QXMY3x",
+        "particle_aGQRGb",
+        "particle_petal_4",
+        "particle_petal_5",
+        "particle_petal_6"
+      ],
+      "name": "Landing Hero Banner",
+      "settings": {
+        "enable_section": true,
+        "show_on_desktop": true,
+        "show_on_tablet": true,
+        "show_on_mobile": true,
+        "eyebrow": "Embracing the Power of <em>Gratitude</em> Every Day",
+        "heading_1": "Thanks",
+        "heading_2": "Living",
+        "description": "<p>A life of gratitude transforms our hearts, strengthens our faith, and fills every day with purpose, joy, and hope.</p>",
+        "author_name": "Stu Epperson Jr.",
+        "author_subtitle": "Foreword by Dr. Gary Chapman",
+        "text_align": "left",
+        "primary_button_label": "Buy Now",
+        "primary_button_url": "https://www.moodypublishers.com/thanks-living",
+        "primary_button_icon": "cart",
+        "secondary_button_label": "Hear from Stu",
+        "secondary_button_url": "#message-from-stu",
+        "secondary_button_icon": "play",
+        "book_image": "shopify://shop_images/thanks_giving.png",
+        "book_width_desktop": 640,
+        "book_offset_x": 0,
+        "book_offset_y": -48,
+        "enable_book_float": true,
+        "book_float_speed": 6.5,
+        "flower_left": "shopify://shop_images/ChatGPT_Image_Jul_22_2026_04_58_26_PM.png",
+        "flower_left_size": 190,
+        "flower_left_offset_x": -30,
+        "flower_left_offset_y": 20,
+        "flower_right": "shopify://shop_images/ChatGPT_Image_Jul_22_2026_04_58_26_PM.png",
+        "flower_right_size": 270,
+        "flower_right_offset_x": -30,
+        "flower_right_offset_y": -10,
+        "background_color": "#f6fbff",
+        "enable_gradient": true,
+        "gradient_color_1": "#9bdcff",
+        "gradient_color_2": "#edf8ff",
+        "gradient_color_3": "#ffffff",
+        "overlay_color": "rgba(0,0,0,0)",
+        "overlay_opacity": 0,
+        "panel_background": "rgba(0,0,0,0)",
+        "enable_glass": false,
+        "glass_background": "rgba(0,0,0,0)",
+        "glass_blur": 0,
+        "border_color": "#d2e3f2",
+        "border_opacity": 0,
+        "enable_shadow": false,
+        "border_radius": 0,
+        "heading_color": "#062440",
+        "eyebrow_color": "#1a4a6e",
+        "body_color": "#284763",
+        "author_color": "#e0a715",
+        "author_sub_color": "#5b7188",
+        "heading_size_desktop": 108,
+        "heading_size_mobile": 52,
+        "heading_weight": "600",
+        "heading_letter_spacing": -1.2,
+        "heading_line_height": 0.9,
+        "eyebrow_size_desktop": 28,
+        "eyebrow_size_mobile": 18,
+        "eyebrow_weight": "400",
+        "eyebrow_letter_spacing": 0,
+        "eyebrow_line_height": 1.3,
+        "body_size_desktop": 18,
+        "body_size_mobile": 14,
+        "body_weight": "400",
+        "body_letter_spacing": 0,
+        "body_line_height": 1.6,
+        "author_size_desktop": 34,
+        "author_size_mobile": 22,
+        "author_weight": "700",
+        "author_letter_spacing": 1.6,
+        "author_line_height": 1.1,
+        "button_size_desktop": 15,
+        "button_size_mobile": 13,
+        "button_weight": "700",
+        "button_radius": 10,
+        "primary_button_bg": "#f8c533",
+        "primary_button_bg_hover": "#f2bc1e",
+        "primary_button_text": "#0f3156",
+        "primary_button_border": "#f8c533",
+        "secondary_button_bg": "#ffffff",
+        "secondary_button_bg_hover": "#f7fbff",
+        "secondary_button_text": "#0f3156",
+        "secondary_button_border": "#c5d5e4",
+        "container_width": 1320,
+        "content_width": 1280,
+        "text_content_width": 560,
+        "min_height_desktop": 700,
+        "media_min_height_desktop": 560,
+        "media_min_height_mobile": 360,
+        "padding_top_desktop": 40,
+        "padding_bottom_desktop": 40,
+        "padding_inline_desktop": 16,
+        "padding_top_tablet": 24,
+        "padding_bottom_tablet": 24,
+        "padding_inline_tablet": 12,
+        "padding_top_mobile": 20,
+        "padding_bottom_mobile": 20,
+        "padding_inline_mobile": 8,
+        "enable_reveal_animation": true,
+        "enable_particles_animation": true,
+        "particle_speed": 8,
+        "media_glow_blur": 22
+      }
+    },
+    "landing_retail_logos_EAft6Y": {
+      "type": "landing-retail-logos",
+      "blocks": {
+        "logo_item_6VdhTM": {
+          "type": "logo_item",
+          "settings": {
+            "logo_image": "shopify://shop_images/images_1.png",
+            "logo_alt": "Retail logo",
+            "logo_text": "Moody Publisher",
+            "link": "https://www.moodypublishers.com/thanks-living",
+            "open_in_new_tab": true,
+            "logo_width": 156,
+            "logo_height": 30
+          }
+        },
+        "logo_item_BajzrJ": {
+          "type": "logo_item",
+          "settings": {
+            "logo_image": "shopify://shop_images/amazon-logo-on-transparent-background-free-vector.jpg",
+            "logo_alt": "Retail logo",
+            "logo_text": "Amazon",
+            "link": "https://www.amazon.com/Thanks-Living-Embracing-Power-Gratitude-Every/dp/080243889X/",
+            "open_in_new_tab": true,
+            "logo_width": 156,
+            "logo_height": 30
+          }
+        },
+        "logo_item_CwJW4w": {
+          "type": "logo_item",
+          "settings": {
+            "logo_image": "shopify://shop_images/images.png",
+            "logo_alt": "Retail logo",
+            "logo_text": "Barnes & Noble",
+            "link": "https://www.barnesandnoble.com/w/thanks-living-stu-epperson/1149628666?ean=9780802438898",
+            "open_in_new_tab": true,
+            "logo_width": 156,
+            "logo_height": 30
+          }
+        },
+        "logo_item_DeXJCj": {
+          "type": "logo_item",
+          "settings": {
+            "logo_image": "shopify://shop_images/Books-A-Million_logo.svg",
+            "logo_alt": "Retail logo",
+            "logo_text": "Books-A-Million",
+            "link": "https://www.booksamillion.com/p/9780802438898",
+            "open_in_new_tab": true,
+            "logo_width": 156,
+            "logo_height": 30
+          }
+        },
+        "logo_item_WLhP6z": {
+          "type": "logo_item",
+          "settings": {
+            "logo_image": "shopify://shop_images/ChristianbookCatalogLogo_1568826141.png",
+            "logo_alt": "Retail logo",
+            "logo_text": "Christianbook",
+            "link": "https://www.christianbook.com/thanks-living-embracing-power-gratitude-every/9780802438898/pd/438892",
+            "open_in_new_tab": true,
+            "logo_width": 156,
+            "logo_height": 30
+          }
+        }
+      },
+      "block_order": [
+        "logo_item_6VdhTM",
+        "logo_item_BajzrJ",
+        "logo_item_CwJW4w",
+        "logo_item_DeXJCj",
+        "logo_item_WLhP6z"
+      ],
+      "name": "Landing Retail Logos",
+      "settings": {
+        "enable_section": true,
+        "show_on_desktop": true,
+        "show_on_tablet": true,
+        "show_on_mobile": true,
+        "heading": "Available everywhere",
+        "heading_color": "#5f7d95",
+        "heading_size_desktop": 14,
+        "heading_size_mobile": 12,
+        "heading_weight": "700",
+        "heading_letter_spacing": 3,
+        "heading_line_height": 1.2,
+        "container_width": 1320,
+        "content_width": 1280,
+        "columns_desktop": 7,
+        "columns_tablet": 4,
+        "columns_mobile": 2,
+        "logo_gap_desktop": 8,
+        "logo_gap_mobile": 8,
+        "card_height_desktop": 52,
+        "card_height_mobile": 44,
+        "card_radius": 0,
+        "logo_max_width": 140,
+        "logo_max_height": 28,
+        "enable_mobile_slider": false,
+        "show_mobile_dots": false,
+        "mobile_slide_width": 74,
+        "background_color": "#ffffff",
+        "text_color": "#0f3156",
+        "overlay_color": "rgba(0,0,0,0)",
+        "overlay_opacity": 0,
+        "card_background_color": "rgba(0,0,0,0)",
+        "card_border_color": "#d0e0ef",
+        "card_border_opacity": 0,
+        "enable_card_shadow": false,
+        "padding_top_desktop": 36,
+        "padding_bottom_desktop": 40,
+        "padding_inline_desktop": 16,
+        "padding_top_tablet": 16,
+        "padding_bottom_tablet": 20,
+        "padding_inline_tablet": 12,
+        "padding_top_mobile": 16,
+        "padding_bottom_mobile": 16,
+        "padding_inline_mobile": 8,
+        "enable_animation": true
+      }
+    },
+    "landing_benefits_e9VFDM": {
+      "type": "landing-benefits",
+      "blocks": {
+        "benefit_card_ygBnzK": {
+          "type": "benefit_card",
+          "settings": {
+            "title": "Cultivate Gratitude",
+            "description": "Simple, practical way to build a daily habit of thankfulness.",
+            "icon": "flower",
+            "link": "",
+            "icon_circle_color": "",
+            "icon_color": "",
+            "card_background_color": "",
+            "title_color": "",
+            "body_color": ""
+          }
+        },
+        "benefit_card_wKGc9H": {
+          "type": "benefit_card",
+          "settings": {
+            "title": "Strengthen Your Faith",
+            "description": "Deepen your relationship with God through His Word and truth.",
+            "icon": "heart",
+            "link": "",
+            "icon_circle_color": "",
+            "icon_color": "",
+            "card_background_color": "",
+            "title_color": "",
+            "body_color": ""
+          }
+        },
+        "benefit_card_LaRrWH": {
+          "type": "benefit_card",
+          "settings": {
+            "title": "Transform Your Life",
+            "description": "Experience more joy, peace, and purpose every day.",
+            "icon": "sun",
+            "link": "",
+            "icon_circle_color": "",
+            "icon_color": "",
+            "card_background_color": "",
+            "title_color": "",
+            "body_color": ""
+          }
+        }
+      },
+      "block_order": [
+        "benefit_card_ygBnzK",
+        "benefit_card_wKGc9H",
+        "benefit_card_LaRrWH"
+      ],
+      "name": "Landing Benefits",
+      "settings": {
+        "enable_section": true,
+        "show_on_desktop": true,
+        "show_on_tablet": true,
+        "show_on_mobile": true,
+        "enable_verse_of_the_day": true,
+        "verse_eyebrow": "Daily Thanks Living Scriptures",
+        "verse_heading_color": "#062440",
+        "verse_text_color": "#284763",
+        "verse_reference_color": "#e0a715",
+        "container_width": 1320,
+        "content_width": 1280,
+        "columns_desktop": 3,
+        "columns_tablet": 2,
+        "columns_mobile": 1,
+        "gap_desktop": 12,
+        "gap_tablet": 10,
+        "gap_mobile": 10,
+        "card_height_desktop": 80,
+        "card_height_mobile": 72,
+        "card_radius": 0,
+        "background_color": "#f6fbff",
+        "text_color": "#0f3156",
+        "overlay_color": "rgba(0,0,0,0)",
+        "overlay_opacity": 0,
+        "card_background_color": "rgba(0,0,0,0)",
+        "card_border_color": "#cadef1",
+        "card_border_opacity": 0,
+        "enable_card_shadow": false,
+        "icon_circle_color": "#1e7db0",
+        "icon_color": "#ffd95e",
+        "icon_size": 72,
+        "title_color": "#153f61",
+        "body_color": "#4d6a82",
+        "title_size_desktop": 24,
+        "title_size_mobile": 20,
+        "title_weight": "600",
+        "title_letter_spacing": 0,
+        "title_line_height": 1.2,
+        "body_size_desktop": 15,
+        "body_size_mobile": 14,
+        "body_weight": "400",
+        "body_letter_spacing": 0,
+        "body_line_height": 1.6,
+        "padding_top_desktop": 56,
+        "padding_bottom_desktop": 56,
+        "padding_inline_desktop": 16,
+        "padding_top_tablet": 40,
+        "padding_bottom_tablet": 40,
+        "padding_inline_tablet": 12,
+        "padding_top_mobile": 32,
+        "padding_bottom_mobile": 32,
+        "padding_inline_mobile": 8,
+        "enable_animation": true,
+        "hover_style": "lift"
+      }
+    },
+    "17893163962fbb657d": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_3f99505_JYMpta": {
+          "type": "ai_gen_block_3f99505",
+          "settings": {
+            "eyebrow": "Your daily verse",
+            "greeting": "Thank you for starting your day with gratitude.",
+            "fallback_text": "A life of gratitude transforms our hearts every day.",
+            "footer_verse": "In everything give thanks; for this is the will of God in Christ Jesus concerning you.",
+            "footer_reference": "1 Thessalonians 5:18 (KJV)",
+            "show_rule": false,
+            "verse_font": "serif",
+            "text_color": "#0a2740",
+            "eyebrow_color": "#1e7db0",
+            "accent_color": "#f4c430"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_3f99505_JYMpta"
+      ],
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "flex-start",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 12,
+        "section_width": "full-width",
+        "section_height": "",
+        "section_height_custom": 50,
+        "background_media": "none",
+        "background_color": "",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_color": "",
+        "border_radius": 0,
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
+    },
+    "178920896970183019": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_6403a13_VnLWLq": {
+          "type": "ai_gen_block_6403a13",
+          "settings": {
+            "background_image": "shopify://shop_images/Background_Image.png",
+            "background_position": "center center",
+            "background_position_mobile": "center top",
+            "logo_text": "THANKS LIVING",
+            "logo_subtext": "Embracing gratitude every day",
+            "headline": "Wear Gratitude. Live It Daily.",
+            "subheadline": "A simple reminder to pause, read, reflect, and live with gratitude every day.",
+            "product_subtitle": "ThanksLiving Wristband",
+            "qr_placeholder_label": "QR code card",
+            "qr_brand_text": "THANKSLIVING",
+            "qr_tagline_text": "A LIFE OF GRATITUDE",
+            "qr_scan_text": "SCAN FOR A DAILY GRATITUDE VERSE",
+            "qr_target_url": "https://example.com/thanks-living-bonus",
+            "feature_1_title": "Daily Inspiration",
+            "feature_1_text": "A new gratitude verse every day",
+            "feature_2_title": "Meaningful Reminder",
+            "feature_2_text": "Keep gratitude close",
+            "feature_3_title": "Great for Gifting",
+            "feature_3_text": "Share a life-changing habit",
+            "button_label": "BUY NOW",
+            "quantity_label": "Quantity",
+            "unavailable_label": "Currently unavailable",
+            "save_badge_label": "Save [percent]%",
+            "trust_shipping_label": "Fast Shipping",
+            "trust_checkout_label": "Secure Checkout",
+            "trust_gifting_label": "Perfect for Gifting",
+            "navy_color": "#122e4d",
+            "accent_color": "#ffcc48",
+            "teal_color": "#2b879e",
+            "background_color": "#ffffff",
+            "text_color": "#122e4d",
+            "border_color": "#edf1f5",
+            "corner_radius": 0
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_6403a13_VnLWLq"
+      ],
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "flex-start",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 0,
+        "section_width": "full-width",
+        "section_height": "",
+        "section_height_custom": 50,
+        "background_media": "none",
+        "background_color": "",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_color": "",
+        "border_radius": 0,
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
+    },
+    "landing_about_book_Te7PWf": {
+      "type": "landing-about-book",
+      "name": "Landing About Book",
+      "settings": {
+        "enable_section": true,
+        "show_on_desktop": true,
+        "show_on_tablet": true,
+        "show_on_mobile": true,
+        "image": "shopify://shop_images/thanks_giving_with_flower_05210306-6be3-4c71-93f0-57f53b433387.png",
+        "image_alt": "Thanks-Living book",
+        "eyebrow": "About the book",
+        "heading": "A Life Filled With Purpose and Joy",
+        "description": "<p>Our lives are divine gifts, but they do not always feel like one. This book helps readers embrace gratitude in every season and grow in biblical hope.</p><p>Through scripture, stories, and practical reflection, Thanks Living invites you into a daily rhythm of thanksgiving that transforms how you see God, others, and yourself.</p>",
+        "show_quote": true,
+        "quote_text": "In everything give thanks; for this is the will of God in Christ Jesus concerning you.",
+        "quote_author": "1 Thessalonians 5:18 (KJV)",
+        "show_verse": false,
+        "verse_text": "In everything give thanks; for this is the will of God in Christ Jesus concerning you.",
+        "verse_reference": "1 Thessalonians 5:18 (KJV)",
+        "image_position": "left",
+        "media_width": "44%",
+        "content_vertical_align": "center",
+        "container_width": 1320,
+        "content_width": 1240,
+        "section_min_height": 360,
+        "panel_radius": 0,
+        "image_radius": 0,
+        "background_color": "#ffffff",
+        "overlay_color": "rgba(0,0,0,0)",
+        "overlay_opacity": 0,
+        "panel_background": "#ffffff",
+        "panel_border_color": "#d3e2ef",
+        "panel_border_opacity": 0,
+        "enable_panel_shadow": false,
+        "text_color": "#2b516e",
+        "heading_color": "#123b5b",
+        "accent_color": "#f8c533",
+        "heading_size_desktop": 46,
+        "heading_size_mobile": 30,
+        "heading_weight": "600",
+        "body_size_desktop": 16,
+        "body_size_mobile": 14,
+        "quote_size_desktop": 17,
+        "quote_size_mobile": 14,
+        "padding_top_desktop": 24,
+        "padding_bottom_desktop": 12,
+        "padding_top_tablet": 16,
+        "padding_bottom_tablet": 12,
+        "padding_top_mobile": 12,
+        "padding_bottom_mobile": 12,
+        "enable_animation": true,
+        "animation_style": "fade-left"
+      }
+    },
+    "landing_book_features_eBzKMD": {
+      "type": "landing-book-features",
+      "blocks": {
+        "offer_card_groups": {
+          "type": "offer_card",
+          "settings": {
+            "title": "Ideal for groups",
+            "description": "",
+            "icon": "groups"
+          }
+        }
+      },
+      "block_order": [
+        "offer_card_groups"
+      ],
+      "name": "Bulk Discount Offer",
+      "settings": {
+        "enable_section": false,
+        "show_on_desktop": true,
+        "show_on_tablet": true,
+        "show_on_mobile": true,
+        "discount_percent": 40,
+        "min_quantity": 12,
+        "show_badge": true,
+        "badge_text": "OFF",
+        "eyebrow": "Bulk savings",
+        "heading": "Order 12+ books and save",
+        "subtitle": "Your 40% discount applies automatically at checkout — mix any titles.",
+        "button_label": "Order & Save 40%",
+        "button_url": "",
+        "note": "No coupon needed",
+        "container_width": 1320,
+        "content_width": 920,
+        "panel_radius": 20,
+        "card_radius": 16,
+        "button_radius": 10,
+        "enable_panel_shadow": false,
+        "background_color": "#f4f9fd",
+        "background_color_end": "#ffffff",
+        "panel_background": "#ffffff",
+        "panel_border_color": "#e4ecf3",
+        "card_background": "#fbfcfe",
+        "card_border_color": "#e2ebf3",
+        "badge_background": "#f8c533",
+        "badge_text_color": "#0f3156",
+        "icon_background": "#eef6fd",
+        "icon_color": "#1e7db0",
+        "heading_color": "#0f3156",
+        "body_color": "#4d6d86",
+        "text_color": "#234a69",
+        "accent_color": "#f8c533",
+        "navy_color": "#0f3156",
+        "decor_color": "#c9a24a",
+        "button_background": "#f8c533",
+        "button_background_hover": "#f1bc21",
+        "button_text_color": "#0f3156",
+        "heading_size_desktop": 36,
+        "heading_size_mobile": 26,
+        "body_size_desktop": 17,
+        "body_size_mobile": 15,
+        "padding_top_desktop": 56,
+        "padding_bottom_desktop": 56,
+        "padding_top_tablet": 44,
+        "padding_bottom_tablet": 44,
+        "padding_top_mobile": 36,
+        "padding_bottom_mobile": 36,
+        "enable_animation": true
+      }
+    },
+    "landing_video_section_HLFxzx": {
+      "type": "landing-video-section",
+      "blocks": {
+        "point_m7AbjJ": {
+          "type": "point",
+          "settings": {
+            "text": "A practical and personal story of gratitude."
+          }
+        },
+        "point_4BX78J": {
+          "type": "point",
+          "settings": {
+            "text": "Encouragement for your walk with God."
+          }
+        },
+        "point_BH4akm": {
+          "type": "point",
+          "settings": {
+            "text": "Perfect for groups, families, and personal study."
+          }
+        }
+      },
+      "block_order": [
+        "point_m7AbjJ",
+        "point_4BX78J",
+        "point_BH4akm"
+      ],
+      "name": "Landing Video Section",
+      "settings": {
+        "enable_section": true,
+        "show_on_desktop": true,
+        "show_on_tablet": true,
+        "show_on_mobile": true,
+        "video_url": "https://cdn.shopify.com/videos/c/o/v/1dda629454c443d8afdb4adb41e8777e.mov",
+        "video_title": "A Message From Stu",
+        "poster_image": "shopify://shop_images/Stu1_1.jpg",
+        "poster_alt": "Video poster",
+        "enable_autoplay": false,
+        "mute_video": true,
+        "play_button_label": "Play video",
+        "video_aspect_ratio": "16 / 9",
+        "eyebrow": "Watch a personal message",
+        "heading": "A Message From Stu",
+        "description": "<p>Hear why this book was written and how a life of gratitude can encourage your walk with God.</p>",
+        "button_label": "Watch now",
+        "button_url": "",
+        "button_page_url": "",
+        "media_position": "left",
+        "media_width": "55%",
+        "container_width": 1320,
+        "content_width": 1240,
+        "panel_radius": 0,
+        "video_radius": 12,
+        "background_color": "#0a2740",
+        "overlay_color": "rgba(0,0,0,0)",
+        "overlay_opacity": 0,
+        "panel_background": "rgba(0,0,0,0)",
+        "panel_border_color": "#5280a1",
+        "panel_border_opacity": 0,
+        "enable_panel_shadow": false,
+        "text_color": "#d6e8f8",
+        "heading_color": "#f1f8ff",
+        "accent_color": "#f8c533",
+        "heading_size_desktop": 42,
+        "heading_size_mobile": 28,
+        "heading_weight": "600",
+        "body_size_desktop": 16,
+        "body_size_mobile": 14,
+        "button_radius": 8,
+        "button_background": "#f8c533",
+        "button_background_hover": "#f1bc21",
+        "button_text_color": "#123d5d",
+        "button_border_color": "#f8c533",
+        "play_button_size": 76,
+        "play_button_color": "#f8c533",
+        "play_icon_color": "#123d5d",
+        "padding_top_desktop": 56,
+        "padding_bottom_desktop": 56,
+        "padding_top_tablet": 20,
+        "padding_bottom_tablet": 20,
+        "padding_top_mobile": 16,
+        "padding_bottom_mobile": 20,
+        "enable_animation": true
+      }
+    },
+    "author_spotlight_CJM6yJ": {
+      "type": "author-spotlight",
+      "blocks": {
+        "social_link_YAB4rr": {
+          "type": "social_link",
+          "settings": {
+            "platform": "facebook",
+            "url": "https://www.facebook.com/"
+          }
+        },
+        "social_link_BFQbyq": {
+          "type": "social_link",
+          "settings": {
+            "platform": "instagram",
+            "url": "https://www.instagram.com/"
+          }
+        },
+        "social_link_6cQd7z": {
+          "type": "social_link",
+          "settings": {
+            "platform": "x",
+            "url": "https://x.com/"
+          }
+        },
+        "social_link_PkxXTw": {
+          "type": "social_link",
+          "settings": {
+            "platform": "youtube",
+            "url": "https://www.youtube.com/"
+          }
+        },
+        "social_link_n3gnpW": {
+          "type": "social_link",
+          "settings": {
+            "platform": "pinterest",
+            "url": "https://www.pinterest.com/"
+          }
+        }
+      },
+      "block_order": [
+        "social_link_YAB4rr",
+        "social_link_BFQbyq",
+        "social_link_6cQd7z",
+        "social_link_PkxXTw",
+        "social_link_n3gnpW"
+      ],
+      "name": "Author Spotlight",
+      "settings": {
+        "eyebrow": "MEET THE AUTHOR",
+        "author_image": "shopify://shop_images/Stu1_1.jpg",
+        "author_name": "Stu Epperson Jr.",
+        "bio": "<p><strong>Stu Epperson</strong> grew up in a home where gratitude wasn't a response to good circumstances—it was a response to a faithful God. That foundation carried him through loss, shaped decades of ministry, and now lives in every page of <strong>Thanks Living</strong>.</p><p>As one of Christian radio's most recognized voices, Stu brings biblical clarity, warmth, and conviction to the practice of gratitude for himself, his family, and now for you.</p>",
+        "extra_text": "",
+        "show_panel": true,
+        "discount_percent": 40,
+        "min_quantity": 12,
+        "show_badge": true,
+        "badge_text": "OFFER",
+        "bulk_eyebrow": "Bulk savings",
+        "bulk_heading": "Order 12+ books and save",
+        "bulk_subtitle": "Your 40% discount applies automatically at checkout — mix any titles.",
+        "bulk_button_label": "Order Now",
+        "bulk_button_url": "https://www.moodypublishers.com/thanks-living",
+        "reverse_layout": false,
+        "corner_radius": 20,
+        "padding_top": 72,
+        "padding_bottom": 72,
+        "section_bg": "#ffffff",
+        "text_color": "#123b5b",
+        "muted_text_color": "#5b7188",
+        "accent_color": "#f8c533",
+        "panel_bg": "#ffffff",
+        "panel_text_color": "#0f3156",
+        "panel_muted_color": "#4d6d86"
+      }
+    },
+    "landing_qr_experience_VEmxa9": {
+      "type": "landing-qr-experience",
+      "blocks": {
+        "experience_item_hf7mEJ": {
+          "type": "experience_item",
+          "settings": {
+            "text": "Unlock a personal video message and guided reflection."
+          }
+        },
+        "experience_item_DWynP8": {
+          "type": "experience_item",
+          "settings": {
+            "text": "Access bonus study prompts for family or small groups."
+          }
+        },
+        "experience_item_MVDR3b": {
+          "type": "experience_item",
+          "settings": {
+            "text": "Keep the link handy with one-tap copy to your phone."
+          }
+        }
+      },
+      "block_order": [
+        "experience_item_hf7mEJ",
+        "experience_item_DWynP8",
+        "experience_item_MVDR3b"
+      ],
+      "disabled": true,
+      "name": "Landing QR Experience",
+      "settings": {
+        "enable_section": true,
+        "show_on_desktop": true,
+        "show_on_tablet": true,
+        "show_on_mobile": true,
+        "eyebrow": "Bonus content",
+        "heading": "Scan for the QR experience",
+        "description": "<p>Scan the code to unlock an exclusive message, book resources, and a guided gratitude reflection from Stu.</p>",
+        "button_label": "Get the book",
+        "button_url": "",
+        "qr_label": "Scan with your phone camera",
+        "qr_target_url": "https://example.com/thanks-living-bonus",
+        "qr_alt": "QR code to bonus content",
+        "show_qr_target": false,
+        "enable_copy_button": true,
+        "copy_button_label": "Copy link",
+        "enable_open_button": true,
+        "open_button_label": "Open link",
+        "qr_note": "Camera not opening links automatically? Use Copy link.",
+        "phone_preview_alt": "Preview of bonus content on phone",
+        "qr_column_position": "right",
+        "container_width": 1320,
+        "content_width": 1240,
+        "qr_column_width": 470,
+        "panel_radius": 20,
+        "qr_card_radius": 18,
+        "qr_size": 260,
+        "phone_preview_width": 180,
+        "background_color": "#eef6fd",
+        "overlay_color": "rgba(0,0,0,0)",
+        "overlay_opacity": 0,
+        "panel_background": "#ffffffe0",
+        "panel_border_color": "#afc9e0",
+        "panel_border_opacity": 80,
+        "enable_panel_shadow": true,
+        "qr_card_background": "#ffffff",
+        "text_color": "#355977",
+        "heading_color": "#123d5d",
+        "accent_color": "#6f9ec5",
+        "heading_size_desktop": 46,
+        "heading_size_mobile": 30,
+        "heading_weight": "700",
+        "body_size_desktop": 16,
+        "body_size_mobile": 14,
+        "button_radius": 10,
+        "button_background": "#123d5d",
+        "button_background_hover": "#0f3150",
+        "button_text_color": "#ffffff",
+        "button_border_color": "#123d5d",
+        "enable_qr_pulse": true,
+        "enable_animation": true,
+        "padding_top_desktop": 32,
+        "padding_bottom_desktop": 36,
+        "padding_top_tablet": 24,
+        "padding_bottom_tablet": 24,
+        "padding_top_mobile": 20,
+        "padding_bottom_mobile": 20
+      }
+    },
+    "landing_testimonials_UnjRNd": {
+      "type": "landing-testimonials",
+      "blocks": {
+        "testimonial_kC6Ncc": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Gratitude is the #1 result of being filled with the Spirit of God! I pray this book will inspire a flood of thankfulness in your soul. What an important reminder that the abundant source of thanksgiving is the amazing grace of God. The apostle Paul was a man whose life and letters dripped with gratitude. 1 Thessalonians 5:18 embodies the heart of Paul and amplifies the essence of a thankful heart. In Thanks Living, my friend Stu Epperson Jr. gives a clarion call to every believer to live in gratitude fueled by grace. Read it, share it, and live it—to the glory of God.",
+            "name": "Dr. David Jeremiah",
+            "meta": "Small group leader",
+            "rating": 5
+          }
+        },
+        "testimonial_GLBhnN": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Having lived many years with pain and disability, I've learned that thanks Living is not the denial of suffering but the doorway to deeper joy in Jesus. In Thanks Living, Stu Epperson warmly points readers to Christ and shows how a grateful heart can flourish even in life's hardest places. This encouraging book will help you offer up thanksgiving as a way of life",
+            "name": "Joni Eareckson Tada",
+            "meta": "Small group leader",
+            "rating": 5
+          }
+        },
+        "testimonial_CNRapa": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Thanks Living is like helium to the heart. It lifts your spirits and fills your heart with joy. This is one of the most enjoyable books I've read in some time. Stu provides a solid biblical foundation for a grateful mind, building his message around a single, significant Bible verse and illustrating it with engaging stories and enriching quotations. Once you begin reading this book, you won't want to put it down. I gladly recommend it to you.",
+            "name": "Robert J. Morgan",
+            "meta": "Small group leader",
+            "rating": 5
+          }
+        },
+        "testimonial_kXUUqD": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "If you allow the message of this book to take root in the soil of your heart, you will find yourself trusting God even in the face of adversity and personal hardship. Drawing on the teaching of scripture and real-life situations, Stu shows us how obeying the command \"in everything give thanks\" actually lifts our burdens, gives us a divine perspective, and honors God. Read this book, let its message transform you, and share it with others.",
+            "name": "Dr. Erwin W. Lutzer, Pastor Emeritus",
+            "meta": "Small group leader",
+            "rating": 5
+          }
+        },
+        "testimonial_ekbYrU": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "This heartfelt book beautifully illustrates the life-changing power of gratitude. Drawing from scripture, personal stories, and faithful reflection, it invites us to move beyond occasional thankfulness into a daily rhythm of 'thanks living.' It is a compelling reminder that even in life's hardest moments, a grateful heart can transform how we see everything.",
+            "name": "Anthony Atala, MD",
+            "meta": "Small group leader",
+            "rating": 5
+          }
+        },
+        "testimonial_BWymbi": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Stu Epperson takes a straightforward verse from Thessalonians and turns it into a practical reminder that Christians are called to give thanks in every season, circumstance, and even through suffering. Gratitude is a form of worship! This book caused me to reflect on the suffering I have witnessed through war, famine, disease, and evil over many years. Stu brings emphasis to a timeless truth: God is in control. He is faithful. We can, and should, always give THANKS.",
+            "name": "Ken Isaacs",
+            "meta": "Small group leader",
+            "rating": 5
+          }
+        },
+        "testimonial_bPkbtJ": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Stu Epperson played basketball for me at The Master's University. In Thanks Living, he encourages the reader to spiritually understand the reality of God’s grace in every circumstance. Our team had outstanding achievements, record wins, and conference championships. We lost basketball games when he played for me, but we were never defeated.",
+            "name": "Mel Hankinson",
+            "meta": "Small group leader",
+            "rating": 5
+          }
+        },
+        "testimonial_3zERpY": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Some books capture content well, some a writer's personality, and others a timely message. This one does them all. From sensing the author's command of biblical passages to weaving in historic and modern stories, Thanks Living works. I found myself envisioning Stu before his packed Wednesday in the Word sessions at Dairi-O unpacking these passages with ease. It's a delightful and interactive read with enough depth to fill one's soul. Engagingly practical.",
+            "name": "Dr. Jerry Pattengale",
+            "meta": "Small group leader",
+            "rating": 5
+          }
+        },
+        "testimonial_Ckiwwg": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Gratitude is the #1 result of being filled with the Spirit of God! I pray this book will inspire a flood of thankfulness in your soul. What an important reminder that the abundant source of thanksgiving is the amazing grace of God. The apostle Paul was a man whose life and letters dripped with gratitude. 1 Thessalonians 5:18 embodies the heart of Paul and amplifies the essence of a thankful heart. In Thanks Living, my friend Stu Epperson Jr. gives a clarion call to every believer to live in gratitude fueled by grace. Read it, share it, and live it—to the glory of God",
+            "name": "Dr. David Jeremiah",
+            "meta": "Small group leader",
+            "rating": 5
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_kC6Ncc",
+        "testimonial_GLBhnN",
+        "testimonial_CNRapa",
+        "testimonial_kXUUqD",
+        "testimonial_ekbYrU",
+        "testimonial_BWymbi",
+        "testimonial_bPkbtJ",
+        "testimonial_3zERpY",
+        "testimonial_Ckiwwg"
+      ],
+      "name": "Landing Testimonials",
+      "settings": {
+        "enable_section": true,
+        "show_on_desktop": true,
+        "show_on_tablet": true,
+        "show_on_mobile": true,
+        "eyebrow": "",
+        "heading": "Endorsements",
+        "intro": "",
+        "heading_align": "center",
+        "columns_desktop": "3",
+        "columns_tablet": "2",
+        "columns_mobile": "1",
+        "enable_autoplay": false,
+        "autoplay_interval_ms": 5000,
+        "container_width": 1320,
+        "content_width": 1240,
+        "grid_gap": 20,
+        "card_min_height": 240,
+        "card_radius": 12,
+        "avatar_size": 46,
+        "background_color": "#f7fafc",
+        "overlay_color": "rgba(0,0,0,0)",
+        "overlay_opacity": 0,
+        "card_background": "#ffffff",
+        "card_border_color": "#adc6dc",
+        "card_border_opacity": 0,
+        "enable_card_shadow": true,
+        "heading_color": "#123d5d",
+        "text_color": "#355977",
+        "meta_color": "#5f7f9a",
+        "accent_color": "#1e7db0",
+        "star_color": "#f0b426",
+        "heading_size_desktop": 30,
+        "heading_size_mobile": 22,
+        "heading_weight": "600",
+        "body_size_desktop": 16,
+        "body_size_mobile": 14,
+        "quote_size": 16,
+        "enable_animation": true,
+        "padding_top_desktop": 56,
+        "padding_bottom_desktop": 56,
+        "padding_top_tablet": 24,
+        "padding_bottom_tablet": 24,
+        "padding_top_mobile": 20,
+        "padding_bottom_mobile": 20
+      }
+    },
+    "landing_faq_VwAd67": {
+      "type": "landing-faq",
+      "blocks": {
+        "faq_item_1": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What is Thanks Living about?",
+            "answer": "<p>Thanks Living by Stu Epperson Jr. is a book about developing a daily life of gratitude rooted in scripture. Through biblical teaching, personal stories, and practical reflection, the book shows how thanksgiving can shape our faith, perspective, relationships, and response to both blessings and difficult circumstances.</p>",
+            "open_by_default": false
+          }
+        },
+        "faq_item_2": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What does “Thanks Living” mean?",
+            "answer": "<p>“Thanks Living” means making gratitude a way of life rather than something practiced only when circumstances are good. It is the practice of recognizing God's faithfulness and choosing thanksgiving in every season of life.</p>",
+            "open_by_default": false
+          }
+        },
+        "faq_item_3": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What does the Bible say about giving thanks in all circumstances?",
+            "answer": "<p>First Thessalonians 5:18 teaches, “In everything give thanks; for this is the will of God in Christ Jesus concerning you.” Thanks Living explores how this biblical principle can become part of everyday life, including during uncertainty, loss, hardship, and seasons of joy.</p>",
+            "open_by_default": false
+          }
+        },
+        "faq_item_4": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How can I practice gratitude every day?",
+            "answer": "<p>You can practice gratitude through prayer, scripture, remembering God's faithfulness, thanking others, and intentionally recognizing blessings throughout the day. Thanks Living provides biblical encouragement and practical reflection to help make thanksgiving a daily rhythm.</p>",
+            "open_by_default": false
+          }
+        },
+        "faq_item_5": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How can I be thankful when life is difficult?",
+            "answer": "<p>Being thankful during difficult circumstances does not mean ignoring pain or pretending everything is good. Biblical gratitude helps us remember God's character and faithfulness, maintain hope, and approach difficult seasons with a different perspective.</p>",
+            "open_by_default": false
+          }
+        },
+        "faq_item_6": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Who wrote Thanks Living?",
+            "answer": "<p>Thanks Living was written by Stu Epperson Jr., a broadcaster, speaker, and ministry leader. Drawing from scripture, personal experiences, ministry experiences, and stories of faith,Stu encourages readers to make gratitude an everyday way of life.</p>",
+            "open_by_default": false
+          }
+        },
+        "faq_item_7": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Who wrote the foreword to Thanks Living?",
+            "answer": "<p>The foreword to <em>Thanks Living</em> was written by Dr. Gary Chapman, best-selling author of <em>The 5 Love Languages</em> and a renowned speaker and counselor.</p>",
+            "open_by_default": false
+          }
+        },
+        "faq_item_8": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Who should read Thanks Living?",
+            "answer": "<p>Thanks Living is for anyone who wants to grow in gratitude, strengthen their faith, and develop a more thankful perspective on everyday life. It can be read individually or shared with families, churches, Bible studies, and small groups.</p>",
+            "open_by_default": false
+          }
+        },
+        "faq_item_9": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Is Thanks Living suitable for Bible studies or small groups?",
+            "answer": "<p>Yes. Thanks Living can be used for personal reading, Bible studies, church groups, families, and small groups. Its combination of scripture, stories, and practical reflection can encourage meaningful conversations about gratitude, faith, hardship, and God's faithfulness.</p>",
+            "open_by_default": false
+          }
+        },
+        "faq_item_10": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Where can I buy Thanks Living, and are bulk discounts available?",
+            "answer": "<p>Thanks Living is published by Moody Publishers and is available through Moody Publishers and participating book retailers. For bulk purchases, orders of 12 or more eligible books receive a 40% discount when ordered through Moody Publishers, subject to Moody Publishers' current bulk-order terms.</p>",
+            "open_by_default": false
+          }
+        }
+      },
+      "block_order": [
+        "faq_item_1",
+        "faq_item_2",
+        "faq_item_3",
+        "faq_item_4",
+        "faq_item_5",
+        "faq_item_6",
+        "faq_item_7",
+        "faq_item_8",
+        "faq_item_9",
+        "faq_item_10"
+      ],
+      "name": "Landing FAQ",
+      "settings": {
+        "enable_section": true,
+        "show_on_desktop": true,
+        "show_on_tablet": true,
+        "show_on_mobile": true,
+        "eyebrow": "",
+        "heading": "Frequently Asked Questions",
+        "intro": "",
+        "heading_align": "center",
+        "container_width": 1320,
+        "content_width": 1100,
+        "row_gap": 14,
+        "row_radius": 10,
+        "background_color": "#ffffff",
+        "overlay_color": "rgba(0,0,0,0)",
+        "overlay_opacity": 0,
+        "row_background": "#ffffff",
+        "row_border_color": "#d6e2ec",
+        "row_border_opacity": 100,
+        "enable_row_shadow": false,
+        "heading_color": "#123d5d",
+        "text_color": "#355977",
+        "accent_color": "#5a7a94",
+        "heading_size_desktop": 30,
+        "heading_size_mobile": 22,
+        "heading_weight": "600",
+        "question_size": 16,
+        "body_size_desktop": 15,
+        "body_size_mobile": 14,
+        "single_open_mode": true,
+        "enable_animation": true,
+        "padding_top_desktop": 56,
+        "padding_bottom_desktop": 56,
+        "padding_top_tablet": 24,
+        "padding_bottom_tablet": 24,
+        "padding_top_mobile": 20,
+        "padding_bottom_mobile": 20
+      }
+    },
+    "landing_announcement_bar_TQjjTt": {
+      "type": "landing-announcement-bar",
+      "blocks": {
+        "announcement_A8aJbW": {
+          "type": "announcement",
+          "settings": {
+            "text": "<strong>Available Everywhere</strong> • Amazon, Audible, Spotify, and more",
+            "link": "",
+            "icon": "sparkle",
+            "text_color": ""
+          }
+        },
+        "announcement_bYaHkt": {
+          "type": "announcement",
+          "settings": {
+            "text": "Get the book and unlock your personal QR video message from Stu",
+            "link": "",
+            "icon": "book",
+            "text_color": ""
+          }
+        },
+        "announcement_pdr9F8": {
+          "type": "announcement",
+          "settings": {
+            "text": "Available everywhere. Order your copy today.",
+            "link": "",
+            "icon": "sparkle",
+            "text_color": ""
+          }
+        },
+        "announcement_QacaMq": {
+          "type": "announcement",
+          "disabled": true,
+          "settings": {
+            "text": "Available everywhere. Order your copy today.",
+            "link": "",
+            "icon": "sparkle",
+            "text_color": ""
+          }
+        }
+      },
+      "block_order": [
+        "announcement_A8aJbW",
+        "announcement_bYaHkt",
+        "announcement_pdr9F8",
+        "announcement_QacaMq"
+      ],
+      "disabled": true,
+      "name": "Landing Announcement Bar",
+      "settings": {
+        "enable_section": true,
+        "show_on_desktop": true,
+        "show_on_tablet": true,
+        "show_on_mobile": true,
+        "accessibility_label": "Announcement",
+        "enable_autoplay": true,
+        "autoplay_speed": 5,
+        "show_dots": true,
+        "show_close_button": false,
+        "close_button_label": "Close announcement",
+        "text_align": "center",
+        "font_size_desktop": 15,
+        "font_size_mobile": 13,
+        "font_weight": "500",
+        "line_height": 1.4,
+        "letter_spacing": 0,
+        "background_color": "#f8fcff",
+        "enable_gradient": true,
+        "gradient_color_start": "#f8fcff",
+        "gradient_color_end": "#edf7ff",
+        "overlay_color": "rgba(0,0,0,0)",
+        "overlay_opacity": 0,
+        "content_background_color": "rgba(0,0,0,0)",
+        "glass_background_color": "#ffffffb3",
+        "enable_glass_effect": false,
+        "blur_amount": 6,
+        "text_color": "#0f3156",
+        "border_color": "#d9e8f5",
+        "border_opacity": 100,
+        "container_width": 1320,
+        "content_width": 1320,
+        "min_height": 46,
+        "border_radius": 0,
+        "enable_shadow": false,
+        "padding_top_desktop": 8,
+        "padding_bottom_desktop": 8,
+        "padding_inline_desktop": 16,
+        "padding_top_tablet": 8,
+        "padding_bottom_tablet": 8,
+        "padding_inline_tablet": 12,
+        "padding_top_mobile": 8,
+        "padding_bottom_mobile": 8,
+        "padding_inline_mobile": 12,
+        "enable_animation": true
+      }
+    },
+    "landing_final_cta_LHQmdx": {
+      "type": "landing-final-cta",
+      "blocks": {
+        "signal_fmGQpe": {
+          "type": "signal",
+          "disabled": true,
+          "settings": {
+            "text": "Instant access to bonus content"
+          }
+        },
+        "signal_gHtXwN": {
+          "type": "signal",
+          "disabled": true,
+          "settings": {
+            "text": "Instant access to bonus content"
+          }
+        },
+        "signal_NbJf3E": {
+          "type": "signal",
+          "disabled": true,
+          "settings": {
+            "text": "Trusted by readers and small groups"
+          }
+        },
+        "signal_kHDmRE": {
+          "type": "signal",
+          "disabled": true,
+          "settings": {
+            "text": "Scripture-rooted and practical"
+          }
+        }
+      },
+      "block_order": [
+        "signal_fmGQpe",
+        "signal_gHtXwN",
+        "signal_NbJf3E",
+        "signal_kHDmRE"
+      ],
+      "name": "Landing Final CTA",
+      "settings": {
+        "enable_section": true,
+        "show_on_desktop": true,
+        "show_on_tablet": true,
+        "show_on_mobile": true,
+        "eyebrow": "",
+        "heading": "Start Your Journey of Gratitude Today",
+        "description": "<p>Take the message home, share it with your family, and begin a practical rhythm of gratitude rooted in scripture.</p>",
+        "primary_button_label": "Get your copy now",
+        "primary_button_url": "https://www.moodypublishers.com/thanks-living",
+        "secondary_button_label": "",
+        "secondary_button_url": "",
+        "media_image": "shopify://shop_images/thanks_giving.png",
+        "media_image_alt": "Thanks Living book",
+        "media_caption": "",
+        "media_position": "left",
+        "container_width": 1480,
+        "content_width": 1480,
+        "panel_radius": 0,
+        "media_width": 380,
+        "media_radius": 0,
+        "background_color": "#2f8a9e",
+        "overlay_color": "rgba(0,0,0,0)",
+        "overlay_opacity": 0,
+        "grain_opacity": 0,
+        "panel_background": "rgba(0,0,0,0)",
+        "panel_border_color": "#5f88ab",
+        "panel_border_opacity": 0,
+        "enable_panel_shadow": false,
+        "heading_color": "#ffffff",
+        "text_color": "#e8f6fa",
+        "accent_color": "#95bfe6",
+        "heading_size_desktop": 48,
+        "heading_size_mobile": 32,
+        "heading_weight": "600",
+        "body_size_desktop": 16,
+        "body_size_mobile": 14,
+        "button_radius": 8,
+        "primary_button_bg": "#f3c541",
+        "primary_button_text": "#123d5d",
+        "primary_button_border": "#f3c541",
+        "secondary_button_bg": "rgba(0,0,0,0)",
+        "secondary_button_text": "#f1f8ff",
+        "secondary_button_border": "#95bfe6",
+        "enable_pulse": false,
+        "enable_animation": true,
+        "padding_top_desktop": 0,
+        "padding_bottom_desktop": 0,
+        "padding_top_tablet": 0,
+        "padding_bottom_tablet": 0,
+        "padding_top_mobile": 0,
+        "padding_bottom_mobile": 0
+      }
+    }
+  },
+  "order": [
+    "landing_hero_ftw9E4",
+    "landing_retail_logos_EAft6Y",
+    "landing_benefits_e9VFDM",
+    "17893163962fbb657d",
+    "178920896970183019",
+    "landing_about_book_Te7PWf",
+    "landing_book_features_eBzKMD",
+    "landing_video_section_HLFxzx",
+    "author_spotlight_CJM6yJ",
+    "landing_qr_experience_VEmxa9",
+    "landing_testimonials_UnjRNd",
+    "landing_faq_VwAd67",
+    "landing_announcement_bar_TQjjTt",
+    "landing_final_cta_LHQmdx"
+  ]
+}
