@@ -1,0 +1,21 @@
+{% doc %}
+  Normalizes section anchor links to root-relative /#id URLs.
+
+  @param {string} url - Destination URL from nav settings or menus
+{% enddoc %}
+
+{% liquid
+  assign raw_url = url | default: '#'
+
+  if raw_url contains '#'
+    assign hash_segment = raw_url | split: '#' | last
+    if hash_segment != blank
+      assign normalized_url = routes.root_url | append: '#' | append: hash_segment
+    else
+      assign normalized_url = raw_url
+    endif
+  else
+    assign normalized_url = raw_url
+  endif
+%}
+{{- normalized_url -}}

@@ -1,6 +1,6 @@
 {{ 'landing-header.css' | asset_url | stylesheet_tag }}
 {{ 'landing-logo-brand.css' | asset_url | stylesheet_tag }}
-<script src="{{ 'landing-header.js' | asset_url }}" defer></script>
+<script src="{{ 'landing-header.js' | asset_url }}" type="module" defer></script>
 
 {% liquid
   assign section_classes = 'landing-header color-custom-' | append: section.id
@@ -52,6 +52,7 @@
 
 <landing-header
   class="{{ section_classes }}"
+  data-root-path="{{ routes.root_url }}"
   data-sticky="{{ section.settings.enable_sticky_header }}"
   data-scroll-threshold="{{ section.settings.sticky_threshold }}"
   data-animate="{{ section.settings.enable_animation }}"
@@ -135,14 +136,14 @@
             {% for block in section.blocks %}
               {% if block.type == 'nav_item' and block.settings.label != blank %}
                 <li {{ block.shopify_attributes }}>
-                  <a class="landing-header__nav-link" href="{{ block.settings.url | default: '#' }}">{{ block.settings.label }}</a>
+                  <a class="landing-header__nav-link" href="{% render 'landing-anchor-href', url: block.settings.url %}">{{ block.settings.label }}</a>
                 </li>
               {% endif %}
             {% endfor %}
           {% else %}
             {% for link in nav_menu.links %}
               <li>
-                <a class="landing-header__nav-link" href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title }}</a>
+                <a class="landing-header__nav-link" href="{% render 'landing-anchor-href', url: link.url %}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title }}</a>
               </li>
             {% endfor %}
           {% endif %}
@@ -200,12 +201,12 @@
       {% if use_block_nav %}
         {% for block in section.blocks %}
           {% if block.type == 'nav_item' and block.settings.label != blank %}
-            <a class="landing-header__drawer-link" href="{{ block.settings.url | default: '#' }}" {{ block.shopify_attributes }}>{{ block.settings.label }}</a>
+            <a class="landing-header__drawer-link" href="{% render 'landing-anchor-href', url: block.settings.url %}" {{ block.shopify_attributes }}>{{ block.settings.label }}</a>
           {% endif %}
         {% endfor %}
       {% else %}
         {% for link in nav_menu.links %}
-          <a class="landing-header__drawer-link" href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title }}</a>
+          <a class="landing-header__drawer-link" href="{% render 'landing-anchor-href', url: link.url %}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title }}</a>
         {% endfor %}
       {% endif %}
     </nav>
