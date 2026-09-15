@@ -75,9 +75,9 @@
             "background_max_width": 1440,
             "show_rule": true,
             "verse_font": "serif",
-            "text_color": "#0a2740",
+            "text_color": "#0f3156",
             "eyebrow_color": "#1e7db0",
-            "accent_color": "#f4c430"
+            "accent_color": "#ffcc48"
           },
           "blocks": {}
         }
