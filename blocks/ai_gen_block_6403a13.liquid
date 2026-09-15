@@ -187,9 +187,21 @@
     box-shadow: 0 0 0 1px rgba(18, 46, 77, 0.08);
   }
 
-  .ai-buy-product-{{ ai_gen_id }}__feature-icon svg {
+  .ai-buy-product-{{ ai_gen_id }}__feature-icon svg,
+  .ai-buy-product-{{ ai_gen_id }}__feature-icon img {
     width: 24px;
     height: 24px;
+    object-fit: contain;
+  }
+
+  .ai-buy-product-{{ ai_gen_id }} .buy-product-icon-image {
+    background: transparent;
+    background-color: transparent;
+    mix-blend-mode: multiply;
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__qr-code-logo .buy-product-icon-image {
+    mix-blend-mode: normal;
   }
 
   .ai-buy-product-{{ ai_gen_id }}__feature-title {
@@ -461,10 +473,12 @@
     pointer-events: none;
   }
 
-  .ai-buy-product-{{ ai_gen_id }}__qr-code-logo svg {
+  .ai-buy-product-{{ ai_gen_id }}__qr-code-logo svg,
+  .ai-buy-product-{{ ai_gen_id }}__qr-code-logo img {
     display: block;
     width: 78%;
     height: 78%;
+    object-fit: contain;
     overflow: visible;
   }
 
@@ -725,9 +739,11 @@
     color: var(--tl-navy);
   }
 
-  .ai-buy-product-{{ ai_gen_id }}__trust-icon svg {
+  .ai-buy-product-{{ ai_gen_id }}__trust-icon svg,
+  .ai-buy-product-{{ ai_gen_id }}__trust-icon img {
     width: 22px;
     height: 22px;
+    object-fit: contain;
   }
 
   .ai-buy-product-{{ ai_gen_id }}__trust-label {
@@ -959,9 +975,11 @@
       color: var(--tl-navy);
     }
 
-    .ai-buy-product-{{ ai_gen_id }}__features-bar-icon svg {
+    .ai-buy-product-{{ ai_gen_id }}__features-bar-icon svg,
+    .ai-buy-product-{{ ai_gen_id }}__features-bar-icon img {
       width: 22px;
       height: 22px;
+      object-fit: contain;
     }
 
     .ai-buy-product-{{ ai_gen_id }}__features-bar-label {
@@ -1360,9 +1378,11 @@
       flex-shrink: 0;
     }
 
-    .ai-buy-product-{{ ai_gen_id }}__features-bar-icon svg {
+    .ai-buy-product-{{ ai_gen_id }}__features-bar-icon svg,
+    .ai-buy-product-{{ ai_gen_id }}__features-bar-icon img {
       width: 22px;
       height: 22px;
+      object-fit: contain;
     }
 
     .ai-buy-product-{{ ai_gen_id }}__features-bar-label {
@@ -1482,9 +1502,11 @@
       height: 20px;
     }
 
-    .ai-buy-product-{{ ai_gen_id }}__trust-icon svg {
+    .ai-buy-product-{{ ai_gen_id }}__trust-icon svg,
+    .ai-buy-product-{{ ai_gen_id }}__trust-icon img {
       width: 18px;
       height: 18px;
+      object-fit: contain;
     }
 
     .ai-buy-product-{{ ai_gen_id }}__trust-label {
@@ -1601,9 +1623,11 @@
     background: #d7eef6;
   }
 
-  .ai-buy-product-{{ ai_gen_id }}__journey-icon svg {
+  .ai-buy-product-{{ ai_gen_id }}__journey-icon svg,
+  .ai-buy-product-{{ ai_gen_id }}__journey-icon img {
     width: 28px;
     height: 28px;
+    object-fit: contain;
   }
 
   .ai-buy-product-{{ ai_gen_id }}__journey-copy {
@@ -1712,9 +1736,7 @@
             <div class="ai-buy-product-{{ ai_gen_id }}__features-list">
               <div class="ai-buy-product-{{ ai_gen_id }}__feature">
                 <span class="ai-buy-product-{{ ai_gen_id }}__feature-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 20.5s-6.5-4.2-6.5-9.5A4.5 4.5 0 0 1 17 5.5L12 10l-5-4.5A4.5 4.5 0 0 1 5.5 11c0 5.3 6.5 9.5 6.5 9.5z"></path>
-                  </svg>
+                  {% render 'buy-product-editable-icon', image: block.settings.feature_1_icon, fallback: 'heart' %}
                 </span>
                 <div>
                   <p class="ai-buy-product-{{ ai_gen_id }}__feature-title">{{ block.settings.feature_1_title }}</p>
@@ -1723,11 +1745,7 @@
               </div>
               <div class="ai-buy-product-{{ ai_gen_id }}__feature">
                 <span class="ai-buy-product-{{ ai_gen_id }}__feature-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M7 20h10"></path>
-                    <path d="M12 20V10"></path>
-                    <path d="M12 10C12 10 8 8 8 4s8-2 8 2-4 6-4 6"></path>
-                  </svg>
+                  {% render 'buy-product-editable-icon', image: block.settings.feature_2_icon, fallback: 'flower' %}
                 </span>
                 <div>
                   <p class="ai-buy-product-{{ ai_gen_id }}__feature-title">{{ block.settings.feature_2_title }}</p>
@@ -1736,11 +1754,7 @@
               </div>
               <div class="ai-buy-product-{{ ai_gen_id }}__feature">
                 <span class="ai-buy-product-{{ ai_gen_id }}__feature-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M4 8h16v13H4z"></path>
-                    <path d="M12 8V5a2 2 0 0 0-2-2H8"></path>
-                    <path d="M12 8h4a2 2 0 0 0 2-2V3"></path>
-                  </svg>
+                  {% render 'buy-product-editable-icon', image: block.settings.feature_3_icon, fallback: 'gift' %}
                 </span>
                 <div>
                   <p class="ai-buy-product-{{ ai_gen_id }}__feature-title">{{ block.settings.feature_3_title }}</p>
@@ -1804,9 +1818,7 @@
                     >
                   {% endif %}
                   <span class="ai-buy-product-{{ ai_gen_id }}__qr-code-logo" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M12 20.2s-6.5-4.3-8.7-8a5 5 0 0 1 8.1-5.6l.6.7.6-.7a5 5 0 0 1 8.1 5.6c-2.2 3.7-8.7 8-8.7 8Z"/>
-                    </svg>
+                    {% render 'buy-product-editable-icon', image: block.settings.qr_heart_icon, fallback: 'heart-fill' %}
                   </span>
                 </div>
 
@@ -1829,30 +1841,19 @@
           <div class="ai-buy-product-{{ ai_gen_id }}__features-bar">
             <div class="ai-buy-product-{{ ai_gen_id }}__features-bar-item">
               <span class="ai-buy-product-{{ ai_gen_id }}__features-bar-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-                </svg>
+                {% render 'buy-product-editable-icon', image: block.settings.feature_1_icon, fallback: 'book' %}
               </span>
               <p class="ai-buy-product-{{ ai_gen_id }}__features-bar-label">{{ block.settings.feature_1_title }}</p>
             </div>
             <div class="ai-buy-product-{{ ai_gen_id }}__features-bar-item">
               <span class="ai-buy-product-{{ ai_gen_id }}__features-bar-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M7 20h10"></path>
-                  <path d="M12 20V10"></path>
-                  <path d="M12 10C12 10 8 8 8 4s8-2 8 2-4 6-4 6"></path>
-                </svg>
+                {% render 'buy-product-editable-icon', image: block.settings.feature_2_icon, fallback: 'flower' %}
               </span>
               <p class="ai-buy-product-{{ ai_gen_id }}__features-bar-label">{{ block.settings.feature_2_title }}</p>
             </div>
             <div class="ai-buy-product-{{ ai_gen_id }}__features-bar-item">
               <span class="ai-buy-product-{{ ai_gen_id }}__features-bar-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M4 8h16v13H4z"></path>
-                  <path d="M12 8V5a2 2 0 0 0-2-2H8"></path>
-                  <path d="M12 8h4a2 2 0 0 0 2-2V3"></path>
-                </svg>
+                {% render 'buy-product-editable-icon', image: block.settings.feature_3_icon, fallback: 'gift' %}
               </span>
               <p class="ai-buy-product-{{ ai_gen_id }}__features-bar-label">{{ block.settings.feature_3_title }}</p>
             </div>
@@ -1901,31 +1902,19 @@
           <div class="ai-buy-product-{{ ai_gen_id }}__trust">
             <div class="ai-buy-product-{{ ai_gen_id }}__trust-item">
               <span class="ai-buy-product-{{ ai_gen_id }}__trust-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M3 7h11v10H3z"></path>
-                  <path d="M14 10h3l3 3v4h-6z"></path>
-                  <circle cx="7.5" cy="17.5" r="1.5"></circle>
-                  <circle cx="17.5" cy="17.5" r="1.5"></circle>
-                </svg>
+                {% render 'buy-product-editable-icon', image: block.settings.trust_1_icon, fallback: 'truck' %}
               </span>
               <span class="ai-buy-product-{{ ai_gen_id }}__trust-label">{{ block.settings.trust_shipping_label }}</span>
             </div>
             <div class="ai-buy-product-{{ ai_gen_id }}__trust-item">
               <span class="ai-buy-product-{{ ai_gen_id }}__trust-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M12 3l7 4v5c0 4.4-3 7.4-7 9-4-1.6-7-4.6-7-9V7z"></path>
-                  <path d="M9.5 12.5l1.8 1.8 3.5-3.8"></path>
-                </svg>
+                {% render 'buy-product-editable-icon', image: block.settings.trust_2_icon, fallback: 'shield' %}
               </span>
               <span class="ai-buy-product-{{ ai_gen_id }}__trust-label">{{ block.settings.trust_checkout_label }}</span>
             </div>
             <div class="ai-buy-product-{{ ai_gen_id }}__trust-item">
               <span class="ai-buy-product-{{ ai_gen_id }}__trust-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M4 8h16v13H4z"></path>
-                  <path d="M12 8V5a2 2 0 0 0-2-2H8"></path>
-                  <path d="M12 8h4a2 2 0 0 0 2-2V3"></path>
-                </svg>
+                {% render 'buy-product-editable-icon', image: block.settings.trust_3_icon, fallback: 'gift' %}
               </span>
               <span class="ai-buy-product-{{ ai_gen_id }}__trust-label">{{ block.settings.trust_gifting_label }}</span>
             </div>
@@ -1939,13 +1928,7 @@
       <div class="ai-buy-product-{{ ai_gen_id }}__journey-steps">
         <div class="ai-buy-product-{{ ai_gen_id }}__journey-step">
           <span class="ai-buy-product-{{ ai_gen_id }}__journey-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="7" y="2.5" width="10" height="19" rx="2"></rect>
-              <path d="M11 5h2"></path>
-              <rect x="9.5" y="8" width="5" height="5" rx="0.5"></rect>
-              <path d="M10.2 9.2h.8M12.2 9.2h1.1M10.2 10.7h1.1M12 10.7h1.3M10.2 12.2h.8M12.2 12.2h1.1"></path>
-              <path d="M11 17.5h2"></path>
-            </svg>
+            {% render 'buy-product-editable-icon', image: block.settings.step_1_icon, fallback: 'phone' %}
           </span>
           <div class="ai-buy-product-{{ ai_gen_id }}__journey-copy">
             <p class="ai-buy-product-{{ ai_gen_id }}__journey-title">{{ block.settings.step_1_title }}</p>
@@ -1954,10 +1937,7 @@
         </div>
         <div class="ai-buy-product-{{ ai_gen_id }}__journey-step">
           <span class="ai-buy-product-{{ ai_gen_id }}__journey-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M4 5.5c2.2-1 4.5-1.5 8-1.5s5.8.5 8 1.5v13c-2.2-1-4.5-1.5-8-1.5s-5.8.5-8 1.5z"></path>
-              <path d="M12 4v13"></path>
-            </svg>
+            {% render 'buy-product-editable-icon', image: block.settings.step_2_icon, fallback: 'read' %}
           </span>
           <div class="ai-buy-product-{{ ai_gen_id }}__journey-copy">
             <p class="ai-buy-product-{{ ai_gen_id }}__journey-title">{{ block.settings.step_2_title }}</p>
@@ -1966,12 +1946,7 @@
         </div>
         <div class="ai-buy-product-{{ ai_gen_id }}__journey-step">
           <span class="ai-buy-product-{{ ai_gen_id }}__journey-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M5 10.5a7 7 0 1 1 3.2 5.9L6 18.5l.6-3A7 7 0 0 1 5 10.5z"></path>
-              <circle cx="9.5" cy="10.5" r="0.7" fill="currentColor"></circle>
-              <circle cx="12" cy="10.5" r="0.7" fill="currentColor"></circle>
-              <circle cx="14.5" cy="10.5" r="0.7" fill="currentColor"></circle>
-            </svg>
+            {% render 'buy-product-editable-icon', image: block.settings.step_3_icon, fallback: 'reflect' %}
           </span>
           <div class="ai-buy-product-{{ ai_gen_id }}__journey-copy">
             <p class="ai-buy-product-{{ ai_gen_id }}__journey-title">{{ block.settings.step_3_title }}</p>
@@ -1980,9 +1955,7 @@
         </div>
         <div class="ai-buy-product-{{ ai_gen_id }}__journey-step">
           <span class="ai-buy-product-{{ ai_gen_id }}__journey-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 20.5s-6.5-4.2-6.5-9.5A4.5 4.5 0 0 1 12 7a4.5 4.5 0 0 1 6.5 4c0 5.3-6.5 9.5-6.5 9.5z"></path>
-            </svg>
+            {% render 'buy-product-editable-icon', image: block.settings.step_4_icon, fallback: 'heart' %}
           </span>
           <div class="ai-buy-product-{{ ai_gen_id }}__journey-copy">
             <p class="ai-buy-product-{{ ai_gen_id }}__journey-title">{{ block.settings.step_4_title }}</p>
@@ -2119,15 +2092,24 @@
       "info": "Optional custom QR artwork for the teal card. When empty, a functional QR code is generated from the target URL."
     },
     {
+      "type": "image_picker",
+      "id": "qr_heart_icon",
+      "label": "QR center icon",
+      "info": "Optional image for the heart in the QR code. Leave blank to keep the default yellow heart."
+    },
+    {
       "type": "header",
       "content": "Features"
     },
     { "type": "text", "id": "feature_1_title", "label": "Feature 1 title", "default": "Daily Inspiration" },
     { "type": "text", "id": "feature_1_text", "label": "Feature 1 text", "default": "A new gratitude verse every day" },
+    { "type": "image_picker", "id": "feature_1_icon", "label": "Feature 1 icon" },
     { "type": "text", "id": "feature_2_title", "label": "Feature 2 title", "default": "Meaningful Reminder" },
     { "type": "text", "id": "feature_2_text", "label": "Feature 2 text", "default": "Keep gratitude close" },
+    { "type": "image_picker", "id": "feature_2_icon", "label": "Feature 2 icon" },
     { "type": "text", "id": "feature_3_title", "label": "Feature 3 title", "default": "Great for Gifting" },
     { "type": "text", "id": "feature_3_text", "label": "Feature 3 text", "default": "Share a life-changing habit" },
+    { "type": "image_picker", "id": "feature_3_icon", "label": "Feature 3 icon" },
     {
       "type": "header",
       "content": "Purchase card"
@@ -2137,20 +2119,27 @@
     { "type": "text", "id": "unavailable_label", "label": "Unavailable label", "default": "Currently unavailable" },
     { "type": "text", "id": "save_badge_label", "label": "Save badge label", "default": "Save [percent]%", "info": "Use [percent] for the calculated discount." },
     { "type": "text", "id": "trust_shipping_label", "label": "Trust badge 1", "default": "Fast Shipping" },
+    { "type": "image_picker", "id": "trust_1_icon", "label": "Trust badge 1 icon" },
     { "type": "text", "id": "trust_checkout_label", "label": "Trust badge 2", "default": "Secure Checkout" },
+    { "type": "image_picker", "id": "trust_2_icon", "label": "Trust badge 2 icon" },
     { "type": "text", "id": "trust_gifting_label", "label": "Trust badge 3", "default": "Perfect for Gifting" },
+    { "type": "image_picker", "id": "trust_3_icon", "label": "Trust badge 3 icon" },
     {
       "type": "header",
       "content": "Bottom journey"
     },
     { "type": "text", "id": "step_1_title", "label": "Step 1 title", "default": "1. SCAN" },
     { "type": "text", "id": "step_1_text", "label": "Step 1 text", "default": "Scan the QR code" },
+    { "type": "image_picker", "id": "step_1_icon", "label": "Step 1 icon" },
     { "type": "text", "id": "step_2_title", "label": "Step 2 title", "default": "2. READ" },
     { "type": "text", "id": "step_2_text", "label": "Step 2 text", "default": "Receive today's Scripture verse" },
+    { "type": "image_picker", "id": "step_2_icon", "label": "Step 2 icon" },
     { "type": "text", "id": "step_3_title", "label": "Step 3 title", "default": "3. REFLECT" },
     { "type": "text", "id": "step_3_text", "label": "Step 3 text", "default": "Meditate on God's Word" },
+    { "type": "image_picker", "id": "step_3_icon", "label": "Step 3 icon" },
     { "type": "text", "id": "step_4_title", "label": "Step 4 title", "default": "4. LIVE" },
     { "type": "text", "id": "step_4_text", "label": "Step 4 text", "default": "Live with gratitude every day" },
+    { "type": "image_picker", "id": "step_4_icon", "label": "Step 4 icon" },
     { "type": "text", "id": "journey_verse_text", "label": "Verse quote", "default": "“In everything give thanks.”" },
     { "type": "text", "id": "journey_verse_cite", "label": "Verse reference", "default": "1 Thessalonians 5:18" },
     {
