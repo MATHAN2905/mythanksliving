@@ -251,15 +251,16 @@
     position: relative;
     z-index: 2;
     display: flex;
-    flex: 0 0 clamp(118px, 11.5vw, 175px);
+    flex: 0 0 clamp(196px, 15vw, 220px);
     flex-direction: column;
     align-items: center;
+    justify-content: flex-start;
     align-self: flex-end;
-    width: clamp(118px, 11.5vw, 175px);
+    width: clamp(196px, 15vw, 220px);
+    height: auto;
     min-height: 0;
     margin-bottom: clamp(16px, 2.2vw, 28px);
-    aspect-ratio: 7 / 10;
-    padding: clamp(12px, 1.4vw, 16px) clamp(8px, 1vw, 12px) clamp(10px, 1.2vw, 14px);
+    padding: 17px 12px 14px;
     border-radius: 16px 16px 14px 14px;
     background:
       radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.14) 0%, transparent 52%),
@@ -315,11 +316,12 @@
   .ai-buy-product-{{ ai_gen_id }}__qr-tagline {
     margin: 0;
     color: #062440;
-    font-size: clamp(6px, 0.72vw, 8px);
+    font-size: 11px;
     font-weight: 700;
-    letter-spacing: 0.16em;
-    line-height: 1.25;
+    letter-spacing: 0.08em;
+    line-height: 1.2;
     text-transform: uppercase;
+    white-space: nowrap;
   }
 
   .ai-buy-product-{{ ai_gen_id }}__qr-divider {
@@ -327,7 +329,7 @@
     align-items: center;
     gap: 6px;
     width: min(100%, 118px);
-    margin: clamp(6px, 0.9vw, 10px) auto clamp(8px, 1vw, 12px);
+    margin: 6px auto;
   }
 
   .ai-buy-product-{{ ai_gen_id }}__qr-divider-line {
@@ -346,11 +348,13 @@
 
   .ai-buy-product-{{ ai_gen_id }}__qr-code-stage {
     display: flex;
-    flex: 1;
+    flex: 0 0 auto;
     align-items: center;
     justify-content: center;
     gap: clamp(3px, 0.5vw, 6px);
+    height: auto;
     margin: 0 auto;
+    padding: 3px 0;
     min-height: 0;
   }
 
@@ -444,34 +448,40 @@
     position: absolute;
     top: 50%;
     left: 50%;
+    z-index: 2;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: clamp(14px, 22%, 22px);
-    height: clamp(14px, 22%, 22px);
+    width: clamp(28px, 34%, 40px);
+    height: clamp(28px, 34%, 40px);
     border-radius: 50%;
     background: #ffffff;
-    box-shadow: 0 0 0 2px #ffffff;
+    box-shadow: 0 0 0 3px #ffffff;
     transform: translate(-50%, -50%);
     pointer-events: none;
   }
 
   .ai-buy-product-{{ ai_gen_id }}__qr-code-logo svg {
     display: block;
-    width: 72%;
-    height: 72%;
+    width: 78%;
+    height: 78%;
+    overflow: visible;
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__qr-code-logo svg path {
+    fill: var(--tl-yellow);
   }
 
   .ai-buy-product-{{ ai_gen_id }}__qr-scan {
     display: flex;
     flex-direction: column;
     gap: 2px;
-    margin: clamp(6px, 0.8vw, 10px) 0 0;
+    margin: 6px 0 0;
     color: #062440;
-    font-size: clamp(6px, 0.72vw, 8px);
+    font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.06em;
-    line-height: 1.28;
+    line-height: 1.2;
     text-transform: uppercase;
   }
 
@@ -511,9 +521,9 @@
     color: var(--tl-navy);
     font-family: var(--font-brand-title, 'Playfair Display', Georgia, 'Times New Roman', serif);
     font-size: clamp(24px, 2.1vw, 28px);
-    font-style: italic;
+    font-style: normal;
     line-height: 1.08;
-    font-weight: 400;
+    font-weight: 700;
   }
 
   .ai-buy-product-{{ ai_gen_id }}__purchase-subtitle {
@@ -750,8 +760,8 @@
     }
 
     .ai-buy-product-{{ ai_gen_id }}__qr-card {
-      flex: 0 0 clamp(168px, 14vw, 200px);
-      width: clamp(168px, 14vw, 200px);
+      flex: 0 0 clamp(200px, 15vw, 220px);
+      width: clamp(200px, 15vw, 220px);
       margin-bottom: clamp(18px, 2.4vw, 32px);
     }
 
@@ -791,8 +801,8 @@
     }
 
     .ai-buy-product-{{ ai_gen_id }}__qr-card {
-      flex: 0 0 clamp(132px, 12vw, 160px);
-      width: clamp(132px, 12vw, 160px);
+      flex: 0 0 clamp(196px, 15vw, 210px);
+      width: clamp(196px, 15vw, 210px);
       margin-bottom: clamp(20px, 2.6vw, 32px);
     }
 
@@ -902,8 +912,8 @@
     }
 
     .ai-buy-product-{{ ai_gen_id }}__qr-card {
-      flex: 0 0 clamp(112px, 22vw, 148px);
-      width: clamp(112px, 22vw, 148px);
+      flex: 0 0 clamp(148px, 28vw, 196px);
+      width: clamp(148px, 28vw, 196px);
       align-self: flex-end;
       margin-bottom: clamp(10px, 2.4vw, 20px);
     }
@@ -1098,9 +1108,9 @@
     }
 
     .ai-buy-product-{{ ai_gen_id }}__qr-card {
-      flex: 0 0 clamp(148px, 18vw, 176px);
-      width: clamp(148px, 18vw, 176px);
-      max-width: 176px;
+      flex: 0 0 clamp(176px, 20vw, 200px);
+      width: clamp(176px, 20vw, 200px);
+      max-width: 200px;
       min-width: 0;
       align-self: flex-end;
       margin-bottom: 8px;
@@ -1189,9 +1199,9 @@
     }
 
     .ai-buy-product-{{ ai_gen_id }}__qr-card {
-      flex-basis: 140px;
-      width: 140px;
-      max-width: 140px;
+      flex-basis: 176px;
+      width: 176px;
+      max-width: 176px;
       margin-left: 8px;
     }
 
@@ -1318,12 +1328,17 @@
     }
 
     .ai-buy-product-{{ ai_gen_id }}__qr-card {
-      flex: 0 0 32%;
-      width: 32%;
-      max-width: 132px;
+      flex: 0 0 36%;
+      width: 36%;
+      max-width: 168px;
       min-width: 0;
       align-self: flex-end;
       margin-bottom: clamp(10px, 3vw, 18px);
+    }
+
+    .ai-buy-product-{{ ai_gen_id }}__qr-tagline {
+      white-space: normal;
+      letter-spacing: 0.04em;
     }
 
     .ai-buy-product-{{ ai_gen_id }}__features-bar {
@@ -1504,9 +1519,9 @@
     }
 
     .ai-buy-product-{{ ai_gen_id }}__qr-card {
-      flex-basis: 34%;
-      width: 34%;
-      max-width: 122px;
+      flex-basis: 38%;
+      width: 38%;
+      max-width: 156px;
       margin-bottom: clamp(8px, 2.8vw, 16px);
     }
 
@@ -1752,7 +1767,6 @@
 
             <div class="ai-buy-product-{{ ai_gen_id }}__qr-card" aria-label="{{ block.settings.qr_placeholder_label }}">
               <div class="ai-buy-product-{{ ai_gen_id }}__qr-header">
-                <p class="ai-buy-product-{{ ai_gen_id }}__qr-brand">{{ block.settings.qr_brand_text }}</p>
                 <p class="ai-buy-product-{{ ai_gen_id }}__qr-tagline">{{ block.settings.qr_tagline_text }}</p>
               </div>
 
@@ -1788,12 +1802,12 @@
                       height="400"
                       loading="lazy"
                     >
-                    <span class="ai-buy-product-{{ ai_gen_id }}__qr-code-logo" aria-hidden="true">
-                      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 20.5s-6.5-4.2-6.5-9.5A4.5 4.5 0 0 1 12 6.5a4.5 4.5 0 0 1 6.5 5 0 0 1-6.5 9.5z" fill="{{ block.settings.teal_color }}"/>
-                      </svg>
-                    </span>
                   {% endif %}
+                  <span class="ai-buy-product-{{ ai_gen_id }}__qr-code-logo" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12 20.2s-6.5-4.3-8.7-8a5 5 0 0 1 8.1-5.6l.6.7.6-.7a5 5 0 0 1 8.1 5.6c-2.2 3.7-8.7 8-8.7 8Z"/>
+                    </svg>
+                  </span>
                 </div>
 
                 <div class="ai-buy-product-{{ ai_gen_id }}__qr-rays ai-buy-product-{{ ai_gen_id }}__qr-rays--right" aria-hidden="true">
@@ -1850,9 +1864,6 @@
           <div class="ai-buy-product-{{ ai_gen_id }}__purchase-card">
           <div class="ai-buy-product-{{ ai_gen_id }}__purchase-header">
             <h3 class="ai-buy-product-{{ ai_gen_id }}__purchase-title">{{ featured_product.title }}</h3>
-            {% if block.settings.product_subtitle != blank %}
-              <p class="ai-buy-product-{{ ai_gen_id }}__purchase-subtitle">{{ block.settings.product_subtitle }}</p>
-            {% endif %}
           </div>
 
           {% capture product_form_id %}product-form-{{ ai_gen_id }}{% endcapture %}
@@ -1978,10 +1989,6 @@
             <p class="ai-buy-product-{{ ai_gen_id }}__journey-text">{{ block.settings.step_4_text }}</p>
           </div>
         </div>
-      </div>
-      <div class="ai-buy-product-{{ ai_gen_id }}__journey-verse">
-        <p class="ai-buy-product-{{ ai_gen_id }}__journey-quote">{{ block.settings.journey_verse_text }}</p>
-        <cite class="ai-buy-product-{{ ai_gen_id }}__journey-cite">{{ block.settings.journey_verse_cite }}</cite>
       </div>
     </div>
   {% else %}
