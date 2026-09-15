@@ -154,10 +154,9 @@
   .ai-buy-product-{{ ai_gen_id }}__subheadline {
     margin: 0;
     max-width: 38ch;
-    color: var(--tl-navy);
+    color: #e0a715;
     font-size: clamp(15px, 1.5vw, 17px);
     line-height: 1.6;
-    opacity: 0.88;
   }
 
   .ai-buy-product-{{ ai_gen_id }}__features-list {
@@ -1162,7 +1161,9 @@
       grid-row: 3;
       width: 100%;
       margin-top: 8px;
-      background: rgb(246 251 255 / 0.9);
+      background: transparent;
+      -webkit-backdrop-filter: blur(3px);
+      backdrop-filter: blur(3px);
     }
 
     .ai-buy-product-{{ ai_gen_id }}__purchase-card .shopify-product-form {
