@@ -1580,7 +1580,7 @@
     position: relative;
     z-index: 3;
     background: var(--tl-section-bg);
-    padding: 8px clamp(16px, 4vw, 40px) clamp(28px, 4vw, 40px);
+    padding: 8px clamp(16px, 4vw, 40px);
   }
 
   .ai-buy-product-{{ ai_gen_id }}__journey-steps {
@@ -1868,8 +1868,9 @@
           </div>
 
           {% capture product_form_id %}product-form-{{ ai_gen_id }}{% endcapture %}
-          {% form 'product', featured_product, id: product_form_id %}
+          {% form 'product', featured_product, id: product_form_id, data-direct-checkout: true %}
             <input type="hidden" name="id" value="{{ selected_variant.id }}">
+            <input type="hidden" name="return_to" value="/checkout">
 
             <div class="ai-buy-product-{{ ai_gen_id }}__price-row">
               <div class="ai-buy-product-{{ ai_gen_id }}__price-group">
@@ -1894,7 +1895,12 @@
               <div class="ai-buy-product-{{ ai_gen_id }}__availability ai-buy-product-{{ ai_gen_id }}__availability--unavailable">{{ block.settings.unavailable_label }}</div>
             {% endunless %}
 
-            <button class="ai-buy-product-{{ ai_gen_id }}__button" type="submit" {% unless selected_variant.available %}disabled{% endunless %}>
+            <button
+              class="ai-buy-product-{{ ai_gen_id }}__button"
+              type="submit"
+              data-available="{% if selected_variant.available %}true{% else %}false{% endif %}"
+              {% unless selected_variant.available %}disabled{% endunless %}
+            >
               {{ block.settings.button_label }}
             </button>
           {% endform %}
@@ -1994,6 +2000,83 @@
 
       input.addEventListener('change', () => {
         input.value = clampQuantity(input.value);
+      });
+    });
+
+    const cartUrl = {{ routes.cart_url | json }};
+    const cartAddUrl = {{ routes.cart_add_url | append: '.js' | json }};
+
+    const resetBuyButton = () => {
+      root.querySelectorAll('[data-direct-checkout] [type="submit"]').forEach((button) => {
+        button.removeAttribute('aria-busy');
+        button.disabled = button.dataset.available !== 'true';
+      });
+    };
+
+    window.addEventListener('pageshow', resetBuyButton);
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') resetBuyButton();
+    });
+
+    const redirectToCheckout = () => {
+      const checkoutForm = document.createElement('form');
+      checkoutForm.method = 'POST';
+      checkoutForm.action = cartUrl;
+      checkoutForm.style.display = 'none';
+
+      const checkoutInput = document.createElement('input');
+      checkoutInput.type = 'hidden';
+      checkoutInput.name = 'checkout';
+      checkoutInput.value = '1';
+      checkoutForm.appendChild(checkoutInput);
+
+      document.body.appendChild(checkoutForm);
+      checkoutForm.submit();
+    };
+
+    root.querySelectorAll('[data-direct-checkout]').forEach((form) => {
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const button = form.querySelector('[type="submit"]');
+        if (button?.disabled) return;
+
+        const variantId = form.querySelector('[name="id"]')?.value;
+        const quantity = Number.parseInt(form.querySelector('[name="quantity"]')?.value || '1', 10) || 1;
+
+        if (!variantId) return;
+
+        if (button) {
+          button.disabled = true;
+          button.setAttribute('aria-busy', 'true');
+        }
+
+        try {
+          const response = await fetch(cartAddUrl, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Accept: 'application/json',
+            },
+            body: JSON.stringify({
+              items: [{ id: Number(variantId), quantity }],
+            }),
+          });
+
+          const payload = await response.json().catch(() => null);
+
+          if (!response.ok || payload?.status) {
+            throw new Error(payload?.description || payload?.message || 'Unable to add item');
+          }
+
+          redirectToCheckout();
+        } catch (error) {
+          resetBuyButton();
+
+          const returnToInput = form.querySelector('[name="return_to"]');
+          if (returnToInput) returnToInput.value = '/checkout';
+          form.submit();
+        }
       });
     });
   })();

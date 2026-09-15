@@ -190,21 +190,38 @@
     top: 0;
     left: 50%;
     z-index: 3;
-    display: grid;
-    place-items: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 64px;
     height: 64px;
-    border-radius: 999px;
+    border-radius: 50%;
     color: {{ block.settings.eyebrow_color }};
     background: #ffffff;
-    border: 2px solid rgb(126 184 220 / 0.85);
-    box-shadow: 0 8px 22px rgb(15 49 86 / 0.08);
+    border: 1.5px solid rgb(126 184 220 / 0.9);
+    box-shadow: none;
     transform: translateX(-50%);
   }
 
+  .ai-verse-{{ ai_gen_id }}__quote-badge--custom {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+  }
+
   .ai-verse-{{ ai_gen_id }}__quote-badge svg {
-    width: 26px;
-    height: 26px;
+    display: block;
+    width: 28px;
+    height: 20px;
+  }
+
+  .ai-verse-{{ ai_gen_id }}__quote-badge img {
+    display: block;
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+    background: transparent;
+    background-color: transparent;
   }
 
   .ai-verse-{{ ai_gen_id }}__card {
@@ -564,10 +581,25 @@
       </div>
 
       <div class="ai-verse-{{ ai_gen_id }}__card-wrap" data-verse-root>
-        <div class="ai-verse-{{ ai_gen_id }}__quote-badge" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="currentColor">
-            <path d="M7.5 8.5c0-2.2 1.5-3.5 3.5-3.5.8 0 1.5.3 2 .8L10 8.5H7.5zm9 0c0-2.2 1.5-3.5 3.5-3.5.8 0 1.5.3 2 .8L19 8.5h-2.5z"></path>
-          </svg>
+        <div
+          class="ai-verse-{{ ai_gen_id }}__quote-badge{% if block.settings.quote_badge_icon != blank %} ai-verse-{{ ai_gen_id }}__quote-badge--custom{% endif %}"
+          aria-hidden="true"
+        >
+          {% if block.settings.quote_badge_icon != blank %}
+            <img
+              src="{{ block.settings.quote_badge_icon | image_url: width: 128, format: 'png' }}"
+              srcset="{{ block.settings.quote_badge_icon | image_url: width: 64, format: 'png' }} 64w, {{ block.settings.quote_badge_icon | image_url: width: 128, format: 'png' }} 128w"
+              sizes="64px"
+              width="128"
+              height="128"
+              alt=""
+              loading="lazy"
+            >
+          {% else %}
+            <svg viewBox="0 0 48 28" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 24C5.6 24 2 19.4 2 13.8 2 7.5 6.4 1.5 11.5 1.5c1.3 0 2.2.9 2.2 2 0 .65-.22 1.22-.64 1.66C9.5 7.8 7.5 10.5 7.5 13.2c0 1.85 1.35 2.95 3 2.95.95 0 1.7.75 1.7 1.68 0 1.05-.85 2.17-2.35 2.17H10zm18 0c-4.4 0-8-4.6-8-10.2C20 7.5 24.4 1.5 29.5 1.5c1.3 0 2.2.9 2.2 2 0 .65-.22 1.22-.64 1.66C27.5 7.8 25.5 10.5 25.5 13.2c0 1.85 1.35 2.95 3 2.95.95 0 1.7.75 1.7 1.68 0 1.05-.85 2.17-2.35 2.17H28z"/>
+            </svg>
+          {% endif %}
         </div>
 
         <div class="ai-verse-{{ ai_gen_id }}__card">
@@ -651,6 +683,12 @@
   "name": "Daily verse display",
   "settings": [
     { "type": "header", "content": "Header" },
+    {
+      "type": "image_picker",
+      "id": "quote_badge_icon",
+      "label": "Quote badge icon",
+      "info": "Optional PNG with a transparent background. Leave blank to use the default double-quote badge."
+    },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Your daily verse" },
     { "type": "text", "id": "greeting", "label": "Greeting", "default": "Thank you for starting your day with gratitude." },
     { "type": "textarea", "id": "fallback_text", "label": "Fallback verse text", "default": "A life of gratitude transforms our hearts every day." },
