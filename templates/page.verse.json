@@ -66,6 +66,9 @@
           "type": "ai_gen_block_3f99505",
           "name": "Daily verse display",
           "settings": {
+            "quote_badge_icon": "shopify://shop_images/image-17.png",
+            "quote_badge_size_desktop": 72,
+            "quote_badge_size_mobile": 56,
             "eyebrow": "Your daily verse",
             "greeting": "Thank you for starting your day with gratitude.",
             "fallback_text": "A life of gratitude transforms our hearts every day.",
