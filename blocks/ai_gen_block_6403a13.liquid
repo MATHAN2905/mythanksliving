@@ -41,6 +41,8 @@
     --tl-yellow: {{ block.settings.accent_color }};
     --tl-teal: {{ block.settings.teal_color }};
     --tl-icon-bg: rgba(186, 224, 235, 0.72);
+    --tl-trust-icon-size: {{ block.settings.trust_icon_size_desktop }}px;
+    --tl-trust-icon-size-mobile: {{ block.settings.trust_icon_size_mobile }}px;
     --tl-section-bg: #f6fbff;
     display: block;
     width: 100%;
@@ -740,15 +742,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 24px;
-    height: 24px;
+    width: var(--tl-trust-icon-size);
+    height: var(--tl-trust-icon-size);
     color: var(--tl-navy);
   }
 
   .ai-buy-product-{{ ai_gen_id }}__trust-icon svg,
   .ai-buy-product-{{ ai_gen_id }}__trust-icon img {
-    width: 22px;
-    height: 22px;
+    width: var(--tl-trust-icon-size);
+    height: var(--tl-trust-icon-size);
     object-fit: contain;
   }
 
@@ -1506,14 +1508,14 @@
     }
 
     .ai-buy-product-{{ ai_gen_id }}__trust-icon {
-      width: 20px;
-      height: 20px;
+      width: var(--tl-trust-icon-size-mobile);
+      height: var(--tl-trust-icon-size-mobile);
     }
 
     .ai-buy-product-{{ ai_gen_id }}__trust-icon svg,
     .ai-buy-product-{{ ai_gen_id }}__trust-icon img {
-      width: 18px;
-      height: 18px;
+      width: var(--tl-trust-icon-size-mobile);
+      height: var(--tl-trust-icon-size-mobile);
       object-fit: contain;
     }
 
@@ -2013,6 +2015,7 @@
 
     const cartUrl = {{ routes.cart_url | json }};
     const cartAddUrl = {{ routes.cart_add_url | append: '.js' | json }};
+    const cartClearUrl = {{ routes.cart_clear_url | append: '.js' | json }};
 
     const resetBuyButton = () => {
       root.querySelectorAll('[data-direct-checkout] [type="submit"]').forEach((button) => {
@@ -2060,6 +2063,15 @@
         }
 
         try {
+          const clearResponse = await fetch(cartClearUrl, {
+            method: 'POST',
+            headers: { Accept: 'application/json' },
+          });
+
+          if (!clearResponse.ok) {
+            throw new Error('Unable to prepare checkout');
+          }
+
           const response = await fetch(cartAddUrl, {
             method: 'POST',
             headers: {
@@ -2215,6 +2227,8 @@
     { "type": "image_picker", "id": "trust_2_icon", "label": "Trust badge 2 icon" },
     { "type": "text", "id": "trust_gifting_label", "label": "Trust badge 3", "default": "Perfect for Gifting" },
     { "type": "image_picker", "id": "trust_3_icon", "label": "Trust badge 3 icon" },
+    { "type": "range", "id": "trust_icon_size_desktop", "label": "Trust icon size desktop", "min": 12, "max": 40, "step": 1, "unit": "px", "default": 22 },
+    { "type": "range", "id": "trust_icon_size_mobile", "label": "Trust icon size mobile", "min": 10, "max": 32, "step": 1, "unit": "px", "default": 18 },
     {
       "type": "header",
       "content": "Bottom journey"

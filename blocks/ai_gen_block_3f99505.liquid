@@ -18,6 +18,8 @@
 
 {% style %}
   .ai-verse-{{ ai_gen_id }} {
+    --verse-quote-badge-size: {{ block.settings.quote_badge_size_desktop }}px;
+    --verse-quote-badge-size-mobile: {{ block.settings.quote_badge_size_mobile }}px;
     display: block;
     width: 100%;
     max-width: 100%;
@@ -182,7 +184,7 @@
     align-self: center;
     width: min(72vw, 760px, 100%);
     margin: 0 auto;
-    padding-top: 28px;
+    padding-top: calc(var(--verse-quote-badge-size) / 2 + 4px);
   }
 
   .ai-verse-{{ ai_gen_id }}__quote-badge {
@@ -193,8 +195,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 64px;
-    height: 64px;
+    width: var(--verse-quote-badge-size);
+    height: var(--verse-quote-badge-size);
     border-radius: 50%;
     color: {{ block.settings.eyebrow_color }};
     background: #ffffff;
@@ -203,22 +205,18 @@
     transform: translateX(-50%);
   }
 
-  .ai-verse-{{ ai_gen_id }}__quote-badge--custom {
-    background: transparent;
-    border: none;
-    box-shadow: none;
-  }
-
   .ai-verse-{{ ai_gen_id }}__quote-badge svg {
     display: block;
-    width: 28px;
-    height: 20px;
+    width: calc(var(--verse-quote-badge-size) * 0.4375);
+    height: calc(var(--verse-quote-badge-size) * 0.3125);
   }
 
   .ai-verse-{{ ai_gen_id }}__quote-badge img {
     display: block;
-    width: 64px;
-    height: 64px;
+    width: calc(var(--verse-quote-badge-size) * 0.5);
+    height: calc(var(--verse-quote-badge-size) * 0.5);
+    max-width: 70%;
+    max-height: 70%;
     object-fit: contain;
     background: transparent;
     background-color: transparent;
@@ -493,6 +491,24 @@
 
     .ai-verse-{{ ai_gen_id }}__card-wrap {
       width: 100%;
+      padding-top: calc(var(--verse-quote-badge-size-mobile) / 2 + 4px);
+    }
+
+    .ai-verse-{{ ai_gen_id }}__quote-badge {
+      width: var(--verse-quote-badge-size-mobile);
+      height: var(--verse-quote-badge-size-mobile);
+    }
+
+    .ai-verse-{{ ai_gen_id }}__quote-badge svg {
+      width: calc(var(--verse-quote-badge-size-mobile) * 0.4375);
+      height: calc(var(--verse-quote-badge-size-mobile) * 0.3125);
+    }
+
+    .ai-verse-{{ ai_gen_id }}__quote-badge img {
+      width: calc(var(--verse-quote-badge-size-mobile) * 0.5);
+      height: calc(var(--verse-quote-badge-size-mobile) * 0.5);
+      max-width: 70%;
+      max-height: 70%;
     }
 
     .ai-verse-{{ ai_gen_id }}__greeting {
@@ -581,17 +597,19 @@
       </div>
 
       <div class="ai-verse-{{ ai_gen_id }}__card-wrap" data-verse-root>
-        <div
-          class="ai-verse-{{ ai_gen_id }}__quote-badge{% if block.settings.quote_badge_icon != blank %} ai-verse-{{ ai_gen_id }}__quote-badge--custom{% endif %}"
-          aria-hidden="true"
-        >
+        <div class="ai-verse-{{ ai_gen_id }}__quote-badge" aria-hidden="true">
           {% if block.settings.quote_badge_icon != blank %}
+            {% liquid
+              assign quote_badge_render_size = block.settings.quote_badge_size_desktop | at_least: block.settings.quote_badge_size_mobile
+              assign quote_badge_render_size = quote_badge_render_size | at_most: 192
+              assign quote_badge_half_size = quote_badge_render_size | divided_by: 2
+            %}
             <img
-              src="{{ block.settings.quote_badge_icon | image_url: width: 128, format: 'png' }}"
-              srcset="{{ block.settings.quote_badge_icon | image_url: width: 64, format: 'png' }} 64w, {{ block.settings.quote_badge_icon | image_url: width: 128, format: 'png' }} 128w"
-              sizes="64px"
-              width="128"
-              height="128"
+              src="{{ block.settings.quote_badge_icon | image_url: width: quote_badge_render_size, format: 'png' }}"
+              srcset="{{ block.settings.quote_badge_icon | image_url: width: quote_badge_half_size, format: 'png' }} {{ quote_badge_half_size }}w, {{ block.settings.quote_badge_icon | image_url: width: quote_badge_render_size, format: 'png' }} {{ quote_badge_render_size }}w"
+              sizes="(max-width: 749px) {{ block.settings.quote_badge_size_mobile }}px, {{ block.settings.quote_badge_size_desktop }}px"
+              width="{{ quote_badge_render_size }}"
+              height="{{ quote_badge_render_size }}"
               alt=""
               loading="lazy"
             >
@@ -682,13 +700,34 @@
 {
   "name": "Daily verse display",
   "settings": [
-    { "type": "header", "content": "Header" },
+    { "type": "header", "content": "Quote badge" },
     {
       "type": "image_picker",
       "id": "quote_badge_icon",
       "label": "Quote badge icon",
-      "info": "Optional PNG with a transparent background. Leave blank to use the default double-quote badge."
+      "info": "Upload a PNG quote mark with a transparent background. It replaces the default icon inside the white circle."
     },
+    {
+      "type": "range",
+      "id": "quote_badge_size_desktop",
+      "label": "Quote badge size desktop",
+      "min": 40,
+      "max": 96,
+      "step": 2,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "quote_badge_size_mobile",
+      "label": "Quote badge size mobile",
+      "min": 32,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 56
+    },
+    { "type": "header", "content": "Header" },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Your daily verse" },
     { "type": "text", "id": "greeting", "label": "Greeting", "default": "Thank you for starting your day with gratitude." },
     { "type": "textarea", "id": "fallback_text", "label": "Fallback verse text", "default": "A life of gratitude transforms our hearts every day." },
