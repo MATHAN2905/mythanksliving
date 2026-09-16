@@ -1,5 +1,5 @@
-import { getScrollContainer, getScrollTop, getScrollEventTarget } from '@theme/scroll-container';
-import { scrollIntoView } from '@theme/scrolling';
+import { handleLandingAnchorClick, initLandingHashScroll } from '@theme/landing-anchor';
+import { getScrollTop, getScrollEventTarget } from '@theme/scroll-container';
 
 class LandingHeader extends HTMLElement {
   connectedCallback() {
@@ -53,17 +53,7 @@ class LandingHeader extends HTMLElement {
   }
 
   initHashScroll() {
-    const scroll = () => this.scrollToCurrentHash({ behavior: 'instant' });
-
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', scroll, { once: true });
-    } else {
-      requestAnimationFrame(scroll);
-    }
-  }
-
-  normalizePath(pathname) {
-    return pathname.replace(/\/+$/, '') || '';
+    initLandingHashScroll(this.dataset.rootPath);
   }
 
   disconnectedCallback() {
@@ -74,72 +64,10 @@ class LandingHeader extends HTMLElement {
     }
   }
 
-  getScrollElement() {
-    return getScrollContainer();
-  }
-
-  isHomePage() {
-    const rootPath = this.normalizePath(this.dataset.rootPath || '/');
-    const path = this.normalizePath(window.location.pathname);
-    return path === rootPath;
-  }
-
-  prefersReducedMotion() {
-    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  }
-
-  scrollToHash(hash, { behavior = 'smooth' } = {}) {
-    const id = hash.replace(/^#/, '');
-    if (!id) return false;
-
-    const target = document.getElementById(id);
-    if (!target) return false;
-
-    const container = this.getScrollElement();
-    const ancestor =
-      container instanceof Element && container !== document.documentElement && container !== document.body
-        ? container
-        : undefined;
-
-    scrollIntoView(target, {
-      ancestor,
-      behavior: this.prefersReducedMotion() ? 'instant' : behavior,
-      block: 'start',
-    });
-
-    return true;
-  }
-
-  scrollToCurrentHash({ behavior = 'smooth' } = {}) {
-    if (!this.isHomePage() || !window.location.hash) return;
-
-    requestAnimationFrame(() => {
-      this.scrollToHash(window.location.hash, { behavior });
-    });
-  }
-
   handleAnchorClick(event, link) {
-    const href = link.getAttribute('href');
-    if (!href || !href.includes('#')) return;
+    const handled = handleLandingAnchorClick(event, link, this.dataset.rootPath);
 
-    let url;
-
-    try {
-      url = new URL(href, window.location.origin);
-    } catch (error) {
-      return;
-    }
-
-    const hash = url.hash;
-    if (!hash) return;
-
-    const rootPath = this.normalizePath(this.dataset.rootPath || '/');
-    const linkPath = this.normalizePath(url.pathname);
-    const isSameHomeAnchor = this.isHomePage() && linkPath === rootPath;
-
-    if (isSameHomeAnchor && this.scrollToHash(hash)) {
-      event.preventDefault();
-      history.replaceState(null, '', hash);
+    if (handled) {
       this.closeDrawer();
     } else if (link.classList.contains('landing-header__drawer-link')) {
       this.closeDrawer();

@@ -1,3 +1,5 @@
+import { bindLandingAnchorLinks } from '@theme/landing-anchor';
+
 class LandingFooter extends HTMLElement {
   connectedCallback() {
     this.enableAnimation = this.dataset.animate === 'true';
@@ -7,6 +9,10 @@ class LandingFooter extends HTMLElement {
     }
 
     this.syncYear();
+    bindLandingAnchorLinks(this, {
+      rootPath: this.dataset.rootPath,
+      selector: '.landing-footer__link',
+    });
   }
 
   setupReveal() {

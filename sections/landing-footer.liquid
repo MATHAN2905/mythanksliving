@@ -1,6 +1,6 @@
 {{ 'landing-footer.css' | asset_url | stylesheet_tag }}
 {{ 'landing-logo-brand.css' | asset_url | stylesheet_tag }}
-<script src="{{ 'landing-footer.js' | asset_url }}" defer></script>
+<script src="{{ 'landing-footer.js' | asset_url }}" type="module" defer></script>
 
 {% liquid
   assign section_classes = 'landing-footer color-custom-' | append: section.id
@@ -49,6 +49,7 @@
 
 <landing-footer
   class="{{ section_classes }}"
+  data-root-path="{{ routes.root_url }}"
   data-animate="{{ section.settings.enable_animation }}"
   style="
     --lfo-bg: {{ section.settings.background_color }};
@@ -126,7 +127,7 @@
               {% for block in section.blocks %}
                 {% if block.type == 'footer_link' and block.settings.label != blank %}
                   <li {{ block.shopify_attributes }}>
-                    <a class="landing-footer__link" href="{{ block.settings.url | default: '#' }}" {% render 'landing-link-target', url: block.settings.url %}>{{ block.settings.label }}</a>
+                    <a class="landing-footer__link" href="{% render 'landing-anchor-href', url: block.settings.url %}">{{ block.settings.label }}</a>
                   </li>
                 {% endif %}
               {% endfor %}

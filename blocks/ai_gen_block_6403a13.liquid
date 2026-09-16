@@ -170,7 +170,14 @@
     display: grid;
     grid-template-columns: 56px minmax(0, 1fr);
     gap: 14px;
-    align-items: start;
+    align-items: center;
+  }
+
+  .ai-buy-product-{{ ai_gen_id }}__feature > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
   }
 
   .ai-buy-product-{{ ai_gen_id }}__feature-icon {
