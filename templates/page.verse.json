@@ -76,6 +76,8 @@
             "footer_reference": "1 Thessalonians 5:18 (KJV)",
             "background_image": "shopify://shop_images/Verse_Background.png",
             "background_max_width": 1440,
+            "auto_read_verse": true,
+            "reading_voice": "warm",
             "show_rule": true,
             "verse_font": "serif",
             "text_color": "#0a2740",

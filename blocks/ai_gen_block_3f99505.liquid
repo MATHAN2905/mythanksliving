@@ -403,6 +403,11 @@
     text-transform: uppercase;
   }
 
+  .ai-verse-{{ ai_gen_id }}__action.is-speaking .ai-verse-{{ ai_gen_id }}__action-icon {
+    border-color: {{ block.settings.accent_color }};
+    background: rgb(244 196 48 / 0.14);
+  }
+
   .ai-verse-{{ ai_gen_id }}__footer {
     grid-row: 3;
     align-self: end;
@@ -553,6 +558,8 @@
   class="ai-verse-{{ ai_gen_id }}"
   data-verses-url="{{ 'verses.json' | asset_url }}"
   data-fallback-text="{{ block.settings.fallback_text | escape }}"
+  data-auto-speak="{% if block.settings.auto_read_verse %}true{% else %}false{% endif %}"
+  data-voice-preset="{{ block.settings.reading_voice | default: 'warm' }}"
   {{ block.shopify_attributes }}
 >
   <div class="ai-verse-{{ ai_gen_id }}__scene">
@@ -653,6 +660,12 @@
           </div>
 
           <div class="ai-verse-{{ ai_gen_id }}__actions">
+            <button type="button" class="ai-verse-{{ ai_gen_id }}__action" data-verse-listen aria-label="Listen to scripture" title="Listen" aria-pressed="false">
+              <span class="ai-verse-{{ ai_gen_id }}__action-icon">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M11 5 6 9H4a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h2l5 4V5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"></path><path d="M15.5 8.5a4.5 4.5 0 0 1 0 7M18 6a7.5 7.5 0 0 1 0 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg>
+              </span>
+              <span class="ai-verse-{{ ai_gen_id }}__action-label" data-verse-action-label>Listen</span>
+            </button>
             <button type="button" class="ai-verse-{{ ai_gen_id }}__action" data-verse-copy aria-label="Copy scripture" title="Copy">
               <span class="ai-verse-{{ ai_gen_id }}__action-icon">
                 <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.6"></rect><path d="M6 16V6a2 2 0 0 1 2-2h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg>
@@ -750,6 +763,39 @@
       "step": 40,
       "unit": "px",
       "default": 1440
+    },
+    { "type": "header", "content": "Audio" },
+    {
+      "type": "checkbox",
+      "id": "auto_read_verse",
+      "label": "Read verse aloud on page load",
+      "default": true,
+      "info": "Uses your visitor’s device text-to-speech voice. Some mobile browsers require a tap on the page before audio can play."
+    },
+    {
+      "type": "select",
+      "id": "reading_voice",
+      "label": "Reading voice",
+      "default": "warm",
+      "options": [
+        { "value": "warm", "label": "Warm — gentle, welcoming" },
+        { "value": "serene", "label": "Serene — soft and peaceful" },
+        { "value": "devotional", "label": "Devotional — tender, intimate" },
+        { "value": "meditative", "label": "Meditative — slow, contemplative" },
+        { "value": "reverent", "label": "Reverent — dignified, measured" },
+        { "value": "calm", "label": "Calm — slow, reflective" },
+        { "value": "pastoral", "label": "Pastoral — gentle shepherd tone" },
+        { "value": "gentle_female", "label": "Gentle female — soft and caring" },
+        { "value": "gentle_male", "label": "Gentle male — warm and steady" },
+        { "value": "graceful", "label": "Graceful — elegant British female" },
+        { "value": "british", "label": "British — classic UK reading" },
+        { "value": "narrator", "label": "Narrator — audiobook style" },
+        { "value": "clear", "label": "Clear — crisp, easy to hear" },
+        { "value": "deep", "label": "Deep — authoritative" },
+        { "value": "uplifting", "label": "Uplifting — bright and hopeful" },
+        { "value": "auto", "label": "Automatic — browser picks best" }
+      ],
+      "info": "The exact voice depends on each visitor’s device. Serene, Reverent, or Devotional work well for scripture."
     },
     { "type": "header", "content": "Layout" },
     { "type": "checkbox", "id": "show_rule", "label": "Show accent rule under reference", "default": true },
